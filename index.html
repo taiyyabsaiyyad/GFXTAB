@@ -1,349 +1,235 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GFXTAB — Visual & Motion Studio</title>
-  <meta name="description" content="GFXTAB — Visual design, motion graphics & reel editing. Portfolio, services and contact." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#00B4D8',
-            accent: '#7C3AED',
-            dark: '#0F172A'
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px);} 
-    .brand-gradient { background: linear-gradient(90deg,#00B4D8 0%, #7C3AED 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GFXTAB — Visual Design & Motion Graphics </title>
+  <meta name="description" content="GFXTAB — Visual design, motion graphics & reel editing. Portfolio, services and contact." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00B4D8',
+            accent: '#7C3AED',
+            dark: '#0F172A'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px);} 
+    .brand-gradient { background: linear-gradient(90deg,#00B4D8 0%, #7C3AED 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  </style>
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased">
-  <header class="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-sm border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-dark font-bold">GT</div>
-        <div class="hidden sm:block">
-          <div class="text-sm font-semibold">GFXTAB</div>
-          <div class="text-xs text-slate-400">Visual & Motion Studio</div>
-        </div>
-      </a>
+  <header class="sticky top-0 z-50 bg-slate-900/70 backdrop-blur-sm border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-dark font-bold">GT</div>
+        <div class="hidden sm:block">
+          <div class="text-sm font-semibold">GFXTAB</div>
+          <div class="text-xs text-slate-400">Visual & Motion Studio</div>
+        </div>
+      </a>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#services" class="hover:text-white">Services</a>
-        <a href="#portfolio" class="hover:text-white">Portfolio</a>
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-        <a href="mailto:tabsaiyyad@gmail.com" class="ml-4 inline-block px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Hire me</a>
-      </nav>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#services" class="hover:text-white">Services</a>
+        <a href="#portfolio" class="hover:text-white">Portfolio</a>
+        <a href="#about" class="hover:text-white">About</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="mailto:tabsaiyyad@gmail.com" class="ml-4 inline-block px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Hire me</a>
+      </nav>
 
-      <div class="md:hidden">
-        <button id="navToggle" class="p-2 rounded-md glass">
-          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-    </div>
+      <div class="md:hidden">
+        <button id="navToggle" class="p-2 rounded-md glass">
+          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
 
-    <div id="mobileNav" class="md:hidden hidden px-6 pb-6">
-      <div class="flex flex-col gap-3 text-sm">
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="mailto:tabsaiyyad@gmail.com" class="inline-block mt-2 px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Hire me</a>
-      </div>
-    </div>
-  </header>
+    <div id="mobileNav" class="md:hidden hidden px-6 pb-6">
+      <div class="flex flex-col gap-3 text-sm">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:tabsaiyyad@gmail.com" class="inline-block mt-2 px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Hire me</a>
+      </div>
+    </div>
+  </header>
 
-  <main>
-    <section class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-      <div>
-        <p class="text-sm text-primary font-medium">Studio — Motion · Visual · Reels</p>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight">Professional reels & motion design
-          <span class="brand-gradient block text-4xl sm:text-5xl">that elevate your brand.</span>
-        </h1>
-        <p class="mt-6 text-slate-300 max-w-xl">I'm Taiyyab — freelance visual designer & motion editor (GFXTAB). I craft short-form reels, product teasers, logo reveals and UI motion with VFX touches tailored for high engagement.</p>
+  <main>
+    <section class="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="text-sm text-primary font-medium">Studio — Motion · Visual · Reels</p>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight">Professional reels & motion design
+          <span class="brand-gradient block text-4xl sm:text-5xl">that elevate your brand.</span>
+        </h1>
+        <p class="mt-6 text-slate-300 max-w-xl">I'm Taiyyab — freelance visual designer & motion editor (GFXTAB). I craft short-form reels, product teasers, logo reveals and UI motion with VFX touches tailored for high engagement.</p>
 
-        <div class="mt-8 flex gap-3">
-          <a href="#portfolio" class="px-5 py-3 rounded-lg bg-white text-dark font-semibold shadow">View portfolio</a>
-          <a href="mailto:tabsaiyyad@gmail.com?subject=GFXTAB%20Project" class="px-5 py-3 rounded-lg border border-slate-700">Get a quote</a>
-        </div>
+        <div class="mt-8 flex gap-3">
+          <a href="#portfolio" class="px-5 py-3 rounded-lg bg-white text-dark font-semibold shadow">View portfolio</a>
+          <a href="mailto:tabsaiyyad@gmail.com?subject=GFXTAB%20Project" class="px-5 py-3 rounded-lg border border-slate-700">Get a quote</a>
+        </div>
 
-        <div class="mt-6 text-sm text-slate-400">Need it fast? I offer express reels (24–48 hrs) and retainer options for agencies.</div>
-      </div>
+        <div class="mt-6 text-sm text-slate-400">Need it fast? I offer express reels (24–48 hrs) and retainer options for agencies.</div>
+      </div>
 
-      <div class="relative">
-        <div class="rounded-xl overflow-hidden shadow-2xl ring-1 ring-slate-800">
-          <img src="assets/project1.jpg" alt="portfolio preview" class="w-full h-auto object-cover">
-        </div>
+      <div class="relative">
+        <div class="rounded-xl overflow-hidden shadow-2xl ring-1 ring-slate-800">
+          <img src="assets/project1.jpg" alt="portfolio preview" class="w-full h-auto object-cover">
+        </div>
 
-        <div class="absolute -bottom-6 left-6 bg-slate-800/70 glass p-3 rounded-xl shadow-lg flex items-center gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-          <div class="text-sm">
-            <div class="text-slate-200 font-semibold">Reel-ready edits</div>
-            <div class="text-slate-400 text-xs">Sound design · VFX · Color grade</div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="absolute -bottom-6 left-6 bg-slate-800/70 glass p-3 rounded-xl shadow-lg flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+          <div class="text-sm">
+            <div class="text-slate-200 font-semibold">Reel-ready edits</div>
+            <div class="text-slate-400 text-xs">Sound design · VFX · Color grade</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <section id="services" class="border-t border-slate-800 py-16">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-2xl font-bold">Services</h2>
-        <p class="mt-2 text-slate-400 max-w-2xl">What I regularly deliver — packages are flexible and custom quotes available.</p>
+    <section id="services" class="border-t border-slate-800 py-16">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-2xl font-bold">Services</h2>
+        <p class="mt-2 text-slate-400 max-w-2xl">What I regularly deliver — packages are flexible and custom quotes available.</p>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">🎬</div>
-              <div>
-                <div class="font-semibold">Reel Editing</div>
-                <div class="text-sm text-slate-400">Short-form edits, hooks, captions ready for IG/TikTok/YT.</div>
-              </div>
-            </div>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <div class="p-6 rounded-xl glass border border-slate-800">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">🎬</div>
+              <div>
+                <div class="font-semibold">Reel Editing</div>
+                <div class="text-sm text-slate-400">Short-form edits, hooks, captions ready for IG/TikTok/YT.</div>
+              </div>
+            </div>
+          </div>
 
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">✨</div>
-              <div>
-                <div class="font-semibold">Motion Graphics</div>
-                <div class="text-sm text-slate-400">Logo reveals, animated typography, UI motion loops.</div>
-              </div>
-            </div>
-          </div>
+          <div class="p-6 rounded-xl glass border border-slate-800">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">✨</div>
+              <div>
+                <div class="font-semibold">Motion Graphics</div>
+                <div class="text-sm text-slate-400">Logo reveals, animated typography, UI motion loops.</div>
+              </div>
+            </div>
+          </div>
 
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">🎛️</div>
-              <div>
-                <div class="font-semibold">VFX & Sound Design</div>
-                <div class="text-sm text-slate-400">Visual effects touches, SFX and punchy audio edits.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          <div class="p-6 rounded-xl glass border border-slate-800">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">🎛️</div>
+              <div>
+                <div class="font-semibold">VFX & Sound Design</div>
+                <div class="text-sm text-slate-400">Visual effects touches, SFX and punchy audio edits.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <section id="portfolio" class="py-16">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-2xl font-bold">Selected work</h2>
-        <p class="mt-2 text-slate-400">Click any item to view details (opens a preview or the Behance project).</p>
+    <section id="portfolio" class="py-16">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-2xl font-bold">Selected work</h2>
+        <p class="mt-2 text-slate-400">Click any item to view details (opens a preview or the Behance project).</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          <!-- 1 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/231567353/GFXTAB-Wedding-Invitation-Video" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Wedding Invitation Video','VFX-heavy wedding invitation motion piece, cinematic color and transitions', 'assets/project1.jpg')">
-              <img src="assets/project1.jpg" alt="Wedding Invitation Video" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Wedding Invitation Video</div>
-                <div class="text-xs text-slate-400 mt-1">VFX · Cinematic Motion</div>
-              </div>
-            </a>
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          <!-- 1 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/231567353/GFXTAB-Wedding-Invitation-Video" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Wedding Invitation Video','VFX-heavy wedding invitation motion piece, cinematic color and transitions', 'assets/project1.jpg')">
+              <img src="assets/project1.jpg" alt="Wedding Invitation Video" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">Wedding Invitation Video</div>
+                <div class="text-xs text-slate-400 mt-1">VFX · Cinematic Motion</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 2 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/231275853/GFXTAB-CRIME-CHECK-Visual-Identity-UI-Design" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — CRIME CHECK','Visual identity & UI concept showcasing brand and app screens', 'assets/project2.jpg')">
-              <img src="assets/project2.jpg" alt="CRIME CHECK Visual Identity" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">CRIME CHECK — UI & Identity</div>
-                <div class="text-xs text-slate-400 mt-1">UI Design · Branding</div>
-              </div>
-            </a>
-          </div>
+          <!-- 2 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/231275853/GFXTAB-CRIME-CHECK-Visual-Identity-UI-Design" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — CRIME CHECK','Visual identity & UI concept showcasing brand and app screens', 'assets/project2.jpg')">
+              <img src="assets/project2.jpg" alt="CRIME CHECK Visual Identity" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">CRIME CHECK — UI & Identity</div>
+                <div class="text-xs text-slate-400 mt-1">UI Design · Branding</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 3 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/231251475/GFXTAB-ADAMA-Product-Packaging-Motion-KV" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — ADAMA','Product packaging motion key visual and branding animation', 'assets/project3.jpg')">
-              <img src="assets/project3.jpg" alt="ADAMA Product Packaging Motion" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">ADAMA — Packaging Motion</div>
-                <div class="text-xs text-slate-400 mt-1">Packaging · Motion KV</div>
-              </div>
-            </a>
-          </div>
+          <!-- 3 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/231251475/GFXTAB-ADAMA-Product-Packaging-Motion-KV" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — ADAMA','Product packaging motion key visual and branding animation', 'assets/project3.jpg')">
+              <img src="assets/project3.jpg" alt="ADAMA Product Packaging Motion" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">ADAMA — Packaging Motion</div>
+                <div class="text-xs text-slate-400 mt-1">Packaging · Motion KV</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 4 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/230969293/GFXTAB-Logo-Design-Brand-Concept" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Logo Design','Brand concept and logo suite with motion adaptations', 'assets/project4.jpg')">
-              <img src="assets/project4.jpg" alt="Logo Design" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Logo Design — Brand Concept</div>
-                <div class="text-xs text-slate-400 mt-1">Logo · Brand System</div>
-              </div>
-            </a>
-          </div>
+          <!-- 4 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/230969293/GFXTAB-Logo-Design-Brand-Concept" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Logo Design','Brand concept and logo suite with motion adaptations', 'assets/project4.jpg')">
+              <img src="assets/project4.jpg" alt="Logo Design" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">Logo Design — Brand Concept</div>
+                <div class="text-xs text-slate-400 mt-1">Logo · Brand System</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 5 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/229872749/GFXTAB-Healthcare-Social-Media-Post-Series" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Healthcare Social Media','Social-first post series for healthcare brand', 'assets/project5.jpg')">
-              <img src="assets/project5.jpg" alt="Healthcare Social Media" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Healthcare — Social Series</div>
-                <div class="text-xs text-slate-400 mt-1">Social · Campaign Creative</div>
-              </div>
-            </a>
-          </div>
+          <!-- 5 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/229872749/GFXTAB-Healthcare-Social-Media-Post-Series" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Healthcare Social Media','Social-first post series for healthcare brand', 'assets/project5.jpg')">
+              <img src="assets/project5.jpg" alt="Healthcare Social Media" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">Healthcare — Social Series</div>
+                <div class="text-xs text-slate-400 mt-1">Social · Campaign Creative</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 6 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/229866875/GFXTAB-Supervity-AI-Enterprise-AI-Concept-Slide" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Supervity AI','Enterprise AI concept slides and visual storytelling', 'assets/project6.jpg')">
-              <img src="assets/project6.jpg" alt="Supervity AI" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Supervity AI — Enterprise Concept</div>
-                <div class="text-xs text-slate-400 mt-1">Slides · Concept Design</div>
-              </div>
-            </a>
-          </div>
+          <!-- 6 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/229866875/GFXTAB-Supervity-AI-Enterprise-AI-Concept-Slide" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Supervity AI','Enterprise AI concept slides and visual storytelling', 'assets/project6.jpg')">
+              <img src="assets/project6.jpg" alt="Supervity AI" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">Supervity AI — Enterprise Concept</div>
+                <div class="text-xs text-slate-400 mt-1">Slides · Concept Design</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 7 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/229733297/GFXTAB-EvoLife-Branding-Digital-Campaign" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — EvoLife','Branding and digital campaign for EvoLife', 'assets/project7.jpg')">
-              <img src="assets/project7.jpg" alt="EvoLife Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">EvoLife — Branding Campaign</div>
-                <div class="text-xs text-slate-400 mt-1">Branding · Digital Ads</div>
-              </div>
-            </a>
-          </div>
+          <!-- 7 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/229733297/GFXTAB-EvoLife-Branding-Digital-Campaign" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — EvoLife','Branding and digital campaign for EvoLife', 'assets/project7.jpg')">
+              <img src="assets/project7.jpg" alt="EvoLife Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">EvoLife — Branding Campaign</div>
+                <div class="text-xs text-slate-400 mt-1">Branding · Digital Ads</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 8 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/228958713/GFXTAB-x-SHEOSA-Branding-Visual-Identity" target="_blank" class="group w-full block" onclick="openModal('GFXTAB x SHEOSA','Brand identity and visual system for SHEOSA', 'assets/project8.jpg')">
-              <img src="assets/project8.jpg" alt="SHEOSA Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">GFXTAB x SHEOSA — Identity</div>
-                <div class="text-xs text-slate-400 mt-1">Branding · Visual Identity</div>
-              </div>
-            </a>
-          </div>
+          <!-- 8 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/228958713/GFXTAB-x-SHEOSA-Branding-Visual-Identity" target="_blank" class="group w-full block" onclick="openModal('GFXTAB x SHEOSA','Brand identity and visual system for SHEOSA', 'assets/project8.jpg')">
+              <img src="assets/project8.jpg" alt="SHEOSA Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">GFXTAB x SHEOSA — Identity</div>
+                <div class="text-xs text-slate-400 mt-1">Branding · Visual Identity</div>
+              </div>
+            </a>
+          </div>
 
-          <!-- 9 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/228249227/GFXTAB-Hystaze-Internal-Branding-Merchandise" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Hystaze','Internal branding and merchandise system', 'assets/project9.jpg')">
-              <img src="assets/project9.jpg" alt="Hystaze Internal Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Hystaze — Internal Branding</div>
-                <div class="text-xs text-slate-400 mt-1">Merch · Internal Comms</div>
-              </div>
-            </a>
-          </div>
-
-          <!-- 10 -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
-            <a href="https://www.behance.net/gallery/226711355/GFXTAB-Wallenius-Wilhelmsen-Project-Presentation" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Wallenius Wilhelmsen','Project presentation and corporate visuals', 'assets/project10.jpg')">
-              <img src="assets/project10.jpg" alt="Wallenius Wilhelmsen" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
-              <div class="p-4">
-                <div class="font-semibold">Wallenius Wilhelmsen — Presentation</div>
-                <div class="text-xs text-slate-400 mt-1">Corporate · Presentation Design</div>
-              </div>
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="py-16 border-t border-slate-800">
-      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-        <div class="md:col-span-2">
-          <h3 class="text-xl font-bold">About GFXTAB</h3>
-          <p class="mt-3 text-slate-300">I’m Taiyyab — a freelance visual designer & motion editor with 4+ years of experience creating event visuals, social-first reels and high-converting product teasers. I combine clean editing, VFX accents and optimized audio for platforms that want engagement.</p>
-
-          <ul class="mt-4 text-slate-400 grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <li>• Fast turnaround (24–72 hrs)</li>
-            <li>• Revisions & source files available</li>
-            <li>• Retainers & agency partnerships</li>
-            <li>• Clear deliverables & licensing</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <div class="font-semibold">Ready to start?</div>
-            <div class="text-slate-400 text-sm mt-2">Send brief, timeline & top reference — I’ll reply with a quote and sample timeline.</div>
-            <a href="#contact" class="mt-4 inline-block px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Contact</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="py-16">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-2xl font-bold">Contact</h2>
-        <p class="text-slate-400 mt-2">Prefer email or WhatsApp? Use the form below or click the quick buttons.</p>
-
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">✉️</div>
-              <div>
-                <div class="font-semibold">Email</div>
-                <div class="text-slate-400 text-sm">tabsaiyyad@gmail.com</div>
-              </div>
-            </div>
-
-            <div class="mt-4">
-              <a href="mailto:tabsaiyyad@gmail.com" class="inline-block px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Email me</a>
-              <a href="https://wa.me/YOURNUMBER" target="_blank" class="inline-block ml-3 px-4 py-2 rounded-lg border">WhatsApp</a>
-            </div>
-          </div>
-
-          <form onsubmit="handleForm(event)" class="p-6 rounded-xl glass border border-slate-800">
-            <label class="block text-sm text-slate-300">Name</label>
-            <input id="name" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required>
-
-            <label class="block text-sm text-slate-300 mt-4">Email</label>
-            <input id="email" type="email" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required>
-
-            <label class="block text-sm text-slate-300 mt-4">Project brief (short)</label>
-            <textarea id="message" rows="4" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required></textarea>
-
-            <div class="mt-4 flex items-center gap-3">
-              <button type="submit" class="px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Send</button>
-              <button type="button" class="px-4 py-2 rounded-lg border" onclick="clearForm()">Clear</button>
-            </div>
-
-            <p id="formNote" class="text-xs text-slate-400 mt-3">This form uses your email client. On submit we open your email composer with the message prefilled.</p>
-          </form>
-        </div>
-
-      </div>
-    </section>
-
-    <footer class="border-t border-slate-800 py-8">
-      <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <div class="text-sm">© <span id="year"></span> GFXTAB — Taiyyab Saiyyad</div>
-        <div class="flex items-center gap-4">
-          <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank">Behance</a>
-          <a href="#">Fiverr</a>
-          <a href="#">LinkedIn</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
-    <div class="max-w-2xl w-full p-6 bg-slate-900 rounded-xl border border-slate-800">
-      <div class="flex justify-between items-start">
-        <div>
-          <h3 id="modalTitle" class="text-lg font-bold">Project title</h3>
-          <p id="modalDesc" class="text-sm text-slate-400 mt-1">Project description</p>
-        </div>
-        <button onclick="closeModal()" class="text-slate-400">✕</button>
-      </div>
-
-      <div class="mt-4">
-        <img id="modalImg" src="assets/project1.jpg" class="w-full rounded-md object-cover" alt="preview">
-      </div>
-
-      <div class="mt-4 flex gap-3 justify-end">
-        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-dark font-semibold">Enquire ab
+          <!-- 9 -->
+          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg">
+            <a href="https://www.behance.net/gallery/228249227/GFXTAB-Hystaze-Internal-Branding-Merchandise" target="_blank" class="group w-full block" onclick="openModal('GFXTAB — Hystaze','Internal branding and merchandise system', 'assets/project9.jpg')">
+              <img src="assets/project9.jpg" alt="Hystaze Internal Branding" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+              <div class="p-4">
+                <div class="font-semibold">Hystaze — Internal Branding</div>
+                <
