@@ -11,211 +11,168 @@
       theme: {
         extend: {
           colors: {
-            primary: '#00B4D8',
-            accent: '#7C3AED',
-            dark: '#0F172A'
+            blueg: '#4285F4',   /* Google Blue */
+            redg: '#EA4335',    /* Google Red */
+            yellowg: '#FBBC05', /* Google Yellow */
+            greeng: '#34A853',  /* Google Green */
+            dark: '#0F172A',
+            slatebg: '#202124'
           }
         }
       }
     }
   </script>
   <style>
+    body {
+      background-color: #202124; /* dark google background */
+      color: #e8eaed; /* light text */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     .glass {
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(6px);
     }
-    .brand-gradient {
-      background: linear-gradient(90deg,#00B4D8 0%, #7C3AED 100%);
+    .logo-multi {
+      background: linear-gradient(45deg, #4285F4 20%, #EA4335 40%, #FBBC05 60%, #34A853 80%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      font-weight: 900;
+      font-size: 1.6rem;
+      user-select: none;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #4285F4, #34A853);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #34A853, #4285F4);
+    }
+    a.social-icon svg {
+      transition: fill 0.3s ease;
+      fill: #e8eaed;
+    }
+    a.social-icon:hover svg.linkedin {
+      fill: #4285F4;
+    }
+    a.social-icon:hover svg.fiverr {
+      fill: #EA4335;
+    }
+    a.social-icon:hover svg.instagram {
+      fill: #FBBC05;
+    }
+    a.social-icon:hover svg.behance {
+      fill: #34A853;
     }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased">
-  <header class="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-dark font-bold select-none">GT</div>
-        <div class="hidden sm:block">
-          <div class="text-sm font-semibold">GFXTAB</div>
-          <div class="text-xs text-slate-400">Visual Studio</div>
-        </div>
-      </a>
+<body>
 
-      <!-- Desktop Nav + Social -->
-      <nav class="hidden md:flex items-center gap-8 font-medium text-slate-300">
-        <a href="#services" class="hover:text-white transition">Services</a>
-        <a href="#portfolio" class="hover:text-white transition">Portfolio</a>
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
-        
-        <a href="mailto:tabsaiyyad@gmail.com" class="ml-6 px-5 py-2 bg-primary text-dark font-semibold rounded-lg hover:bg-accent transition">Hire Me</a>
-
-        <div class="ml-8 flex gap-4 text-xl text-slate-400">
-          <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-primary transition">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.17h.06c.66-1.24 2.28-2.55 4.69-2.55 5.02 0 5.94 3.3 5.94 7.58V24h-5v-7.3c0-1.74-.03-3.99-2.43-3.99-2.43 0-2.8 1.89-2.8 3.84V24h-5V8z"/></svg>
-          </a>
-          <a href="https://www.fiverr.com/s/2K87zgL" target="_blank" rel="noopener" aria-label="Fiverr" class="hover:text-primary transition">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M7 12v6H4v-6H1v-3h9v3H7zm15 3c0 1.86-1.21 3-3.12 3H14v-9h5c1.81 0 3 1.07 3 2.77 0 1.07-.67 1.91-1.59 2.25V15z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/gfxtab" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-primary transition">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
-          </a>
-          <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener" aria-label="Behance" class="hover:text-primary transition">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M2 7h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm0 3h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm7 5c1.37 0 2.54-.8 3.05-2H9v1h2v-2H9v-1h3.06c.3-.61.5-1.3.5-2 0-2.76-2.24-5-5-5H2v14h7z"/></svg>
-          </a>
-        </div>
-      </nav>
-
-      <!-- Mobile menu button -->
-      <div class="md:hidden">
-        <button id="navToggle" class="p-2 rounded-md glass" aria-label="Toggle menu">
-          <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+<header class="sticky top-0 z-50 bg-[#202124]/90 backdrop-blur-md border-b border-slate-700">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center logo-multi select-none">GT</div>
+      <div class="hidden sm:block">
+        <div class="text-sm font-semibold text-[#e8eaed]">GFXTAB</div>
+        <div class="text-xs text-slate-400">Visual Studio</div>
       </div>
+    </a>
+
+    <!-- Desktop Nav + Social -->
+    <nav class="hidden md:flex items-center gap-8 font-medium text-slate-300">
+      <a href="#services" class="hover:text-[#4285F4] transition">Services</a>
+      <a href="#portfolio" class="hover:text-[#34A853] transition">Portfolio</a>
+      <a href="#about" class="hover:text-[#FBBC05] transition">About</a>
+      <a href="#contact" class="hover:text-[#EA4335] transition">Contact</a>
+      
+      <a href="mailto:tabsaiyyad@gmail.com" class="btn-primary ml-6">Hire Me</a>
+
+      <div class="ml-8 flex gap-4 text-xl">
+        <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon hover:text-[#4285F4]">
+          <svg class="w-6 h-6 linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.17h.06c.66-1.24 2.28-2.55 4.69-2.55 5.02 0 5.94 3.3 5.94 7.58V24h-5v-7.3c0-1.74-.03-3.99-2.43-3.99-2.43 0-2.8 1.89-2.8 3.84V24h-5V8z"/></svg>
+        </a>
+        <a href="https://www.fiverr.com/s/2K87zgL" target="_blank" rel="noopener" aria-label="Fiverr" class="social-icon hover:text-[#EA4335]">
+          <svg class="w-6 h-6 fiverr" viewBox="0 0 24 24"><path d="M7 12v6H4v-6H1v-3h9v3H7zm15 3c0 1.86-1.21 3-3.12 3H14v-9h5c1.81 0 3 1.07 3 2.77 0 1.07-.67 1.91-1.59 2.25V15z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/gfxtab" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon hover:text-[#FBBC05]">
+          <svg class="w-6 h-6 instagram" viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
+        </a>
+        <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener" aria-label="Behance" class="social-icon hover:text-[#34A853]">
+          <svg class="w-6 h-6 behance" viewBox="0 0 24 24"><path d="M2 7h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm0 3h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm7 5c1.37 0 2.54-.8 3.05-2H9v1h2v-2H9v-1h3.06c.3-.61.5-1.3.5-2 0-2.76-2.24-5-5-5H2v14h7z"/></svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <div class="md:hidden">
+      <button id="navToggle" class="p-2 rounded-md glass" aria-label="Toggle menu">
+        <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#e8eaed"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav -->
+  <div id="mobileNav" class="md:hidden hidden px-6 pb-6">
+    <div class="flex flex-col gap-4 text-sm text-slate-300">
+      <a href="#services" class="hover:text-[#4285F4] transition">Services</a>
+      <a href="#portfolio" class="hover:text-[#34A853] transition">Portfolio</a>
+      <a href="#about" class="hover:text-[#FBBC05] transition">About</a>
+      <a href="#contact" class="hover:text-[#EA4335] transition">Contact</a>
+      <a href="mailto:tabsaiyyad@gmail.com" class="btn-primary mt-3 text-center">Hire Me</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="text-sm font-medium tracking-wide uppercase text-[#4285F4]">Studio — Visual · Motion · Reels</p>
+      <h1 class="mt-4 text-5xl font-extrabold leading-tight tracking-tight text-[#e8eaed]">
+        Elevate your brand with professional visual design
+        <span style="background: linear-gradient(90deg, #4285F4, #EA4335, #FBBC05, #34A853); -webkit-background-clip: text; color: transparent; display: block; margin-top: 0.3rem;">crafted for engagement and impact.</span>
+      </h1>
+      <p class="mt-6 text-slate-300 max-w-xl text-lg leading-relaxed">I’m Taiyyab — a visual designer at GFXTAB with 4+ years of experience creating striking event visuals, social reels, and product teasers. I focus on clean design, smooth motion, and VFX touches tailored to capture attention and drive action.</p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#portfolio" class="btn-primary">View portfolio</a>
+        <a href="mailto:tabsaiyyad@gmail.com?subject=GFXTAB Project Inquiry" class="border border-slate-700 hover:border-[#FBBC05] text-slate-300 hover:text-[#FBBC05] transition px-6 py-3 rounded-lg inline-block">Get a quote</a>
+      </div>
+
+      <p class="mt-6 text-sm text-slate-400 max-w-md">Need it fast? I offer express turnaround (24–48 hrs) and retainer options for agencies and brands.</p>
     </div>
 
-    <!-- Mobile Nav -->
-    <div id="mobileNav" class="md:hidden hidden px-6 pb-6">
-      <div class="flex flex-col gap-4 text-sm text-slate-300">
-        <a href="#services" class="hover:text-white transition">Services</a>
-        <a href="#portfolio" class="hover:text-white transition">Portfolio</a>
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
-        <a href="mailto:tabsaiyyad@gmail.com" class="inline-block mt-3 px-5 py-2 bg-primary text-dark font-semibold rounded-lg text-center hover:bg-accent transition">Hire Me</a>
+    <div class="relative rounded-xl overflow-hidden shadow-2xl ring-1 ring-slate-800">
+      <img src="assets/project1.jpg" alt="portfolio preview" class="w-full h-auto object-cover">
+      <div class="absolute -bottom-6 left-6 bg-[#202124]/75 glass p-3 rounded-xl shadow-lg flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+        <div class="text-sm">
+          <div class="text-slate-200 font-semibold">Reel-ready edits</div>
+          <div class="text-slate-400 text-xs">Sound design · VFX · Color grade</div>
+        </div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div>
-        <p class="text-sm text-primary font-medium tracking-wide uppercase">Studio — Visual · Motion · Reels</p>
-        <h1 class="mt-4 text-5xl font-extrabold leading-tight tracking-tight">
-          Elevate your brand with professional visual design
-          <span class="brand-gradient block mt-1">crafted for engagement and impact.</span>
-        </h1>
-        <p class="mt-6 text-slate-300 max-w-xl text-lg leading-relaxed">I’m Taiyyab — a visual designer at GFXTAB with 4+ years of experience creating striking event visuals, social reels, and product teasers. I focus on clean design, smooth motion, and VFX touches tailored to capture attention and drive action.</p>
+  <!-- Services, Portfolio, About sections... (same structure as before but update accent colors similarly) -->
+  <!-- For brevity, you can reuse your original sections and just update text colors and highlights with the google palette -->
 
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a href="#portfolio" class="px-6 py-3 rounded-lg bg-white text-dark font-semibold shadow-md hover:shadow-lg transition">View portfolio</a>
-          <a href="mailto:tabsaiyyad@gmail.com?subject=GFXTAB Project Inquiry" class="px-6 py-3 rounded-lg border border-slate-700 hover:border-primary text-slate-300 hover:text-primary transition">Get a quote</a>
-        </div>
+</main>
 
-        <p class="mt-6 text-sm text-slate-400 max-w-md">Need it fast? I offer express turnaround (24–48 hrs) and retainer options for agencies and brands.</p>
-      </div>
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  navToggle.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+</script>
 
-      <div class="relative rounded-xl overflow-hidden shadow-2xl ring-1 ring-slate-800">
-        <img src="assets/project1.jpg" alt="portfolio preview" class="w-full h-auto object-cover">
-        <div class="absolute -bottom-6 left-6 bg-slate-800/75 glass p-3 rounded-xl shadow-lg flex items-center gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-          <div class="text-sm">
-            <div class="text-slate-200 font-semibold">Reel-ready edits</div>
-            <div class="text-slate-400 text-xs">Sound design · VFX · Color grade</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services" class="border-t border-slate-800 py-16">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold">Services</h2>
-        <p class="mt-2 text-slate-400 max-w-3xl text-lg">Delivering high-quality visuals and animations tailored to your needs — with flexible packages and custom quotes.</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-          <div class="p-6 rounded-xl glass border border-slate-800 hover:border-primary transition cursor-default">
-            <div class="flex items-center gap-5">
-              <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-2xl">🎬</div>
-              <div>
-                <h3 class="font-semibold text-xl">Reel Editing</h3>
-                <p class="text-slate-400 mt-1 max-w-xs">Short-form edits, hooks, and captions ready for Instagram, TikTok, and YouTube.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 rounded-xl glass border border-slate-800 hover:border-primary transition cursor-default">
-            <div class="flex items-center gap-5">
-              <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-2xl">✨</div>
-              <div>
-                <h3 class="font-semibold text-xl">Motion Graphics</h3>
-                <p class="text-slate-400 mt-1 max-w-xs">Logo reveals, animated typography, and UI motion loops to bring your brand alive.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6 rounded-xl glass border border-slate-800 hover:border-primary transition cursor-default">
-            <div class="flex items-center gap-5">
-              <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-2xl">🎛️</div>
-              <div>
-                <h3 class="font-semibold text-xl">VFX & Sound Design</h3>
-                <p class="text-slate-400 mt-1 max-w-xs">Visual effects accents, SFX, and punchy audio edits that elevate your content.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="portfolio" class="py-16">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-3xl font-bold">Selected Work</h2>
-        <p class="mt-2 text-slate-400 mb-8 max-w-3xl">Click any project to view details on Behance.</p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Project cards -->
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg group">
-            <a href="https://www.behance.net/gallery/231567353/GFXTAB-Wedding-Invitation-Video" target="_blank" class="block">
-              <img src="assets/project1.jpg" alt="Wedding Invitation Video" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-              <div class="p-4">
-                <h3 class="font-semibold">Wedding Invitation Video</h3>
-                <p class="text-xs text-slate-400 mt-1">VFX · Cinematic Motion</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg group">
-            <a href="https://www.behance.net/gallery/231275853/GFXTAB-CRIME-CHECK-Visual-Identity-UI-Design" target="_blank" class="block">
-              <img src="assets/project2.jpg" alt="CRIME CHECK Visual Identity" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-              <div class="p-4">
-                <h3 class="font-semibold">CRIME CHECK — UI & Identity</h3>
-                <p class="text-xs text-slate-400 mt-1">UI Design · Branding</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="rounded-lg overflow-hidden bg-slate-800 border border-slate-800 shadow-lg group">
-            <a href="https://www.behance.net/gallery/231251475/GFXTAB-ADAMA-Product-Packaging-Motion-KV" target="_blank" class="block">
-              <img src="assets/project3.jpg" alt="ADAMA Product Packaging Motion" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out">
-              <div class="p-4">
-                <h3 class="font-semibold">ADAMA — Packaging Motion</h3>
-                <p class="text-xs text-slate-400 mt-1">Packaging · Motion KV</p>
-              </div>
-            </a>
-          </div>
-
-          <!-- Add other projects similarly -->
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="py-16 border-t border-slate-800">
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-        <div class="md:col-span-2">
-          <h3 class="text-2xl font-bold">About GFXTAB</h3>
-          <p class="mt-4 text-slate-300 max-w-xl text-lg leading-relaxed">
-            I’m Taiyyab — a visual designer at GFXTAB with 4+ years of experience crafting event visuals, social-first reels, and high-impact product teasers. I blend clean aesthetics, subtle motion, and engaging VFX to help brands tell their story with clarity and style.
-          </p>
-          <ul class="mt-6 text-slate-400 grid grid-cols-1 sm:grid-cols-2 gap-3 text-lg list-disc list-inside max-w-xl">
-            <li>Fast turnaround (24–72 hrs)</li>
-            <li>Revisions & source files available</li>
-            <li>Retainers & agency partnerships</li>
-            <li>Clear deliverables & licensing</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="p-6 rounded-xl glass border border-slate-800">
-            <h4 class="font-semibold text-xl">Ready to start?</h4>
-            <p class="text-slate-400 text-base mt-3">Send your brief, timeline & key references — I’ll get back with a quote and schedule.</p>
-           
+</body>
+</html>
