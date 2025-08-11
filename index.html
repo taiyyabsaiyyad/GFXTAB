@@ -1,302 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GFXTAB — Portfolio</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <style>
-    :root{
-      --bg: #f7fafc;
-      --card: #ffffff;
-      --muted: #6b7280;
-      --accent-1: #60a5fa;
-      --accent-2: #a78bfa;
-      --radius: 14px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GFXTAB | Premium Visual Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; background:var(--bg); color:#0f172a;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      -webkit-font-feature-settings: "ss01" on;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
     }
-
-    /* Header / Hero */
-    header{background:linear-gradient(180deg,#ffffff 0%, #f4f7fb 100%); padding:40px 20px 48px; box-shadow:0 6px 30px rgba(15,23,42,0.04)}
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .brand{
-      display:flex; align-items:center; gap:16px;
+    header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: fadeIn 1s ease-in-out;
     }
-    .brand img{height:56px; width:auto}
-    .title{
-      margin-top:18px;
-      display:flex; align-items:flex-start; gap:18px; flex-wrap:wrap;
+    header img {
+        max-width: 250px;
+        margin-bottom: 10px;
     }
-    .title h1{
-      margin:0; font-family:Poppins, Inter, sans-serif; font-weight:800; font-size:34px; line-height:1; letter-spacing:-0.6px;
-      color:#071433;
+    h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #111;
     }
-    .subtitle{margin:6px 0 0; color:var(--muted); max-width:680px; font-size:15px}
-
-    /* Filters row */
-    .controls{margin-top:18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center}
-    .chip{padding:8px 12px; background:white; border-radius:999px; border:1px solid rgba(2,6,23,0.04); cursor:pointer; font-weight:600; color:#0f172a; font-size:13px}
-    .chip.active{ background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:white; box-shadow:0 8px 30px rgba(99,102,241,0.12) }
-
-    /* Grid */
-    main{padding:42px 0 80px}
-    .grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); max-width:1200px; margin:0 auto; padding:0 20px}
-    .card{
-      background:var(--card); border-radius:var(--radius); overflow:hidden; cursor:pointer;
-      box-shadow: 0 8px 30px rgba(2,6,23,0.05);
-      transition: transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s;
-      display:flex; flex-direction:column;
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
     }
-    .card:hover{ transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 50px rgba(2,6,23,0.08) }
-    .media{height:170px; background:#eef2ff; display:block; overflow:hidden}
-    .media img, .media video{width:100%; height:100%; object-fit:cover; display:block}
-    .meta{padding:16px 16px 18px; display:flex; align-items:center; justify-content:space-between; gap:10px}
-    .meta .name{font-weight:700; color:#071433}
-    .meta .cta{font-size:13px; padding:8px 12px; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#fff; border-radius:10px; text-decoration:none}
-
-    /* Light modal */
-    #preview{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:80; background:rgba(2,6,23,0.55); visibility:hidden; opacity:0; transition:opacity .18s, visibility .18s}
-    #preview.open{visibility:visible; opacity:1}
-    .preview-card{width:90%; max-width:980px; background:white; border-radius:12px; overflow:hidden; box-shadow:0 30px 80px rgba(2,6,23,0.4)}
-    .preview-media{background:black; height:56vw; max-height:620px; display:flex; align-items:center; justify-content:center}
-    .preview-media img, .preview-media video{max-width:100%; max-height:100%; object-fit:contain}
-    .preview-footer{display:flex; gap:12px; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid #f1f5f9}
-    .preview-title{font-weight:700; color:#071433}
-    .btn-ghost{background:transparent;border:1px solid #e6eefc;padding:8px 12px;border-radius:8px;cursor:pointer}
-
-    /* Footer */
-    footer{padding:28px 20px; text-align:center; color:var(--muted); font-size:14px; background:transparent}
-
-    /* Responsive tweaks */
-    @media (max-width:640px){
-      .title h1{font-size:26px}
-      .media{height:150px}
+    .card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: slideUp 1s ease forwards;
+        opacity: 0;
     }
-  </style>
+    .card img {
+        width: 100%;
+        display: block;
+    }
+    .card-content {
+        padding: 15px;
+    }
+    .card h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    .card a {
+        text-decoration: none;
+        color: #0077ff;
+        font-weight: 600;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <!-- round logo in nav -->
-        <img src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" alt="GFXTAB round" />
-        <div>
-          <div style="font-weight:700; font-size:14px; color:#0f172a">GFXTAB</div>
-          <div style="font-size:12px; color:var(--muted)">Future-forward portfolio & creative lab</div>
+<header>
+    <img src="https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn" alt="GFXTAB Logo">
+    <h1>Premium Visual Works</h1>
+</header>
+
+<section class="grid">
+    <div class="card" style="animation-delay: 0.1s;">
+        <img src="https://via.placeholder.com/500x300?text=3D+Design" alt="3D Design">
+        <div class="card-content">
+            <h2>3D Design</h2>
+            <a href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa?usp=drive_link" target="_blank">View Works →</a>
         </div>
-      </div>
-
-      <div class="title">
-        <h1>GFXTAB — Creative Work, Assets & Case Studies</h1>
-        <div class="subtitle">Minimal, premium presentation for designers — studio-grade previews, quick-downloads, and direct access to raw files. Click any tile to preview or open the folder.</div>
-      </div>
-
-      <div class="controls" style="margin-top:20px">
-        <div class="chip active" data-filter="All" onclick="filter(this)">All</div>
-        <div class="chip" data-filter="3D Art" onclick="filter(this)">3D Art</div>
-        <div class="chip" data-filter="Photo Manipulation" onclick="filter(this)">Photo Manipulation</div>
-        <div class="chip" data-filter="Video Editing" onclick="filter(this)">Video Editing</div>
-        <div class="chip" data-filter="Logo" onclick="filter(this)">Logo</div>
-        <div class="chip" data-filter="Mailer / Invite" onclick="filter(this)">Mailer / Invite</div>
-        <div class="chip" data-filter="Mockups" onclick="filter(this)">Mockups</div>
-      </div>
     </div>
-  </header>
-
-  <main>
-    <div class="grid" id="grid">
-      <!-- Cards will be injected by JS -->
-    </div>
-  </main>
-
-  <!-- Preview Modal -->
-  <div id="preview" role="dialog" aria-hidden="true" tabindex="-1">
-    <div class="preview-card" role="document">
-      <div class="preview-media" id="previewMedia"></div>
-      <div class="preview-footer">
-        <div>
-          <div class="preview-title" id="previewTitle">Title</div>
-          <div style="font-size:13px;color:var(--muted)" id="previewCat">Category</div>
+    <div class="card" style="animation-delay: 0.2s;">
+        <img src="https://via.placeholder.com/500x300?text=Photoshop+Manipulation" alt="Photoshop Manipulation">
+        <div class="card-content">
+            <h2>Photoshop Manipulation</h2>
+            <a href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq?usp=drive_link" target="_blank">View Works →</a>
         </div>
-        <div style="display:flex; gap:8px; align-items:center">
-          <a id="openFolder" class="btn-ghost" target="_blank" rel="noopener">Open folder</a>
-          <button class="btn-ghost" onclick="closePreview()">Close</button>
+    </div>
+    <div class="card" style="animation-delay: 0.3s;">
+        <img src="https://via.placeholder.com/500x300?text=Video+Editing" alt="Video Editing">
+        <div class="card-content">
+            <h2>Video Editing</h2>
+            <a href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4?usp=drive_link" target="_blank">View Works →</a>
         </div>
-      </div>
     </div>
-  </div>
-
-  <footer>
-    <div style="max-width:980px;margin:auto;padding:0 20px">
-      © 2025 GFXTAB • Crafted by Taiyyab — Visual design studio
+    <div class="card" style="animation-delay: 0.4s;">
+        <img src="https://via.placeholder.com/500x300?text=Logo+Design" alt="Logo Design">
+        <div class="card-content">
+            <h2>Logo Design</h2>
+            <a href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp?usp=drive_link" target="_blank">View Works →</a>
+        </div>
     </div>
-  </footer>
+    <div class="card" style="animation-delay: 0.5s;">
+        <img src="https://via.placeholder.com/500x300?text=Mailer+%7C+Invite" alt="Mailer Invite Design">
+        <div class="card-content">
+            <h2>Mailer | Invite Design</h2>
+            <a href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL?usp=drive_link" target="_blank">View Works →</a>
+        </div>
+    </div>
+    <div class="card" style="animation-delay: 0.6s;">
+        <img src="https://via.placeholder.com/500x300?text=Mockups" alt="Mockups">
+        <div class="card-content">
+            <h2>Mockups</h2>
+            <a href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7?usp=drive_link" target="_blank">View Works →</a>
+        </div>
+    </div>
+</section>
 
 <script>
-  // ---- CONFIG: change these thumbnails to your Drive 'uc?export=view&id=FILEID' links
-  // Each item: { id, title, category, type: 'image'|'video', thumb: 'preview.jpg', folder: 'https://drive.google.com/drive/folders/...' }
-  const ITEMS = [
-    { id:'logo_main', title:'GFXTAB — Main Logo', category:'Logo', type:'image',
-      thumb:'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn',
-      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp' },
-
-    { id:'3d_01', title:'Neon Orb', category:'3D Art', type:'image',
-      thumb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
-
-    { id:'3d_02', title:'Product Study', category:'3D Art', type:'image',
-      thumb:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
-
-    { id:'pm_01', title:'City Manipulation', category:'Photo Manipulation', type:'image',
-      thumb:'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
-
-    { id:'pm_02', title:'Surreal Sky', category:'Photo Manipulation', type:'image',
-      thumb:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
-
-    { id:'vid_01', title:'Promo Reel (short)', category:'Video Editing', type:'video',
-      thumb:'https://sample-videos.com/img/Sample-jpg-image-50kb.jpg',
-      srcVideo:'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-      folder:'https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4' },
-
-    { id:'logo_02', title:'Logo Explorations', category:'Logo', type:'image',
-      thumb:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp' },
-
-    { id:'mail_01', title:'Wedding Invite', category:'Mailer / Invite', type:'image',
-      thumb:'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL' },
-
-    { id:'mock_01', title:'Phone Mockup', category:'Mockups', type:'image',
-      thumb:'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
-
-    { id:'mock_02', title:'Package Mockup', category:'Mockups', type:'image',
-      thumb:'https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
-  ];
-
-  // Render grid
-  const grid = document.getElementById('grid');
-  function buildGrid(){
-    grid.innerHTML = '';
-    ITEMS.forEach((it, i) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.dataset.cat = it.category;
-
-      const media = document.createElement('div');
-      media.className = 'media';
-      if(it.type === 'image'){
-        const img = document.createElement('img');
-        img.src = it.thumb;
-        img.alt = it.title;
-        media.appendChild(img);
-      } else {
-        const vid = document.createElement('video');
-        vid.src = it.srcVideo || it.thumb;
-        vid.muted = true; vid.autoplay = true; vid.loop = true; vid.playsInline = true;
-        media.appendChild(vid);
-      }
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.innerHTML = `<div class="name">${escapeHtml(it.title)}</div>
-                        <a class="cta" href="${it.folder}" target="_blank" rel="noopener">Open folder</a>`;
-
-      card.appendChild(media);
-      card.appendChild(meta);
-
-      // click to preview modal
-      card.addEventListener('click', (e)=>{
-        // avoid opening modal when clicking the folder link
-        if(e.target.tagName.toLowerCase() === 'a') return;
-        openPreview(it);
-      });
-
-      grid.appendChild(card);
+    // Animate cards in sequence
+    document.querySelectorAll('.card').forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = 1;
+        }, index * 200);
     });
-
-    // subtle staggered entrance
-    gsap.from('.card', { y: 10, opacity: 0, duration: .6, stagger: .06, ease: 'power3.out' });
-  }
-  buildGrid();
-
-  // Filter chips
-  function filter(el){
-    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-    el.classList.add('active');
-    const f = el.dataset.filter;
-    document.querySelectorAll('.card').forEach(card=>{
-      if(f === 'All' || card.dataset.cat === f) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  // Preview modal logic
-  const preview = document.getElementById('preview');
-  const previewMedia = document.getElementById('previewMedia');
-  const previewTitle = document.getElementById('previewTitle');
-  const previewCat = document.getElementById('previewCat');
-  const openFolder = document.getElementById('openFolder');
-
-  function openPreview(item){
-    previewMedia.innerHTML = '';
-    previewTitle.textContent = item.title;
-    previewCat.textContent = item.category;
-    openFolder.href = item.folder;
-
-    if(item.type === 'image'){
-      const img = document.createElement('img'); img.src = item.thumb; img.alt = item.title;
-      previewMedia.appendChild(img);
-    } else {
-      const v = document.createElement('video'); v.src = item.srcVideo || item.thumb; v.controls = true; v.autoplay = true;
-      previewMedia.appendChild(v);
-    }
-    preview.classList.add('open');
-    preview.setAttribute('aria-hidden','false');
-    gsap.fromTo('.preview-card',{scale:0.99,opacity:0},{scale:1,opacity:1,duration:.18});
-  }
-
-  function closePreview(){
-    preview.classList.remove('open');
-    preview.setAttribute('aria-hidden','true');
-    previewMedia.innerHTML = '';
-  }
-
-  // close on background click or Esc
-  preview.addEventListener('click', (e)=>{ if(e.target === preview) closePreview(); });
-  window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePreview(); });
-
-  // small helper
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, t => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[t])); }
-
-  // ---- Notes for you ----
-  // To replace a thumbnail with a Drive-hosted image:
-  // 1) Get the file share link in Drive (Anyone with the link -> Viewer)
-  // 2) Convert to direct: https://drive.google.com/uc?export=view&id=FILEID
-  // 3) Replace the 'thumb' value for that item above.
-  // For video previews, set type:'video' and srcVideo:'https://drive.google.com/uc?export=view&id=FILEID' or a CDN link.
-
 </script>
+
 </body>
 </html>
