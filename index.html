@@ -1,144 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GFXTAB — Taiyyab Saiyyad Portfolio</title>
-  <meta name="description" content="Visual designer, motion graphics and reel editor — Taiyyab Saiyyad at GFXTAB" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GFXTAB | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            blueg: '#4285F4',
-            redg: '#EA4335',
-            yellowg: '#FBBC05',
-            greeng: '#34A853',
-            slatebg: '#202124',
-            dark: '#0F172A',
-          },
-          fontFamily: {
-            sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    body {
-      background-color: #202124;
-      color: #e8eaed;
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(8px);
-    }
-    .logo-multi {
-      background: linear-gradient(45deg, #4285F4 20%, #EA4335 40%, #FBBC05 60%, #34A853 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 900;
-      font-size: 1.8rem;
-      user-select: none;
-    }
-    a.social-icon svg {
-      transition: fill 0.3s ease;
-      fill: #e8eaed;
-    }
-    a.social-icon:hover svg.linkedin {
-      fill: #4285F4;
-    }
-    a.social-icon:hover svg.fiverr {
-      fill: #EA4335;
-    }
-    a.social-icon:hover svg.instagram {
-      fill: #FBBC05;
-    }
-    a.social-icon:hover svg.behance {
-      fill: #34A853;
-    }
-    .btn-primary {
-      background: linear-gradient(90deg, #4285F4, #34A853);
-      color: white;
-      font-weight: 600;
-      padding: 0.75rem 1.8rem;
-      border-radius: 0.6rem;
-      transition: background 0.3s ease;
-      display: inline-block;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgb(52 168 83 / 0.4);
-    }
-    .btn-primary:hover {
-      background: linear-gradient(90deg, #34A853, #4285F4);
-    }
-  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center px-4">
+<body class="bg-gray-50 text-gray-900">
 
-  <main class="max-w-[1080px] w-full min-h-screen rounded-3xl glass p-8 shadow-2xl flex flex-col md:flex-row gap-12">
+  <!-- Container -->
+  <div class="max-w-[1080px] mx-auto">
 
-    <!-- Left panel -->
-    <section class="flex flex-col justify-center flex-1 gap-6">
-      <div class="flex items-center gap-4 mb-2">
-        <div class="w-14 h-14 rounded-lg flex items-center justify-center logo-multi select-none">GT</div>
-        <div>
-          <h1 class="text-3xl font-extrabold tracking-tight text-[#e8eaed]">GFXTAB</h1>
-          <p class="text-sm text-slate-400">Visual Studio by Taiyyab Saiyyad</p>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-4 text-center">
+      <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/5c732f226679841.7f885e7c4b8d1.png" 
+           alt="GFXTAB Logo" 
+           class="w-32 h-32 rounded-full shadow-lg mb-6" />
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+        Hi, I'm <span class="text-blue-500">Taiyyab Saiyyad</span>
+      </h1>
+      <p class="max-w-2xl text-lg text-gray-700 mb-6">
+        Visual & Motion Designer at <strong>GFXTAB</strong> — crafting impactful designs, blending static visuals with motion graphics, and creating content that captures attention and drives engagement.
+      </p>
+      <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener noreferrer" 
+         class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full shadow-md transition">
+        View Portfolio
+      </a>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-12 px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Why Work With Me?</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        
+        <div class="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold text-blue-500 mb-2">Impactful Design that Works</h3>
+          <p class="text-gray-700">With a keen eye for layout, color, and typography, I create visuals that resonate and drive engagement — from Instagram and digital ads to packaging and brand systems.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold text-red-500 mb-2">Bringing Static to Life</h3>
+          <p class="text-gray-700">I merge static design with motion graphics and VFX, delivering content that stands out — from reels and promos to animated brand visuals and carousels.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold text-yellow-500 mb-2">Creative Strategy</h3>
+          <p class="text-gray-700">Every design is purposeful. I think about audience emotion, engagement, and outcomes, giving each project a strategic edge beyond aesthetics.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-semibold text-green-500 mb-2">Fast & On-Trend</h3>
+          <p class="text-gray-700">I deliver on time without compromising quality, keeping up with the latest trends, platform styles, and cultural shifts.</p>
         </div>
       </div>
+    </section>
 
-      <h2 class="text-4xl font-extrabold max-w-xl leading-tight tracking-tight text-[#e8eaed]">
-        Elevate your brand with professional visual design,<br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blueg via-redg via-yellowg to-greeng inline-block mt-2">
-          motion graphics & reel editing crafted for impact.
-        </span>
-      </h2>
-
-      <p class="text-slate-300 max-w-lg text-lg leading-relaxed">
-        I’m Taiyyab, a visual designer with 4+ years’ experience creating striking event visuals, social media reels, and product teasers. I focus on clean design, smooth motion, and VFX touches to capture attention and drive engagement.
-      </p>
-
-      <div class="flex flex-wrap gap-4 mt-6">
-        <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener" class="btn-primary">View Portfolio</a>
-        <a href="mailto:tabsaiyyad@gmail.com?subject=GFXTAB Project Inquiry" class="border border-slate-700 hover:border-yellowg text-slate-300 hover:text-yellowg px-6 py-3 rounded-lg inline-block transition">
-          Get a Quote
-        </a>
-      </div>
-
-      <p class="mt-6 text-sm text-slate-400 max-w-md">
-        Need it fast? I offer express turnaround (24–48 hrs) and retainer options for agencies and brands.
-      </p>
-
-      <div class="mt-10 flex gap-6 text-3xl">
-        <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon" title="LinkedIn">
-          <svg class="w-7 h-7 linkedin" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.7v2.17h.06c.66-1.24 2.28-2.55 4.69-2.55 5.02 0 5.94 3.3 5.94 7.58V24h-5v-7.3c0-1.74-.03-3.99-2.43-3.99-2.43 0-2.8 1.89-2.8 3.84V24h-5V8z"/></svg>
-        </a>
-        <a href="https://www.fiverr.com/s/2K87zgL" target="_blank" rel="noopener" aria-label="Fiverr" class="social-icon" title="Fiverr">
-          <svg class="w-7 h-7 fiverr" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12v6H4v-6H1v-3h9v3H7zm15 3c0 1.86-1.21 3-3.12 3H14v-9h5c1.81 0 3 1.07 3 2.77 0 1.07-.67 1.91-1.59 2.25V15z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/gfxtab" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon" title="Instagram">
-          <svg class="w-7 h-7 instagram" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-5 2.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
-        </a>
-        <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener" aria-label="Behance" class="social-icon" title="Behance">
-          <svg class="w-7 h-7 behance" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M2 7h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm0 3h7c.55 0 1-.45 1-1s-.45-1-1-1H2v2zm7 5c1.37 0 2.54-.8 3.05-2H9v1h2v-2H9v-1h3.06c.3-.61.5-1.3.5-2 0-2.76-2.24-5-5-5H2v14h7z"/></svg>
-        </a>
+    <!-- Social Links -->
+    <section class="py-12 text-center">
+      <h2 class="text-3xl font-bold mb-6">Connect with Me</h2>
+      <div class="flex justify-center gap-6 flex-wrap">
+        <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:underline">LinkedIn</a>
+        <a href="https://www.fiverr.com/s/2K87zgL" target="_blank" rel="noopener noreferrer" class="text-green-600 hover:underline">Fiverr</a>
+        <a href="https://www.instagram.com/gfxtab" target="_blank" rel="noopener noreferrer" class="text-pink-500 hover:underline">Instagram</a>
+        <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Behance</a>
       </div>
     </section>
 
-    <!-- Right panel with portfolio preview -->
-    <section class="flex-1 rounded-3xl overflow-hidden shadow-lg ring-1 ring-slate-800">
-      <img
-        src="https://cdn.dribbble.com/users/240029/screenshots/14135870/media/667ed9b17834697960f9d688b1a4f3ec.jpg"
-        alt="Portfolio preview"
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </section>
-  </main>
+    <!-- Footer -->
+    <footer class="py-6 text-center text-gray-500 text-sm">
+      © 2025 GFXTAB by Taiyyab Saiyyad. All rights reserved.
+    </footer>
+
+  </div>
 
 </body>
 </html>
