@@ -1,370 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GFXTAB — Portfolio</title>
-
-  <!-- Tailwind quick CDN for single-file deploy -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- GSAP for refined micro-animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GFXTAB Portfolio</title>
   <style>
-    /* Light modern theme tweaks */
-    :root{
-      --accent-a: #6ee7b7; /* mint */
-      --accent-b: #60a5fa; /* sky */
-      --accent-c: #a78bfa; /* violet */
-      --muted: #6b7280;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #222;
     }
-    html,body { height:100%; }
-    body{
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#fbfdff 0%, #f3f7fb 100%);
-      color:#0f172a;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    header {
+      background: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #ddd;
     }
-    .glass { background: rgba(255,255,255,0.7); backdrop-filter: blur(6px); border: 1px solid rgba(15,23,42,0.05); }
-    .soft-shadow { box-shadow: 0 10px 30px rgba(2,6,23,0.06); }
-    .card-hover { transform: translateZ(0); transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s; }
-    .card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(15,23,42,0.08); }
-    .thumb { object-fit: cover; width:100%; height:100%; display:block; }
-    .lg-hero-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap:12px; }
-    .gradient-accent { background: linear-gradient(90deg,var(--accent-a),var(--accent-b),var(--accent-c)); -webkit-background-clip:text; color:transparent; }
-    /* Lightbox */
-    #lightbox{ backdrop-filter: blur(6px); }
-    /* Responsiveness helpers for hero mosaic */
-    @media (min-width:1024px){
-      .hero-mosaic { display:grid; grid-template-columns: repeat(3,1fr); grid-auto-rows: 140px; gap:12px; }
-      .hero-mosaic .big { grid-column: span 2; grid-row: span 2; height:100%; }
+    header img {
+      max-width: 220px;
     }
-    @media (max-width:1023px){
-      .hero-mosaic { display:grid; grid-template-columns: repeat(2,1fr); grid-auto-rows: 120px; gap:10px; }
-      .hero-mosaic .big { grid-column: span 2; height:180px; }
+    h1 {
+      font-size: 1.8rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      padding: 1rem;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #ddd;
+      background: white;
     }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav class="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-4 px-4 py-2 rounded-full glass soft-shadow">
-    <img id="navRound" src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" alt="GFXTAB" class="w-10 h-10 object-contain rounded-md" />
-    <div class="font-medium">GFXTAB</div>
-    <div class="text-xs text-slate-500">Future-forward design • curated by Taiyyab</div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="pt-28 pb-12">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-      <!-- Left: text -->
-      <div>
-        <div class="flex items-center gap-4">
-          <div class="w-28 h-28 rounded-2xl p-3 soft-shadow" style="background:linear-gradient(135deg,#ffffff,#f6fbff);">
-            <img id="mainLogo" src="https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn" alt="GFXTAB" class="w-full h-full object-contain" />
-          </div>
-          <div>
-            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">GFXTAB — <span class="gradient-accent">Design & Playground</span></h1>
-            <p class="mt-3 text-slate-600 max-w-xl">A modern portfolio, asset library and learning lab. Immersive showcases, raw files, and fast previews — presented with clarity and punch.</p>
-          </div>
-        </div>
-
-        <div class="mt-6 flex gap-3 flex-wrap">
-          <button class="px-4 py-2 rounded-full border border-slate-200 text-sm" onclick="filterSet('All')">All</button>
-          <button class="px-4 py-2 rounded-full bg-white text-sm shadow-sm" onclick="filterSet('3D Art')">3D Art</button>
-          <button class="px-4 py-2 rounded-full bg-white text-sm shadow-sm" onclick="filterSet('Photo Manipulation')">Photo Manipulation</button>
-          <button class="px-4 py-2 rounded-full bg-white text-sm shadow-sm" onclick="filterSet('Video Editing')">Video Editing</button>
-        </div>
-
-        <div class="mt-6 flex items-center gap-4">
-          <a class="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-green-200 via-sky-300 to-violet-200 rounded-lg font-semibold shadow" href="#gallery">Explore gallery →</a>
-          <button class="text-sm text-slate-500" onclick="openContact()">Work with me</button>
-        </div>
-      </div>
-
-      <!-- Right: hero mosaic -->
-      <div>
-        <div class="rounded-2xl overflow-hidden soft-shadow" style="border:1px solid rgba(15,23,42,0.04); background:white;">
-          <div class="p-6">
-            <div class="hero-mosaic">
-              <!-- big -->
-              <div class="big rounded-xl overflow-hidden bg-slate-50">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400&auto=format&fit=crop" class="thumb" alt="3d sample" />
-              </div>
-              <!-- small tiles -->
-              <div class="rounded-xl overflow-hidden bg-slate-50">
-                <img src="https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1200&auto=format&fit=crop" class="thumb" alt="mockup sample" />
-              </div>
-              <div class="rounded-xl overflow-hidden bg-slate-50">
-                <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1200&auto=format&fit=crop" class="thumb" alt="manipulation sample" />
-              </div>
-
-              <div class="rounded-xl overflow-hidden bg-slate-50">
-                <video class="thumb" src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" muted autoplay loop playsinline></video>
-              </div>
-
-              <div class="rounded-xl overflow-hidden bg-slate-50">
-                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop" class="thumb" alt="logo sample" />
-              </div>
-            </div>
-          </div>
-          <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
-            <div class="text-sm text-slate-600">Curated • Live preview</div>
-            <div class="text-xs text-slate-400">Swipe/Click for full view</div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <header>
+    <img src="https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn" alt="GFXTAB Logo" />
+    <h1>GFXTAB – Creative Portfolio</h1>
   </header>
 
-  <!-- CATEGORIES + GALLERY -->
-  <main id="gallery" class="max-w-7xl mx-auto px-6 lg:px-12 pb-24">
-    <div class="flex items-center justify-between mb-6">
-      <div id="categoryBtns" class="flex gap-3 flex-wrap"></div>
-      <div id="countText" class="text-sm text-slate-500">0 items</div>
-    </div>
+  <section class="gallery">
+    <a class="card" href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=Logo+Design" alt="Logo Design" />
+      <h3>Logo Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=Mockups" alt="Mockups" />
+      <h3>Mockups</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=Mailer+%7C+Invite+Design" alt="Mailer Invite Design" />
+      <h3>Mailer | Invite Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=Video+Editing" alt="Video Editing" />
+      <h3>Video Editing</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=3D+Art" alt="3D Art" />
+      <h3>3D Art</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq" target="_blank">
+      <img src="https://via.placeholder.com/600x400?text=Photoshop+Manipulation" alt="Photoshop Manipulation" />
+      <h3>Photoshop Manipulation</h3>
+    </a>
+  </section>
 
-    <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></section>
-  </main>
-
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-6">
-    <div class="max-w-4xl w-full bg-white rounded-2xl overflow-hidden soft-shadow">
-      <div class="relative">
-        <button class="absolute top-3 right-3 bg-white/90 px-3 py-2 rounded shadow" onclick="closeLightbox()">✕</button>
-        <div id="lightboxMedia" class="aspect-video bg-black flex items-center justify-center"></div>
-        <div class="p-4 flex items-center justify-between">
-          <div>
-            <div id="lightboxTitle" class="font-semibold text-slate-800"></div>
-            <div id="lightboxMeta" class="text-sm text-slate-500"></div>
-          </div>
-          <div class="flex gap-3">
-            <button class="px-3 py-2 rounded border" onclick="lightNav(-1)">Prev</button>
-            <button class="px-3 py-2 rounded border" onclick="lightNav(1)">Next</button>
-            <a id="openSourceBtn" class="px-3 py-2 rounded bg-gradient-to-r from-green-200 via-sky-300 to-violet-200 text-slate-800 font-semibold" href="#" target="_blank">Open Source</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER CTA -->
-  <footer class="fixed left-6 bottom-6 z-40">
-    <div class="bg-white rounded-2xl p-3 soft-shadow flex items-center gap-3 border">
-      <img src="https://drive.google.com/uc?export=view&id=13PLwUEh4xiqYvIdrXAh_P1NPrVMMFCks" alt="square logo" class="w-12 h-12 object-contain rounded-md" />
-      <div class="text-sm text-slate-600">GFXTAB • crafted by Taiyyab</div>
-    </div>
+  <footer>
+    © 2025 GFXTAB. All rights reserved.
   </footer>
-
-  <!-- CONTACT MODAL (simple placeholder) -->
-  <div id="contactModal" class="fixed inset-0 hidden z-50 items-center justify-center bg-black/40 p-6">
-    <div class="max-w-md w-full bg-white rounded-xl p-6 soft-shadow">
-      <h3 class="text-lg font-semibold">Contact / Hire</h3>
-      <p class="text-sm text-slate-500 mt-2">This is a placeholder contact modal. I can wire a working contact form (Netlify/Vercel) on request.</p>
-      <div class="mt-6 flex justify-end gap-3">
-        <button class="px-4 py-2 rounded border" onclick="closeContact()">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== SCRIPT ========== -->
-  <script>
-    /* -------------------------
-       Single-file gallery app
-       - Replace sample placeholders in ITEMS with your own Google Drive direct links:
-         FORMAT: https://drive.google.com/uc?export=view&id=FILE_ID
-       ------------------------- */
-
-    const ITEMS = [
-      /* Logo */
-      { id: 'logo_1', title: 'GFXTAB - Main', category: 'Logo', type: 'image', src: 'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn' },
-
-      /* 3D Art (placeholders) */
-      { id: '3d_1', title: 'Neon Orb', category: '3D Art', type: 'image', src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop' },
-      { id: '3d_2', title: 'Glass Sculpture', category: '3D Art', type: 'image', src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop' },
-
-      /* Photo Manipulation (placeholders) */
-      { id: 'pm_1', title: 'City Melt', category: 'Photo Manipulation', type: 'image', src: 'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop' },
-      { id: 'pm_2', title: 'Sky Replace', category: 'Photo Manipulation', type: 'image', src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop' },
-
-      /* Mockups */
-      { id: 'mock_1', title: 'Phone Mockup', category: 'Mockups', type: 'image', src: 'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop' },
-      { id: 'mock_2', title: 'Packaging Mock', category: 'Mockups', type: 'image', src: 'https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1600&auto=format&fit=crop' },
-
-      /* Video Editing (small sample videos) */
-      { id: 'vid_1', title: 'Promo Reel', category: 'Video Editing', type: 'video', src: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4' },
-      { id: 'vid_2', title: 'Teaser Clip', category: 'Video Editing', type: 'video', src: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4' },
-
-      /* Mailer / Invite design */
-      { id: 'mail_1', title: 'Wedding Invite', category: 'Mailer / Invite', type: 'image', src: 'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop' },
-      { id: 'mail_2', title: 'Event Mailer', category: 'Mailer / Invite', type: 'image', src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop' },
-
-      /* Packaging / Animation */
-      { id: 'pack_1', title: 'Packaging Study', category: 'Packaging', type: 'image', src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1400&auto=format&fit=crop' },
-      { id: 'anim_1', title: 'Product Animation', category: 'Product Animation', type: 'video', src: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4' }
-    ];
-
-    // derive categories
-    const CATS = ['All', ...Array.from(new Set(ITEMS.map(i=>i.category))).filter(Boolean)];
-
-    // DOM refs
-    const grid = document.getElementById('grid');
-    const categoryBtns = document.getElementById('categoryBtns');
-    const countText = document.getElementById('countText');
-    const lb = document.getElementById('lightbox');
-    const lbMedia = document.getElementById('lightboxMedia');
-    const lbTitle = document.getElementById('lightboxTitle');
-    const lbMeta = document.getElementById('lightboxMeta');
-    const openBtn = document.getElementById('openSourceBtn');
-
-    let currentFilter = 'All';
-    let lightIdx = 0;
-
-    // init
-    function init(){
-      renderCategories();
-      renderGrid();
-      attachKeyboard();
-      // gentle entrance
-      gsap.from('header', { y: 8, opacity:0, duration: .6, ease:'power3.out' });
-    }
-    init();
-
-    function renderCategories(){
-      categoryBtns.innerHTML = '';
-      CATS.forEach(cat=>{
-        const b = document.createElement('button');
-        b.className = 'px-3 py-1 rounded-full text-sm border border-slate-200 bg-white';
-        b.innerText = cat;
-        b.onclick = ()=> filterSet(cat);
-        categoryBtns.appendChild(b);
-      });
-    }
-
-    function filterSet(cat){
-      currentFilter = cat;
-      renderGrid();
-    }
-
-    function visibleItems(){
-      return currentFilter === 'All' ? ITEMS : ITEMS.filter(i=>i.category===currentFilter);
-    }
-
-    function renderGrid(){
-      const items = visibleItems();
-      grid.innerHTML = '';
-      countText.innerText = items.length + ' items';
-      items.forEach((it, idx)=>{
-        const a = document.createElement('article');
-        a.className = 'bg-white rounded-2xl overflow-hidden soft-shadow card-hover cursor-pointer';
-        a.onclick = ()=> openLightboxByIndex(idx);
-
-        const mediaWrap = document.createElement('div');
-        mediaWrap.className = 'relative h-56 bg-slate-50';
-        if(it.type === 'image'){
-          const img = document.createElement('img');
-          img.className = 'thumb';
-          img.src = it.src;
-          img.alt = it.title;
-          img.loading = 'lazy';
-          mediaWrap.appendChild(img);
-        } else {
-          const v = document.createElement('video');
-          v.className = 'thumb';
-          v.src = it.src;
-          v.preload = 'metadata';
-          v.muted = true;
-          v.playsInline = true;
-          v.loop = true;
-          v.autoplay = true;
-          mediaWrap.appendChild(v);
-        }
-
-        const tag = document.createElement('div');
-        tag.className = 'absolute top-3 left-3 bg-white/90 px-2 py-1 rounded text-xs text-slate-700';
-        tag.innerText = it.category;
-        mediaWrap.appendChild(tag);
-
-        const title = document.createElement('div');
-        title.className = 'absolute bottom-3 left-3 text-sm font-semibold text-slate-800';
-        title.innerText = it.title;
-        mediaWrap.appendChild(title);
-
-        const meta = document.createElement('div');
-        meta.className = 'p-4 flex items-center justify-between';
-        meta.innerHTML = `<div class="text-xs text-slate-500">Live • Curated</div>
-                          <div class="flex items-center gap-2">
-                            <button class="px-3 py-1 rounded border text-sm" onclick="event.stopPropagation(); openExternal('${it.src}')">Open</button>
-                          </div>`;
-
-        a.appendChild(mediaWrap);
-        a.appendChild(meta);
-        grid.appendChild(a);
-      });
-    }
-
-    /* Lightbox */
-    function openLightboxByIndex(i){
-      const list = visibleItems();
-      lightIdx = i;
-      showLightbox(list[lightIdx]);
-    }
-    function showLightbox(item){
-      lbMedia.innerHTML = '';
-      if(item.type === 'image'){
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = item.title;
-        img.className = 'max-h-[70vh] object-contain';
-        lbMedia.appendChild(img);
-      } else {
-        const v = document.createElement('video');
-        v.src = item.src;
-        v.controls = true;
-        v.className = 'max-h-[70vh] object-contain';
-        lbMedia.appendChild(v);
-        v.play().catch(()=>{});
-      }
-      lbTitle.innerText = item.title;
-      lbMeta.innerText = item.category + ' • ' + item.type;
-      openBtn.href = item.src;
-      lb.classList.remove('hidden');
-      lb.style.display = 'flex';
-      gsap.fromTo(lb, {opacity:0, scale:0.98},{opacity:1, scale:1, duration:.18});
-    }
-    function closeLightbox(){
-      gsap.to(lb, {opacity:0, scale:0.98, duration:.12, onComplete:()=>{ lb.style.display='none'; lb.classList.add('hidden'); }});
-    }
-    function lightNav(dir){
-      const list = visibleItems();
-      if(list.length===0) return;
-      lightIdx = (lightIdx + dir + list.length) % list.length;
-      showLightbox(list[lightIdx]);
-    }
-    function openExternal(url){ window.open(url, '_blank'); }
-
-    /* Keyboard nav */
-    function attachKeyboard(){
-      window.addEventListener('keydown', (e)=>{
-        const open = lb.style.display === 'flex';
-        if(e.key === 'Escape') closeLightbox();
-        if(!open) return;
-        if(e.key === 'ArrowRight') lightNav(1);
-        if(e.key === 'ArrowLeft') lightNav(-1);
-      });
-    }
-
-    /* Contact modal */
-    function openContact(){ document.getElementById('contactModal').style.display = 'flex'; }
-    function closeContact(){ document.getElementById('contactModal').style.display = 'none'; }
-
-    // small entrance animation for hero mosaic tiles
-    window.addEventListener('load', ()=> {
-      gsap.from('.hero-mosaic > *', { y: 8, opacity:0, duration: .6, stagger: .08 });
-    });
-
-  </script>
 </body>
 </html>
