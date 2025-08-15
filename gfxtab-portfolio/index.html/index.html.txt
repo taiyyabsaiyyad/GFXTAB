@@ -1,0 +1,61 @@
+!DOCTYPE html
+html lang=en
+head
+    meta charset=UTF-8
+    meta name=viewport content=width=device-width, initial-scale=1.0
+    titleGFXTAB Portfoliotitle
+    link rel=stylesheet href=style.css
+head
+body
+
+    header
+        h1GFXTAB Portfolioh1
+        pCreative Designs & Motion Graphics by Taiyyab Saiyyadp
+    header
+
+    section class=portfolio-section
+        div class=portfolio-item
+            img src=images3D.jpg alt=3D Design
+            h23D Designh2
+        div
+
+        div class=portfolio-item
+            img src=imagesPHOTOSHOP.jpg alt=Photoshop Manipulation
+            h2Photoshop Manipulationh2
+        div
+
+        div class=portfolio-item
+            img src=imagesVIDEO_EDITING.jpg alt=Video Editing
+            h2Video Editingh2
+        div
+
+        div class=portfolio-item
+            img src=imagesLOGO_DESIGN.jpg alt=Logo Design
+            h2Logo Designh2
+        div
+
+        div class=portfolio-item
+            img src=imagesDIGITAL_INVITE.jpg alt=Mailer  Invite Design
+            h2Mailer  Invite Designh2
+        div
+
+        div class=portfolio-item
+            img src=imagesGFXTAB_PORTFOLIO.jpg alt=Mockups
+            h2Mockupsh2
+        div
+    section
+
+    footer
+        h3Connect with Meh3
+        div class=social-links
+            a href=httpswww.behance.netgfxtab target=_blankBehancea
+            a href=httpswww.instagram.comgfxtab target=_blankInstagrama
+            a href=httpswww.fiverr.comgfxtab target=_blankFiverra
+            a href=httpswww.linkedin.comintaiyyab-saiyyad target=_blankLinkedIna
+            a href=mailtogfxtab@gmail.comEmaila
+        div
+    footer
+
+    script src=script.jsscript
+body
+html
