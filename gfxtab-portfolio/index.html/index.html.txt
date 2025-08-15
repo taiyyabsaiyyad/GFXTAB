@@ -1,61 +1,61 @@
-!DOCTYPE html
-html lang=en
-head
-    meta charset=UTF-8
-    meta name=viewport content=width=device-width, initial-scale=1.0
-    titleGFXTAB Portfoliotitle
-    link rel=stylesheet href=style.css
-head
-body
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GFXTAB Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    header
-        h1GFXTAB Portfolioh1
-        pCreative Designs & Motion Graphics by Taiyyab Saiyyadp
-    header
+    <header>
+        <h1>GFXTAB Portfolio</h1>
+        <p>Creative Designs & Motion Graphics by Taiyyab Saiyyad</p>
+    </header>
 
-    section class=portfolio-section
-        div class=portfolio-item
-            img src=images3D.jpg alt=3D Design
-            h23D Designh2
-        div
+    <section class="portfolio-section">
+        <div class="portfolio-item">
+            <img src="images/3D.jpg" alt="3D Design">
+            <h2>3D Design</h2>
+        </div>
 
-        div class=portfolio-item
-            img src=imagesPHOTOSHOP.jpg alt=Photoshop Manipulation
-            h2Photoshop Manipulationh2
-        div
+        <div class="portfolio-item">
+            <img src="images/PHOTOSHOP.jpg" alt="Photoshop Manipulation">
+            <h2>Photoshop Manipulation</h2>
+        </div>
 
-        div class=portfolio-item
-            img src=imagesVIDEO_EDITING.jpg alt=Video Editing
-            h2Video Editingh2
-        div
+        <div class="portfolio-item">
+            <img src="images/VIDEO_EDITING.jpg" alt="Video Editing">
+            <h2>Video Editing</h2>
+        </div>
 
-        div class=portfolio-item
-            img src=imagesLOGO_DESIGN.jpg alt=Logo Design
-            h2Logo Designh2
-        div
+        <div class="portfolio-item">
+            <img src="images/LOGO_DESIGN.jpg" alt="Logo Design">
+            <h2>Logo Design</h2>
+        </div>
 
-        div class=portfolio-item
-            img src=imagesDIGITAL_INVITE.jpg alt=Mailer  Invite Design
-            h2Mailer  Invite Designh2
-        div
+        <div class="portfolio-item">
+            <img src="images/DIGITAL_INVITE.jpg" alt="Mailer / Invite Design">
+            <h2>Mailer / Invite Design</h2>
+        </div>
 
-        div class=portfolio-item
-            img src=imagesGFXTAB_PORTFOLIO.jpg alt=Mockups
-            h2Mockupsh2
-        div
-    section
+        <div class="portfolio-item">
+            <img src="images/GFXTAB_PORTFOLIO.jpg" alt="Mockups">
+            <h2>Mockups</h2>
+        </div>
+    </section>
 
-    footer
-        h3Connect with Meh3
-        div class=social-links
-            a href=httpswww.behance.netgfxtab target=_blankBehancea
-            a href=httpswww.instagram.comgfxtab target=_blankInstagrama
-            a href=httpswww.fiverr.comgfxtab target=_blankFiverra
-            a href=httpswww.linkedin.comintaiyyab-saiyyad target=_blankLinkedIna
-            a href=mailtogfxtab@gmail.comEmaila
-        div
-    footer
+    <footer>
+        <h3>Connect with Me</h3>
+        <div class="social-links">
+            <a href="https://www.behance.net/gfxtab" target="_blank">Behance</a>
+            <a href="https://www.instagram.com/gfxtab" target="_blank">Instagram</a>
+            <a href="https://www.fiverr.com/gfxtab" target="_blank">Fiverr</a>
+            <a href="https://www.linkedin.com/in/taiyyab-saiyyad" target="_blank">LinkedIn</a>
+            <a href="mailto:gfxtab@gmail.com">Email</a>
+        </div>
+    </footer>
 
-    script src=script.jsscript
-body
-html
+    <script src="script.js"></script>
+</body>
+</html>
