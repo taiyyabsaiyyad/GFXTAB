@@ -1,15 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById("menu-toggle");
-  const navLinks = document.getElementById("nav-links");
-  const overlay = document.getElementById("overlay");
+// Year in footer
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  menuToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("show");
-    overlay.classList.toggle("active");
-  });
-
-  overlay.addEventListener("click", () => {
-    navLinks.classList.remove("show");
-    overlay.classList.remove("active");
-  });
+// Mobile nav toggle
+document.getElementById('navBtn').addEventListener('click', () => {
+  document.getElementById('mNav').classList.toggle('hidden');
 });
+
+// Contact form → open email client
+function sendMail(e) {
+  e.preventDefault();
+  const name = document.getElementById('n').value.trim();
+  const email = document.getElementById('e').value.trim();
+  const msg = document.getElementById('m').value.trim();
+
+  const subject = encodeURIComponent('GFXTAB Project enquiry — ' + name);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+
+  window.location.href = `mailto:tabsaiyyad@gmail.com?subject=${subject}&body=${body}`;
+}
