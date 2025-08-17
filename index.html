@@ -1,91 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GFXTAB Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GFXTAB — Visual & Motion Studio</title>
+  <meta name="description" content="Portfolio of Taiyyab Saiyyad (GFXTAB) — Visual design, motion graphics & reel editing."/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4285F4',   // Google Blue
+            secondary: '#EA4335', // Google Red
+            accent: '#FBBC05',    // Google Yellow
+            success: '#34A853',   // Google Green
+            dark: '#0F172A'
+          },
+          boxShadow: {
+            card: '0 10px 30px rgba(0,0,0,.25)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass{background:rgba(255,255,255,.06);backdrop-filter:blur(8px)}
+    .brand-gradient{background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .card:hover img{transform:scale(1.05)}
+  </style>
 </head>
-<body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">GFXTAB</div>
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-    <nav id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+
+<body class="bg-slate-900 text-slate-100 antialiased">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-slate-900/70 backdrop-blur border-b border-slate-800">
+    <div class="max-w-[1080px] mx-auto px-5 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary text-dark font-bold grid place-items-center">GT</div>
+        <div class="hidden sm:block">
+          <div class="text-sm font-semibold">GFXTAB</div>
+          <div class="text-xs text-slate-400">Visual & Motion Studio</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#work" class="hover:text-white">Portfolio</a>
+        <a href="#services" class="hover:text-white">Services</a>
+        <a href="#about" class="hover:text-white">About</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="#contact" class="ml-2 px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Hire me</a>
+      </nav>
+      <button id="navBtn" class="md:hidden p-2 rounded-lg glass">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mNav" class="hidden md:hidden px-5 pb-5 text-sm">
+      <div class="flex flex-col gap-3">
+        <a href="#work">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
   </header>
 
-  <!-- MOBILE OVERLAY -->
-  <div class="overlay" id="overlay"></div>
+  <!-- HERO -->
+  <section class="relative">
+    <div class="max-w-[1080px] mx-auto px-5 py-14 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="text-sm text-primary font-medium">Studio — Motion · Visual · Reels</p>
+        <h1 class="mt-3 text-4xl sm:text-5xl font-extrabold leading-tight">
+          Reels & Motion Design
+          <span class="brand-gradient block">that elevate your brand.</span>
+        </h1>
+        <p class="mt-5 text-slate-300">I’m Taiyyab (GFXTAB) — I craft reels, logo reveals, VFX visuals and graphic design that engage and perform across digital platforms.</p>
+        <div class="mt-7 flex gap-3">
+          <a href="#work" class="px-5 py-3 rounded-lg bg-white text-dark font-semibold shadow">View portfolio</a>
+          <a href="#contact" class="px-5 py-3 rounded-lg border border-slate-700">Get a quote</a>
+        </div>
+      </div>
+      <div class="rounded-2xl overflow-hidden shadow-card ring-1 ring-slate-800">
+        <img src="images/GFXTAB PORTFOLIO.jpg" alt="Portfolio cover" class="w-full h-full object-cover">
+      </div>
+    </div>
+  </section>
 
-  <!-- HERO SECTION -->
-  <section id="home" class="hero">
-    <h1>Hi, I'm Taiyyab Saiyyad</h1>
-    <p>Graphic & Motion Designer | 3D | Branding | Video Editing</p>
-    <a href="#portfolio" class="btn">View Portfolio</a>
+  <!-- WHY -->
+  <section class="py-10">
+    <div class="max-w-[1080px] mx-auto px-5 text-center">
+      <h2 class="text-3xl font-bold">Why Choose Me?</h2>
+      <p class="mt-4 text-slate-300 text-lg max-w-3xl mx-auto">
+        Quick, clean and on-trend visuals that perform. From static graphics to motion reels, I blend design precision with strategy to engage audiences and grow brands.
+      </p>
+    </div>
   </section>
 
   <!-- PORTFOLIO -->
-  <section id="portfolio">
-    <h2>My Work</h2>
-    <div class="portfolio-grid">
-      <div class="card">
-        <img src="images/3D.jpg" alt="3D Design">
-        <p>3D Design</p>
+  <section id="work" class="py-12">
+    <div class="max-w-[1080px] mx-auto px-5">
+      <h2 class="text-3xl font-bold">Portfolio</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <a href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/3D.jpg" alt="3D" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">3D & CGI</div><p class="text-xs text-slate-400">Blender / C4D renders</p></div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/LOGO DESIGN.jpg" alt="Logo" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">Logo Design</div><p class="text-xs text-slate-400">Marks, wordmarks & branding</p></div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/PHOTOSHOP.jpg" alt="Photoshop" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">Photo Manipulation</div><p class="text-xs text-slate-400">Composites & posters</p></div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/VIDEO EDITING.jpg" alt="Video Editing" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">Video Editing</div><p class="text-xs text-slate-400">Reels, promos, teasers</p></div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/DIGITAL INVITE.jpg" alt="Invite" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">Mailer / Invite</div><p class="text-xs text-slate-400">Digital invites & mailers</p></div>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7" target="_blank" class="card block rounded-2xl overflow-hidden bg-slate-800 border shadow-card">
+          <img src="images/MOCKUPS.jpg" alt="Mockups" class="w-full h-48 object-cover transition-transform duration-300">
+          <div class="p-4"><div class="font-semibold">Mockups</div><p class="text-xs text-slate-400">Brand & packaging</p></div>
+        </a>
       </div>
-      <div class="card">
-        <img src="images/PHOTOSHOP.jpg" alt="Photoshop Manipulation">
-        <p>Photoshop Manipulation</p>
-      </div>
-      <div class="card">
-        <img src="images/VIDEO EDITING.jpg" alt="Video Editing">
-        <p>Video Editing</p>
-      </div>
-      <div class="card">
-        <img src="images/LOGO DESIGN.jpg" alt="Logo Design">
-        <p>Logo Design</p>
-      </div>
-      <div class="card">
-        <img src="images/DIGITAL INVITE.jpg" alt="Invite Design">
-        <p>Invite & Mailer Design</p>
-      </div>
-      <div class="card">
-        <img src="images/GFXTAB PORTFOLIO.jpg" alt="Mockups">
-        <p>Mockups</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-12 border-t border-slate-800">
+    <div class="max-w-[1080px] mx-auto px-5">
+      <h2 class="text-3xl font-bold">Services</h2>
+      <div class="grid md:grid-cols-3 gap-6 mt-6">
+        <div class="p-6 rounded-2xl glass border"><div class="text-xl font-semibold">Reel Editing</div><p class="text-slate-400 mt-2">Social-first reels, captions, hooks</p></div>
+        <div class="p-6 rounded-2xl glass border"><div class="text-xl font-semibold">Motion Graphics</div><p class="text-slate-400 mt-2">Logo reveals, animated graphics</p></div>
+        <div class="p-6 rounded-2xl glass border"><div class="text-xl font-semibold">VFX + Sound</div><p class="text-slate-400 mt-2">Stylish VFX & synced audio</p></div>
       </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm Taiyyab Saiyyad, founder of <b>GFXTAB</b>.  
-      With 4+ years of experience in Graphic Design, Motion Graphics, and Branding,  
-      I create impactful visuals that connect with audiences.  
-    </p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <div class="social-links">
-      <a href="mailto:tabsaiyyad@gmail.com">📧 Email</a>
-      <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank">🔗 LinkedIn</a>
-      <a href="https://www.fiverr.com/s/2K87zgL" target="_blank">🎨 Fiverr</a>
-      <a href="https://www.instagram.com/gfxtab" target="_blank">📷 Instagram</a>
-      <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank">🖌️ Behance</a>
+  <section id="about" class="py-12">
+    <div class="max-w-[1080px] mx-auto px-5 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h3 class="text-2xl font-bold">About Me</h3>
+        <p class="mt-3 text-slate-300">I’m Taiyyab Saiyyad — 4+ years in design & events, now crafting visuals as GFXTAB. I mix design, motion & strategy to deliver visuals that connect with people.</p>
+      </div>
+      <div class="p-6 rounded-2xl glass border text-center">
+        <div class="font-semibold">Let’s Work Together</div>
+        <p class="text-slate-400 text-sm mt-2">Send me your brief & I’ll reply with a quote.</p>
+        <a href="#contact" class="mt-4 inline-block px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Contact</a>
+      </div>
     </div>
   </section>
 
-  <footer>
-    <p>© 2025 GFXTAB | Designed by Taiyyab Saiyyad</p>
+  <!-- CONTACT -->
+  <section id="contact" class="py-12 border-t border-slate-800">
+    <div class="max-w-[1080px] mx-auto px-5">
+      <h2 class="text-3xl font-bold">Contact</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-8">
+        <div class="p-6 rounded-2xl glass border">
+          <div class="font-semibold">Email</div>
+          <p class="text-slate-400 text-sm">tabsaiyyad@gmail.com</p>
+          <div class="mt-4 flex gap-3">
+            <a href="mailto:tabsaiyyad@gmail.com" class="px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Email me</a>
+            <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="px-4 py-2 rounded-lg border">WhatsApp</a>
+          </div>
+        </div>
+        <form onsubmit="sendMail(event)" class="p-6 rounded-2xl glass border">
+          <label class="block text-sm">Name</label>
+          <input id="n" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required>
+          <label class="block text-sm mt-4">Email</label>
+          <input id="e" type="email" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required>
+          <label class="block text-sm mt-4">Project Brief</label>
+          <textarea id="m" rows="4" class="mt-2 w-full rounded-md bg-slate-900 border border-slate-800 px-3 py-2" required></textarea>
+          <div class="mt-4 flex gap-3">
+            <button class="px-4 py-2 bg-primary text-dark rounded-lg font-semibold">Send</button>
+            <button type="button" class="px-4 py-2 rounded-lg border" onclick="document.getElementById('n').value='';document.getElementById('e').value='';document.getElementById('m').value='';">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 py-8">
+    <div class="max-w-[1080px] mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-sm">© <span id="year"></span> GFXTAB — Taiyyab Saiyyad</div>
+      <div class="flex items-center gap-5 text-sm">
+        <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank">LinkedIn</a>
+        <a href="https://www.fiverr.com/s/2K87zgL" target="_blank">Fiverr</a>
+        <a href="https://www.instagram.com/gfxtab" target="_blank">Instagram</a>
+        <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank">Behance</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('navBtn').addEventListener('click',()=>document.getElementById('mNav').classList.toggle('hidden'));
+    function sendMail(e){
+      e.preventDefault();
+      const name=document.getElementById('n').value.trim();
+      const email=document.getElementById('e').value.trim();
+      const msg=document.getElementById('m').value.trim();
+      const subject=encodeURIComponent('GFXTAB Project enquiry — '+name);
+      const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+      window.location.href=`mailto:tabsaiyyad@gmail.com?subject=${subject}&body=${body}`;
+    }
+  </script>
 </body>
 </html>
