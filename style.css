@@ -1,37 +1,57 @@
-/* Portfolio Grid */
+/* Portfolio Section */
+#portfolio {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+#portfolio h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+/* Grid Layout */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
   max-width: 1200px;
   margin: auto;
 }
 
-/* Portfolio Cards */
+/* Card Styling */
 .card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  text-align: center;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .card img {
   width: 100%;
-  height: 200px; /* Fix image height */
-  object-fit: cover; /* Crops image nicely */
-  border-bottom: 2px solid #eee;
+  height: 200px;
+  object-fit: cover;
 }
 
-.card p {
-  padding: 10px;
-  font-weight: 500;
+.card-content {
+  padding: 15px;
 }
 
-/* Hover effect */
+.card-content h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Hover Effect */
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
