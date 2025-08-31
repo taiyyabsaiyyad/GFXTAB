@@ -1,91 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GFXTAB Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      max-width: 220px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .card h3 {
+      padding: 1rem;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      background: #fff;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #ddd;
+      background: white;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <!-- HEADER -->
   <header>
-    <div class="logo">GFXTAB</div>
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-    <nav id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <img src="GFXTAB_PORTFOLIO.jpg" alt="GFXTAB Logo" />
+    <h1>GFXTAB – Creative Portfolio</h1>
   </header>
 
-  <!-- MOBILE OVERLAY -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- HERO SECTION -->
-  <section id="home" class="hero">
-    <h1>Hi, I'm Taiyyab Saiyyad</h1>
-    <p>Graphic & Motion Designer | 3D | Branding | Video Editing</p>
-    <a href="#portfolio" class="btn">View Portfolio</a>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section id="portfolio">
-    <h2>My Work</h2>
-    <div class="portfolio-grid">
-      <div class="card">
-        <img src="images/3D.jpg" alt="3D Design">
-        <p>3D Design</p>
-      </div>
-      <div class="card">
-        <img src="images/PHOTOSHOP.jpg" alt="Photoshop Manipulation">
-        <p>Photoshop Manipulation</p>
-      </div>
-      <div class="card">
-        <img src="images/VIDEO EDITING.jpg" alt="Video Editing">
-        <p>Video Editing</p>
-      </div>
-      <div class="card">
-        <img src="images/LOGO DESIGN.jpg" alt="Logo Design">
-        <p>Logo Design</p>
-      </div>
-      <div class="card">
-        <img src="images/DIGITAL INVITE.jpg" alt="Invite Design">
-        <p>Invite & Mailer Design</p>
-      </div>
-      <div class="card">
-        <img src="images/GFXTAB PORTFOLIO.jpg" alt="Mockups">
-        <p>Mockups</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      I'm Taiyyab Saiyyad, founder of <b>GFXTAB</b>.  
-      With 4+ years of experience in Graphic Design, Motion Graphics, and Branding,  
-      I create impactful visuals that connect with audiences.  
-    </p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <div class="social-links">
-      <a href="mailto:tabsaiyyad@gmail.com">📧 Email</a>
-      <a href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" target="_blank">🔗 LinkedIn</a>
-      <a href="https://www.fiverr.com/s/2K87zgL" target="_blank">🎨 Fiverr</a>
-      <a href="https://www.instagram.com/gfxtab" target="_blank">📷 Instagram</a>
-      <a href="https://www.behance.net/taiyyabsaiyyad1" target="_blank">🖌️ Behance</a>
-    </div>
+  <section class="gallery">
+    <a class="card" href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp" target="_blank">
+      <img src="LOGO_DESIGN.jpg" alt="Logo Design" />
+      <h3>Logo Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7" target="_blank">
+      <img src="GFXTAB_PORTFOLIO.jpg" alt="Mockups" />
+      <h3>Mockups</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL" target="_blank">
+      <img src="DIGITAL_INVITE.jpg" alt="Mailer Invite Design" />
+      <h3>Mailer | Invite Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4" target="_blank">
+      <img src="VIDEO_EDITING.jpg" alt="Video Editing" />
+      <h3>Video Editing</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa" target="_blank">
+      <img src="3D.jpg" alt="3D Art" />
+      <h3>3D Art</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq" target="_blank">
+      <img src="PHOTOSHOP.jpg" alt="Photoshop Manipulation" />
+      <h3>Photoshop Manipulation</h3>
+    </a>
   </section>
 
   <footer>
-    <p>© 2025 GFXTAB | Designed by Taiyyab Saiyyad</p>
+    © 2025 GFXTAB. All rights reserved.
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
+
