@@ -82,6 +82,7 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 GFXTAB | Designed by Taiyyab Saiyyad</p>
   </footer>
