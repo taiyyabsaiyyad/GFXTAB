@@ -1,93 +1,37 @@
-/* ---------- NAVIGATION (DESKTOP DEFAULT) ---------- */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 40px;
-  background: #000;
-  color: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-}
-
-header .logo {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-nav {
-  display: flex;
+/* Portfolio Grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-nav a {
-  text-decoration: none;
-  color: #fff;
-  font-size: 16px;
-  transition: 0.3s;
+/* Portfolio Cards */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-nav a:hover {
-  color: #ff9800;
-}
-
-/* ---------- MENU TOGGLE (HAMBURGER) ---------- */
-.menu-toggle {
-  font-size: 28px;
-  cursor: pointer;
-  display: none;
-}
-
-/* ---------- OVERLAY ---------- */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
+.card img {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 900;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  height: 200px; /* Fix image height */
+  object-fit: cover; /* Crops image nicely */
+  border-bottom: 2px solid #eee;
 }
 
-.overlay.active {
-  display: block;
-  opacity: 1;
+.card p {
+  padding: 10px;
+  font-weight: 500;
 }
 
-/* ---------- RESPONSIVE (MOBILE MENU) ---------- */
-@media (max-width: 768px) {
-  nav {
-    display: none; /* hide desktop nav */
-  }
-
-  .menu-toggle {
-    display: block; /* show hamburger */
-  }
-
-  #nav-links {
-    position: fixed;
-    top: 0;
-    right: -250px; /* hidden off-screen */
-    height: 100%;
-    width: 220px;
-    background: #111;
-    padding: 60px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 1001;
-    border-left: 2px solid #222;
-    transition: right 0.3s ease-in-out;
-  }
-
-  #nav-links.show {
-    right: 0; /* slide-in */
-  }
+/* Hover effect */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
