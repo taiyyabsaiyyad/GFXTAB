@@ -42,19 +42,19 @@
         <p>Photoshop Manipulation</p>
       </div>
       <div class="card">
-        <img src="images/VIDEO_EDITING.jpg" alt="Video Editing">
+        <img src="images/VIDEO EDITING.jpg" alt="Video Editing">
         <p>Video Editing</p>
       </div>
       <div class="card">
-        <img src="images/LOGO_DESIGN.jpg" alt="Logo Design">
+        <img src="images/LOGO DESIGN.jpg" alt="Logo Design">
         <p>Logo Design</p>
       </div>
       <div class="card">
-        <img src="images/DIGITAL_INVITE.jpg" alt="Invite Design">
+        <img src="images/DIGITAL INVITE.jpg" alt="Invite Design">
         <p>Invite & Mailer Design</p>
       </div>
       <div class="card">
-        <img src="images/GFXTAB_PORTFOLIO.jpg" alt="Mockups">
+        <img src="images/GFXTAB PORTFOLIO.jpg" alt="Mockups">
         <p>Mockups</p>
       </div>
     </div>
@@ -82,7 +82,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 GFXTAB | Designed by Taiyyab Saiyyad</p>
   </footer>
