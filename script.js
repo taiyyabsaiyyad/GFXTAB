@@ -1,11 +1,11 @@
-// Project Items
+// Portfolio items (Google Drive links converted!)
 const ITEMS = [
   {
     id: '3d_01',
     title: '3D Work Sample',
     category: '3D Art',
     type: 'image',
-    thumb: 'https://via.placeholder.com/400x300.png?text=3D+Art',
+    thumb: 'https://drive.google.com/uc?export=view&id=1AbCdEfGhIjKlMnOpQ',
     folder: 'https://drive.google.com/drive/folders/XXXX'
   },
   {
@@ -13,7 +13,7 @@ const ITEMS = [
     title: 'Logo Design',
     category: 'Logo',
     type: 'image',
-    thumb: 'https://via.placeholder.com/400x300.png?text=Logo',
+    thumb: 'https://drive.google.com/uc?export=view&id=1XyZ9876LMNOPQRST',
     folder: 'https://drive.google.com/drive/folders/YYYY'
   },
   {
@@ -21,62 +21,47 @@ const ITEMS = [
     title: 'Video Editing',
     category: 'Video Editing',
     type: 'video',
-    thumb: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    thumb: 'https://drive.google.com/uc?export=view&id=1ZZZ1234ABCDE5678',
     folder: 'https://drive.google.com/drive/folders/ZZZZ'
   }
 ];
 
-const grid = document.getElementById("workGrid");
-const modal = document.getElementById("previewModal");
-const previewContainer = document.getElementById("previewContainer");
-const driveLink = document.getElementById("driveLink");
-const closeBtn = document.querySelector(".close");
-
-// Render Cards
-function renderCards(filter = "all") {
-  grid.innerHTML = "";
+// Render cards
+const portfolio = document.getElementById("portfolio");
+function renderItems(filter) {
+  portfolio.innerHTML = "";
   ITEMS.filter(item => filter === "all" || item.category === filter)
        .forEach(item => {
     const card = document.createElement("div");
-    card.className = "work-card";
-    card.innerHTML = `
-      ${item.type === "image"
-        ? `<img src="${item.thumb}" alt="${item.title}">`
-        : `<video src="${item.thumb}" muted></video>`}
-      <h3>${item.title}</h3>
-    `;
+    card.className = "card";
+    card.innerHTML = item.type === "image"
+      ? `<img src="${item.thumb}" alt="${item.title}">`
+      : `<video src="${item.thumb}" controls></video>`;
     card.onclick = () => openModal(item);
-    grid.appendChild(card);
-  });
-
-  // Animate with GSAP
-  gsap.from(".work-card", {
-    opacity: 0,
-    y: 40,
-    duration: 0.6,
-    stagger: 0.1
+    portfolio.appendChild(card);
   });
 }
 
-// Modal
-function openModal(item) {
-  modal.style.display = "flex";
-  previewContainer.innerHTML = item.type === "image"
-    ? `<img src="${item.thumb}" alt="${item.title}">`
-    : `<video src="${item.thumb}" controls autoplay></video>`;
-  driveLink.href = item.folder;
-}
-closeBtn.onclick = () => modal.style.display = "none";
-window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
-
-// Filters
-document.querySelectorAll(".filters button").forEach(btn => {
+// Filter buttons
+document.querySelectorAll("nav button").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelector(".filters button.active")?.classList.remove("active");
-    btn.classList.add("active");
-    renderCards(btn.dataset.filter);
+    renderItems(btn.dataset.filter);
   });
 });
 
-// Init
-renderCards();
+// Modal
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
+const openDrive = document.getElementById("openDrive");
+document.getElementById("closeModal").onclick = () => modal.classList.add("hidden");
+
+function openModal(item) {
+  modalBody.innerHTML = item.type === "image"
+    ? `<img src="${item.thumb}" style="max-width:100%;">`
+    : `<video src="${item.thumb}" controls autoplay style="max-width:100%;">`;
+  openDrive.href = item.folder;
+  modal.classList.remove("hidden");
+}
+
+// Load all by default
+renderItems("all");
