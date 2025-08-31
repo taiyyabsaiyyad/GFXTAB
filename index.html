@@ -1,33 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GFXTAB — My Work</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GFXTAB Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      max-width: 220px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+    .card h3 {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      transition: background 0.3s;
+    }
+    .card:hover h3 {
+      background: rgba(0,0,0,0.8);
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>My Work</h1>
-    <nav>
-      <button data-filter="all">All</button>
-      <button data-filter="3D Art">3D</button>
-      <button data-filter="Logo">Logos</button>
-      <button data-filter="Video Editing">Videos</button>
-    </nav>
+    <img src="https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn" alt="GFXTAB Logo" />
+    <h1>GFXTAB – Creative Portfolio</h1>
   </header>
 
-  <main id="portfolio" class="grid"></main>
+  <section class="gallery">
+    <a class="card" href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="Logo Design" />
+      <h3>Logo Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="Mockups" />
+      <h3>Mockups</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="Mailer Invite Design" />
+      <h3>Mailer | Invite Design</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="Video Editing" />
+      <h3>Video Editing</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="3D Art" />
+      <h3>3D Art</h3>
+    </a>
+    <a class="card" href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq" target="_blank">
+      <img src="https://drive.google.com/uc?export=view&id=PUT_YOUR_FILE_ID_HERE" alt="Photoshop Manipulation" />
+      <h3>Photoshop Manipulation</h3>
+    </a>
+  </section>
 
-  <!-- Modal -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="closeModal">&times;</span>
-      <div id="modal-body"></div>
-      <a id="openDrive" href="#" target="_blank">📂 Open in Drive</a>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <footer>
+    © 2025 GFXTAB. All rights reserved.
+  </footer>
 </body>
 </html>
