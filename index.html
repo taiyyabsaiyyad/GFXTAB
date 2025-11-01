@@ -1,116 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GFXTAB Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GFXTAB — Futuristic Studio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      color: #222;
+    :root{
+      --bg: #070712; /* deep space */
+      --panel: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.03);
+      --muted: #9aa3b2;
+      --neon-1: #60e0ff; /* cyan */
+      --neon-2: #9d6bff; /* violet */
+      --accent: linear-gradient(90deg,var(--neon-1),var(--neon-2));
+      --radius: 16px;
+      --glass-border: rgba(255,255,255,0.06);
     }
-    header {
-      background: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      border-bottom: 1px solid #ddd;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: radial-gradient(1200px 600px at 10% 10%, rgba(96,224,255,0.06), transparent 6%),
+                radial-gradient(1000px 500px at 95% 85%, rgba(157,107,255,0.04), transparent 8%),
+                var(--bg);
+      color:#e6eefc; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      padding-bottom:80px;
     }
-    header img {
-      max-width: 220px;
+
+    /* Container */
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+
+    /* Top bar */
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,var(--neon-1),var(--neon-2));display:grid;place-items:center;box-shadow:0 10px 40px rgba(157,107,255,0.12);}
+    .brand-logo img{width:44px;height:44px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,0.06);padding:6px}
+    .brand .name{font-family:Poppins, Inter; font-weight:800; font-size:18px; letter-spacing:-0.4px}
+    .brand .tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+    /* Search + actions */
+    .actions{display:flex;gap:12px;align-items:center}
+    .search{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:10px 14px;border-radius:999px;display:flex;align-items:center;gap:10px;min-width:260px}
+    .search input{background:transparent;border:0;outline:none;color:inherit;font-size:14px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid transparent;background:var(--panel);cursor:pointer;font-weight:600;color:inherit}
+    .btn.cta{background:var(--accent);color:#031022;box-shadow:0 8px 30px rgba(99,102,241,0.12)}
+
+    /* Hero */
+    .hero{margin:28px 0 12px;padding:28px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);display:flex;gap:20px;align-items:center}
+    .hero .left{flex:1}
+    .hero h1{font-family:Poppins;font-weight:800;margin:0;font-size:30px;color:transparent;background-clip:text;-webkit-background-clip:text;background-image:var(--accent)}
+    .hero p{margin:8px 0 0;color:var(--muted);max-width:760px}
+    .hero .kpis{display:flex;gap:14px;margin-top:14px}
+    .kpi{background:linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.01));padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);min-width:120px}
+    .kpi strong{display:block;font-size:16px}
+
+    .hero .visual{width:320px;height:160px;border-radius:14px; background:linear-gradient(135deg, rgba(96,224,255,0.06), rgba(157,107,255,0.05));display:grid;place-items:center;border:1px solid rgba(255,255,255,0.03)}
+
+    /* Filters */
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .chip{padding:8px 12px;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600;color:var(--muted);font-size:13px}
+    .chip.active{background:var(--accent);color:#031022;border:0;box-shadow:0 10px 40px rgba(99,102,241,0.08)}
+
+    /* Grid */
+    main{padding-top:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px,1fr));gap:18px;margin-top:18px}
+    .card{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .36s, box-shadow .36s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(2,6,23,0.6)}
+    .thumb{height:170px;background:#06101a;display:block}
+    .thumb img, .thumb video{width:100%;height:100%;object-fit:cover;display:block}
+    .card .meta{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .meta .title{font-weight:700;color:#e6eefc}
+    .meta .sub{font-size:13px;color:var(--muted)}
+    .meta .pill{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:600;color:var(--muted);font-size:13px}
+
+    /* Neon accent stripe */
+    .card:before{content:'';position:absolute;left:0;top:0;height:6px;width:100%;background:linear-gradient(90deg,var(--neon-1),var(--neon-2));opacity:0.18}
+
+    /* Preview modal */
+    #preview{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:120;background:linear-gradient(0deg, rgba(2,6,23,0.8), rgba(2,6,23,0.7));visibility:hidden;opacity:0;transition:opacity .18s,visibility .18s}
+    #preview.open{visibility:visible;opacity:1}
+    .preview-card{width:92%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    .preview-grid{display:grid;grid-template-columns:1fr 360px}
+    .preview-media{background:black;min-height:420px;display:grid;place-items:center}
+    .preview-media img, .preview-media video{max-width:100%;max-height:100%;object-fit:contain}
+    .preview-side{padding:18px}
+    .preview-side h2{margin:0;font-family:Poppins;font-weight:800;color:transparent;background-clip:text;-webkit-background-clip:text;background-image:var(--accent);font-size:20px}
+    .preview-side p{color:var(--muted);margin-top:8px}
+    .preview-actions{display:flex;gap:10px;margin-top:16px}
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px 12px;border-radius:10px;color:var(--muted);cursor:pointer}
+    .primary{padding:10px 14px;border-radius:12px;border:0;background:var(--accent);color:#031022;font-weight:700;cursor:pointer}
+
+    /* Footer */
+    footer{text-align:center;color:var(--muted);padding:26px 0;margin-top:40px}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .preview-grid{grid-template-columns:1fr}
+      .hero{flex-direction:column;align-items:flex-start}
+      .hero .visual{width:100%;height:160px}
     }
-    h1 {
-      font-size: 1.8rem;
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-    .card h3 {
-      padding: 1rem;
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: 500;
-      text-align: center;
-      background: #fff;
-    }
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.9rem;
-      color: #777;
-      border-top: 1px solid #ddd;
-      background: white;
-      margin-top: 2rem;
+
+    @media (max-width:520px){
+      .search{min-width:140px}
+      .brand .name{font-size:16px}
+      .hero h1{font-size:22px}
+      .thumb{height:150px}
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="GFXTAB_PORTFOLIO.jpg" alt="GFXTAB Logo" />
-    <h1>GFXTAB – Creative Portfolio</h1>
-  </header>
 
-  <section class="gallery">
-    <a class="card" href="https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp" target="_blank">
-      <img src="LOGO_DESIGN.jpg" alt="Logo Design" />
-      <h3>Logo Design</h3>
-    </a>
-    <a class="card" href="https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7" target="_blank">
-      <img src="GFXTAB_PORTFOLIO.jpg" alt="Mockups" />
-      <h3>Mockups</h3>
-    </a>
-    <a class="card" href="https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL" target="_blank">
-      <img src="DIGITAL_INVITE.jpg" alt="Mailer Invite Design" />
-      <h3>Mailer | Invite Design</h3>
-    </a>
-    <a class="card" href="https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4" target="_blank">
-      <img src="VIDEO_EDITING.jpg" alt="Video Editing" />
-      <h3>Video Editing</h3>
-    </a>
-    <a class="card" href="https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa" target="_blank">
-      <img src="3D.jpg" alt="3D Art" />
-      <h3>3D Art</h3>
-    </a>
-    <a class="card" href="https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq" target="_blank">
-      <img src="PHOTOSHOP.jpg" alt="Photoshop Manipulation" />
-      <h3>Photoshop Manipulation</h3>
-    </a>
-  </section>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true"><img src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" alt="GFXTAB"/></div>
+        <div>
+          <div class="name">GFXTAB</div>
+          <div class="tag">Creative studio • designer-first assets & reels</div>
+        </div>
+      </div>
 
-  <footer>
-    © 2025 GFXTAB. All rights reserved.
-  </footer>
+      <div class="actions">
+        <div class="search" role="search" aria-label="Search projects">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35" stroke="#9aa3b2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="#9aa3b2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="searchInput" placeholder="Search projects, tags or filenames" />
+        </div>
+        <button class="btn" id="toggleView" title="Toggle layout">Tiles</button>
+        <a class="btn cta" href="#contact">Hire / Download</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="left">
+        <h1>Designer • Futuristic • Studio-grade previews</h1>
+        <p>Showcase your best reels, mockups and case studies with a premium presentation—fast previews, clean folders and direct downloads. Built for portfolio conversions.</p>
+
+        <div class="kpis">
+          <div class="kpi"><strong>120+</strong><span style="color:var(--muted);font-size:12px">Projects</span></div>
+          <div class="kpi"><strong>20k</strong><span style="color:var(--muted);font-size:12px">Downloads</span></div>
+          <div class="kpi"><strong>4 yrs</strong><span style="color:var(--muted);font-size:12px">Experience</span></div>
+        </div>
+
+        <div class="controls" id="controls">
+          <!-- chips injected by JS -->
+        </div>
+      </div>
+
+      <div class="visual" aria-hidden="true">
+        <!-- small animated composition -->
+        <svg width="220" height="120" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#60e0ff"/><stop offset="1" stop-color="#9d6bff"/></linearGradient>
+          </defs>
+          <rect x="6" y="6" width="208" height="108" rx="12" fill="url(#g1)" opacity="0.08"/>
+          <circle cx="60" cy="60" r="30" fill="#60e0ff" opacity="0.12"/>
+          <rect x="120" y="30" width="80" height="60" rx="8" fill="#9d6bff" opacity="0.08"/>
+        </svg>
+      </div>
+    </section>
+
+    <main>
+      <div id="grid" class="grid" aria-live="polite"></div>
+    </main>
+
+    <!-- Preview Modal -->
+    <div id="preview" role="dialog" aria-hidden="true" tabindex="-1">
+      <div class="preview-card" role="document">
+        <div class="preview-grid">
+          <div class="preview-media" id="previewMedia"></div>
+          <div class="preview-side">
+            <h2 id="previewTitle">Title</h2>
+            <p id="previewCat">Category</p>
+            <p id="previewDesc">Description and notes about the project — software used, file types, and quick instructions go here.</p>
+
+            <div class="preview-actions">
+              <a id="openFolder" class="ghost" target="_blank" rel="noopener">Open folder</a>
+              <a id="downloadLink" class="primary" target="_blank" rel="noopener">Download</a>
+              <button class="ghost" onclick="closePreview()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer id="contact">
+      © 2025 GFXTAB • Crafted by Taiyyab — Visual design studio
+    </footer>
+  </div>
+
+<script>
+  // ---- DATA (keep your existing ITEMS array here) ----
+  const ITEMS = [
+    { id:'logo_main', title:'GFXTAB — Main Logo', category:'Logo', type:'image',
+      thumb:'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn',
+      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp', desc:'Primary logo pack (SVG, PNG, color variants)'} ,
+
+    { id:'3d_01', title:'Neon Orb', category:'3D Art', type:'image',
+      thumb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa', desc:'3D study with emissive materials' },
+
+    { id:'3d_02', title:'Product Study', category:'3D Art', type:'image',
+      thumb:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa', desc:'Studio-lit product mockups' },
+
+    { id:'pm_01', title:'City Manipulation', category:'Photo Manipulation', type:'image',
+      thumb:'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq', desc:'Composited cityscape' },
+
+    { id:'pm_02', title:'Surreal Sky', category:'Photo Manipulation', type:'image',
+      thumb:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq', desc:'Sky replacement & mood grading' },
+
+    { id:'vid_01', title:'Promo Reel (short)', category:'Video Editing', type:'video',
+      thumb:'https://sample-videos.com/img/Sample-jpg-image-50kb.jpg',
+      srcVideo:'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      folder:'https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4', desc:'15s promo edit with VFX' },
+
+    { id:'logo_02', title:'Logo Explorations', category:'Logo', type:'image',
+      thumb:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp', desc:'Ideas & mark iterations' },
+
+    { id:'mail_01', title:'Wedding Invite', category:'Mailer / Invite', type:'image',
+      thumb:'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL', desc:'Print-ready invite templates' },
+
+    { id:'mock_01', title:'Phone Mockup', category:'Mockups', type:'image',
+      thumb:'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7', desc:'Adaptive device mockups' },
+
+    { id:'mock_02', title:'Package Mockup', category:'Mockups', type:'image',
+      thumb:'https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7', desc:'Brand packaging study' },
+  ];
+
+  // utilities
+  function el(tag, cls){ const e = document.createElement(tag); if(cls) e.className = cls; return e }
+
+  // build chips
+  const controls = document.getElementById('controls');
+  const categories = ['All', ...new Set(ITEMS.map(i=>i.category))];
+  categories.forEach(c=>{
+    const b = el('button','chip'); b.textContent = c; b.dataset.filter = c; b.addEventListener('click',()=>applyFilter(c));
+    if(c === 'All') b.classList.add('active'); controls.appendChild(b);
+  });
+
+  // grid render
+  const grid = document.getElementById('grid');
+  function buildGrid(list = ITEMS){
+    grid.innerHTML = '';
+    list.forEach(it=>{
+      const card = el('div','card'); card.dataset.cat = it.category; card.tabIndex = 0; card.setAttribute('role','button');
+      const thumb = el('div','thumb');
+      if(it.type === 'image'){
+        const img = el('img'); img.src = it.thumb; img.alt = it.title; img.loading='lazy'; thumb.appendChild(img);
+      } else {
+        const v = el('video'); v.src = it.srcVideo || it.thumb; v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; thumb.appendChild(v);
+      }
+      const meta = el('div','meta');
+      meta.innerHTML = `<div><div class="title">${escapeHtml(it.title)}</div><div class="sub">${escapeHtml(it.category)}</div></div>`;
+      const right = el('div'); right.innerHTML = `<div class="pill">Open</div>`;
+      meta.appendChild(right);
+      card.appendChild(thumb); card.appendChild(meta);
+
+      card.addEventListener('click', ()=>openPreview(it));
+      card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') openPreview(it) });
+
+      grid.appendChild(card);
+    });
+
+    // entrance animation
+    gsap.from('.card', { y: 12, opacity: 0, duration: .6, stagger: .04, ease: 'power3.out' });
+  }
+  buildGrid();
+
+  // filter + search
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', ()=>{
+    const q = searchInput.value.trim().toLowerCase();
+    const filtered = ITEMS.filter(i => (i.title + ' ' + i.category + ' ' + (i.desc||'')).toLowerCase().includes(q));
+    buildGrid(filtered);
+  });
+
+  function applyFilter(cat){
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.chip').forEach(c=> { if(c.dataset.filter === cat) c.classList.add('active') });
+    if(cat === 'All'){ buildGrid(); return; }
+    buildGrid(ITEMS.filter(i=>i.category === cat));
+  }
+
+  // preview modal
+  const preview = document.getElementById('preview');
+  const previewMedia = document.getElementById('previewMedia');
+  const previewTitle = document.getElementById('previewTitle');
+  const previewCat = document.getElementById('previewCat');
+  const previewDesc = document.getElementById('previewDesc');
+  const openFolder = document.getElementById('openFolder');
+  const downloadLink = document.getElementById('downloadLink');
+
+  function openPreview(item){
+    previewMedia.innerHTML = '';
+    previewTitle.textContent = item.title;
+    previewCat.textContent = item.category;
+    previewDesc.textContent = item.desc || '';
+    openFolder.href = item.folder || '#';
+    downloadLink.href = item.folder || '#';
+
+    if(item.type === 'image'){
+      const img = document.createElement('img'); img.src = item.thumb; img.alt = item.title; previewMedia.appendChild(img);
+    } else {
+      const v = document.createElement('video'); v.src = item.srcVideo || item.thumb; v.controls = true; v.autoplay = true; v.style.maxHeight = '80vh'; previewMedia.appendChild(v);
+    }
+    preview.classList.add('open'); preview.setAttribute('aria-hidden','false');
+    gsap.fromTo('.preview-card',{y:12,opacity:0},{y:0,opacity:1,duration:.28});
+  }
+
+  function closePreview(){ preview.classList.remove('open'); preview.setAttribute('aria-hidden','true'); previewMedia.innerHTML = ''; }
+  preview.addEventListener('click', (e)=>{ if(e.target === preview) closePreview(); });
+  window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closePreview(); });
+
+  // toggle layout (placeholder to switch list/grid in future)
+  document.getElementById('toggleView').addEventListener('click', ()=>{
+    const btn = document.getElementById('toggleView'); if(btn.textContent === 'Tiles'){ btn.textContent = 'Compact'; grid.style.gridTemplateColumns = 'repeat(auto-fit,minmax(140px,1fr))'} else { btn.textContent = 'Tiles'; grid.style.gridTemplateColumns = 'repeat(auto-fit,minmax(240px,1fr))' }
+  });
+
+  // helper escape
+  function escapeHtml(s){ return String(s).replace(/[&<>"]+/g, t => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[t]||t)); }
+
+  // small entrance for hero
+  gsap.from('header',{y:-8,opacity:0,duration:.5});
+  gsap.from('.hero h1',{y:6,opacity:0,duration:.6,delay:.1});
+</script>
 </body>
 </html>
-
