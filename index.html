@@ -241,13 +241,21 @@
   const grid = document.getElementById('grid');
   function buildGrid(){ grid.innerHTML = '';
     ITEMS.forEach(it=>{
-      const card = document.createElement('div'); card.className='card';
+      const card = document.createElement('div'); card.className='card'; card.tabIndex=0; card.setAttribute('role','button');
       const thumb = document.createElement('div'); thumb.className='thumb';
       if(it.type==='image'){ const img=document.createElement('img'); img.src=it.thumb; img.alt=it.title; thumb.appendChild(img); }
       else{ const v=document.createElement('video'); v.src=it.srcVideo||it.thumb; v.muted=true; v.autoplay=true; v.loop=true; v.playsInline=true; thumb.appendChild(v); }
-      const meta=document.createElement('div'); meta.className='meta'; meta.innerHTML = `<div><div class="title">${escapeHtml(it.title)}</div><div class="sub">${escapeHtml(it.category)}</div></div><div class="pill">Open</div>`;
+
+      const meta=document.createElement('div'); meta.className='meta';
+      const openHref = it.folder && it.folder !== '#' ? it.folder : (it.srcVideo || it.thumb || '#');
+      meta.innerHTML = `<div><div class="title">${escapeHtml(it.title)}</div><div class="sub">${escapeHtml(it.category)}</div></div>
+                        <a class="pill" href="${openHref}" target="_blank" rel="noopener">Open</a>`;
+
       card.appendChild(thumb); card.appendChild(meta);
-      card.addEventListener('click', ()=>openPreview(it));
+
+      card.addEventListener('click', (e)=>{ if(e.target.closest('a')) return; if(openHref && openHref !== '#') window.open(openHref,'_blank'); });
+      card.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ if(openHref && openHref !== '#') window.open(openHref,'_blank'); }});
+
       grid.appendChild(card);
     });
     gsap.from('.card',{y:12,opacity:0,duration:.6,stagger:.04,ease:'power3.out'});
