@@ -46,7 +46,8 @@
 
     .header-actions{display:flex;gap:10px}
     .social-btn{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 20px rgba(0,0,0,0.5);transition:transform .18s,box-shadow .18s}
-    .social-btn svg{width:18px;height:18px;stroke:var(--neon-2);fill:none}
+    .social-btn svg{width:18px;height:18px;stroke:transparent;fill:transparent}
+    .social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 60px rgba(77,184,255,0.12)}
 
     /* Behance brand */
     .social-btn.behance{background:linear-gradient(180deg,#1769ff,#0b61d6);box-shadow:0 18px 60px rgba(23,105,255,0.12)}
@@ -61,11 +62,15 @@
     .social-btn.mail{background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));}
     .social-btn.mail svg path{stroke:#001217;fill:transparent}
 
-    .social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 60px rgba(77,184,255,0.12)}
-    .social-btn svg{width:18px;height:18px;stroke:var(--neon-2);fill:none}
-    .social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 60px rgba(77,184,255,0.12)}
+    /* shimmering headline */
+    .brand-hero{font-family:Poppins;font-weight:900;font-size:64px;margin:0;line-height:0.95;background-image:var(--accent);-webkit-background-clip:text;color:transparent;position:relative;display:inline-block}
+    .brand-hero::after{content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.22),rgba(255,255,255,0.06));transform:skewX(-18deg);animation:shimmer 4s linear infinite}
+    @keyframes shimmer{0%{left:-30%}50%{left:120%}100%{left:120%}}
 
-    /* Hero */
+    .smallcap{margin-top:8px;font-size:14px;color:var(--muted);letter-spacing:1px;font-weight:600}
+    .lead{margin-top:16px;color:var(--muted);font-size:16px;max-width:680px;line-height:1.6}
+
+    /* hero visual-wall styles */
     .visual-wall{position:relative;min-width:260px;max-width:360px;height:220px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02);overflow:hidden;background:linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.35));}
     .neon-name{font-family:Poppins;font-weight:800;font-size:20px;background-image:var(--accent);-webkit-background-clip:text;color:transparent;letter-spacing:0.6px}
     .neon-sub{font-size:12px;color:var(--muted);margin-top:6px}
@@ -73,13 +78,9 @@
     .neon-dot{position:absolute;width:12px;height:12px;border-radius:99px;background:var(--neon-1);box-shadow:0 6px 26px rgba(0,212,195,0.45);opacity:0;transform:scale(0.6);animation:blink 2.2s infinite ease-in-out}
     @keyframes blink{0%{opacity:0;transform:scale(0.6)}10%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.85)}100%{opacity:0;transform:scale(0.6)}}
 
+    /* Hero */
     .hero{margin:28px 0;padding:30px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.02);display:flex;gap:26px;align-items:center}
     .hero .left{flex:1}
-    .brand-hero{font-family:Poppins;font-weight:900;font-size:64px;margin:0;line-height:0.95;background-image:var(--accent);-webkit-background-clip:text;color:transparent}
-    .smallcap{margin-top:8px;font-size:14px;color:var(--muted);letter-spacing:1px;font-weight:600}
-    .lead{margin-top:18px;color:var(--muted);font-size:16px;max-width:680px;line-height:1.6}
-
-    .hero .visual{width:360px;height:220px;border-radius:12px;background:linear-gradient(135deg, rgba(0,212,195,0.06), rgba(77,184,255,0.05));display:grid;place-items:center;border:1px solid rgba(255,255,255,0.02)}
 
     /* Grid */
     main{padding:36px 0}
@@ -190,9 +191,15 @@
           <p class="info" style="margin-top:12px;color:var(--muted)">Available for freelance projects, collaborations, and creative partnerships. Send a brief about your project — timeline, budget, and goals.</p>
 
           <div style="margin-top:16px;display:flex;gap:10px">
-            <a class="social-btn" href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" aria-label="Behance" style="width:44px;height:44px"></a>
-            <a class="social-btn" href="https://www.instagram.com/gfxtab" target="_blank" aria-label="Instagram" style="width:44px;height:44px"></a>
-            <a class="social-btn" href="mailto:tabsaiyyad@gmail.com" aria-label="Email" style="width:44px;height:44px"></a>
+            <a class="social-btn behance" href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" aria-label="Behance">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 11h3a3 3 0 0 0 0-6H7v6zM5 20h5a3 3 0 1 0 0-6H5v6zM17 8a4 4 0 0 1 0 8 4 4 0 0 1 0-8z"/></svg>
+            </a>
+            <a class="social-btn instagram" href="https://www.instagram.com/gfxtab" target="_blank" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" ry="5"/><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg>
+            </a>
+            <a class="social-btn mail" href="mailto:tabsaiyyad@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2l-9 5-9-5V6z"/><path d="M21 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/></svg>
+            </a>
           </div>
         </div>
 
