@@ -83,6 +83,10 @@
     .hero .left{flex:1}
 
     /* Grid */
+    .ribbons{margin:-8px 0 18px}
+    .ribbons svg{display:block}
+    /* tighten layout */
+    main{padding:12px 0 36px}
     main{padding:36px 0}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
     .card{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .3s,box-shadow .3s}
@@ -143,7 +147,7 @@
         </div>
       </div>
 
-      <div class=\"header-actions\">
+      <div class="header-actions">
         <a class=\"social-btn behance\" href=\"https://www.behance.net/taiyyabsaiyyad1\" target=\"_blank\" aria-label=\"Behance\">
           <!-- Behance brand icon (white on blue background) -->
           <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6.5 10.5H10c1.933 0 3.5-1.567 3.5-3.5S11.933 3.5 10 3.5H6.5v7zM6.5 13.5V20H2.5V4h8c2.485 0 4.5 2.015 4.5 4.5S12.985 13 10.5 13H6.5z\" fill=\"#fff\" opacity=\"0.95\"/></svg>
@@ -177,6 +181,18 @@
         </div>
       </div>
     </section>
+
+    <!-- Decorative ribbons background to fill empty space -->
+    <div class="ribbons" aria-hidden="true">
+      <svg viewBox="0 0 1200 260" width="100%" height="260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rb1" x1="0" x2="1"><stop offset="0" stop-color="#00d4c3" stop-opacity="0.18"/><stop offset="1" stop-color="#4db8ff" stop-opacity="0.18"/></linearGradient>
+          <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
+        </defs>
+        <path d="M0 140 C 220 40 380 220 600 120 C 820 20 980 200 1200 100 L 1200 260 L 0 260 Z" fill="url(#rb1)" filter="url(#blur)"/>
+        <path d="M0 170 C 200 90 400 240 600 160 C 800 80 1000 240 1200 160 L 1200 260 L 0 260 Z" fill="url(#rb1)" opacity="0.35"/>
+      </svg>
+    </div>
 
     <main>
       <div class="grid" id="grid" aria-live="polite"></div>
@@ -229,12 +245,39 @@
 <script>
   // Items: replace with your Drive links or public images
   const ITEMS = [
-    { id:'logo_main', title:'GFXTAB — Main Logo', category:'Logo', type:'image', thumb:'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn', folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp' },
-    { id:'3d_01', title:'Neon Orb', category:'3D Art', type:'image', thumb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop', folder:'#' },
-    { id:'pm_01', title:'City Manipulation', category:'Photo Manipulation', type:'image', thumb:'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop', folder:'#' },
-    { id:'vid_01', title:'Promo Reel (short)', category:'Video Editing', type:'video', thumb:'https://sample-videos.com/img/Sample-jpg-image-50kb.jpg', srcVideo:'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4', folder:'#' },
-    { id:'mail_01', title:'Digital Invites Design', category:'Mailer / Invite', type:'image', thumb:'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop', folder:'#' },
-    { id:'mock_01', title:'Phone Mockup', category:'Mockups', type:'image', thumb:'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop', folder:'#' }
+    { id:'logo_main', title:'GFXTAB — Main Logo', category:'Logo', type:'image',
+      thumb:'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn',
+      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp' },
+
+    { id:'3d_01', title:'Neon Orb (3D Study)', category:'3D Art', type:'image',
+      thumb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
+    { id:'3d_02', title:'Product Lighting (3D)', category:'3D Art', type:'image',
+      thumb:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
+
+    { id:'pm_01', title:'City Manipulation', category:'Photo Manipulation', type:'image',
+      thumb:'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
+    { id:'pm_02', title:'Surreal Sky Composite', category:'Photo Manipulation', type:'image',
+      thumb:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
+
+    { id:'vid_01', title:'Promo Reel (Short)', category:'Video Editing', type:'video',
+      thumb:'https://sample-videos.com/img/Sample-jpg-image-50kb.jpg',
+      srcVideo:'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
+      folder:'https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4' },
+
+    { id:'mail_01', title:'Digital Invites Design', category:'Mailer / Invite', type:'image',
+      thumb:'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL' },
+
+    { id:'mock_01', title:'Phone Mockups', category:'Mockups', type:'image',
+      thumb:'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
+    { id:'mock_02', title:'Package Mockups', category:'Mockups', type:'image',
+      thumb:'https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1600&auto=format&fit=crop',
+      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
   ];
 
   // render grid
@@ -274,27 +317,4 @@
     if(item.folder && item.folder !== '#') window.open(item.folder,'_blank');
   }
 
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[t]||t)); }
-
-  // contact form: open mailto with filled content
-  const form=document.getElementById('contactForm');
-  const note=document.getElementById('formNote');
-  form.addEventListener('submit', e=>{
-    e.preventDefault();
-    const name=document.getElementById('name').value.trim();
-    const email=document.getElementById('email').value.trim();
-    const message=document.getElementById('message').value.trim();
-    if(!name||!email||!message){ note.textContent='Please fill all fields.'; return; }
-    const subject = encodeURIComponent(`GFXTAB enquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-    const mailto = `mailto:tabsaiyyad@gmail.com?subject=${subject}&body=${body}`;
-    window.location.href = mailto;
-    note.textContent='Opening mail client…';
-  });
-
-  // small entrance
-  gsap.from('.brand-hero',{y:6,opacity:0,duration:.6});
-  gsap.from('header',{y:-8,opacity:0,duration:.5});
-</script>
-</body>
-</html>
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&
