@@ -1,320 +1,100 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GFXTAB — Designers Choice | Assets & Reels</title>
+<!-- GFXTAB Chatbot: markup + styles + script -->
+<style>
+  :root{ --bot-bg: #0b0f17; --bot-panel: rgba(255,255,255,0.04); --bot-accent-1:#00d4c3; --bot-accent-2:#4db8ff; }
+  .gfxtab-bot-toggle{position:fixed;right:22px;bottom:22px;width:64px;height:64px;border-radius:999px;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));box-shadow:0 24px 60px rgba(77,184,255,0.18);display:grid;place-items:center;cursor:pointer;z-index:9999}
+  .gfxtab-bot-toggle svg{width:28px;height:28px;stroke:#001217}
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  .gfxtab-bot{position:fixed;right:22px;bottom:98px;width:360px;max-width:92vw;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden;display:none;z-index:9999}
+  .gfxtab-bot.open{display:block}
+  .gfxtab-bot header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .gfxtab-bot header .tt{font:800 14px Poppins,Inter,sans-serif;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));-webkit-background-clip:text;color:transparent}
+  .gfxtab-bot header button{background:transparent;border:0;color:#9aa3b2;cursor:pointer}
 
-  <style>
-    :root{
-      --bg:#020205;
-      --muted:#9aa3b2;
-      --neon-1:#00d4c3; /* teal */
-      --neon-2:#4db8ff; /* blue */
-      --accent:linear-gradient(90deg,var(--neon-1),var(--neon-2));
-      --panel: rgba(255,255,255,0.03);
-      --glass: rgba(255,255,255,0.04);
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{
-      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background:var(--bg); color:#e6eefc; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden;
-    }
+  .gfxtab-bot .msgs{height:360px;max-height:56vh;overflow:auto;scroll-behavior:smooth;padding:12px}
+  .gfxtab-bot .m{display:flex;gap:8px;margin-bottom:10px}
+  .gfxtab-bot .m.you{justify-content:flex-end}
+  .gfxtab-bot .b{max-width:80%;padding:10px 12px;border-radius:12px;font:13px/1.5 Inter,sans-serif}
+  .gfxtab-bot .m.me .b{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
+  .gfxtab-bot .m.you .b{background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));color:#001217;font-weight:600}
 
-    /* full-site blurred diamond-like texture (teal-blue) */
-    body::before{content:'';position:fixed;inset:-10% -20% -10% -20%;background:
-      radial-gradient(600px 300px at 10% 5%, rgba(0,212,195,0.12), transparent 10%),
-      radial-gradient(500px 260px at 90% 85%, rgba(77,184,255,0.09), transparent 8%),
-      radial-gradient(300px 200px at 50% 40%, rgba(0,212,195,0.06), transparent 10%);
-      filter:blur(40px) saturate(110%);
-      transform:translateZ(0);z-index:0;pointer-events:none;}
+  .gfxtab-bot .quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}
+  .gfxtab-bot .quick button{padding:6px 8px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:#cfd6e6;font:600 12px Inter;cursor:pointer}
 
-    .wrap{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:28px}
+  .gfxtab-bot .composer{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,0.06)}
+  .gfxtab-bot input{flex:1;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;color:#e6eefc;outline:none;font:13px Inter}
+  .gfxtab-bot .send{padding:10px 12px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));color:#001217;font:700 13px Inter;cursor:pointer}
 
-    /* Header */
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .brand{display:flex;gap:14px;align-items:center}
-    .brand-logo{width:60px;height:60px;border-radius:14px;background:var(--accent);display:grid;place-items:center;box-shadow:0 20px 60px rgba(0,212,195,0.08)}
-    .brand-logo img{width:44px;height:44px;border-radius:8px}
-    .brand .name{font-family:Poppins;font-weight:800;font-size:18px}
-    .brand .tag{font-size:13px;color:var(--muted)}
+  @media (max-width:520px){ .gfxtab-bot{right:10px;left:10px;bottom:90px;width:auto} }
+</style>
 
-    .header-actions{display:flex;gap:10px}
-    .social-btn{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 20px rgba(0,0,0,0.5);transition:transform .18s,box-shadow .18s}
-    .social-btn svg{width:18px;height:18px;stroke:transparent;fill:transparent}
-    .social-btn:hover{transform:translateY(-4px);box-shadow:0 18px 60px rgba(77,184,255,0.12)}
-
-    /* Behance brand */
-    .social-btn.behance{background:linear-gradient(180deg,#1769ff,#0b61d6);box-shadow:0 18px 60px rgba(23,105,255,0.12)}
-    .social-btn.behance svg{width:20px;height:20px}
-    .social-btn.behance svg path{fill:#fff}
-
-    /* Instagram gradient */
-    .social-btn.instagram{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);box-shadow:0 18px 60px rgba(255,90,130,0.08)}
-    .social-btn.instagram svg path{fill:#fff}
-
-    /* Email neutral */
-    .social-btn.mail{background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));}
-    .social-btn.mail svg path{stroke:#001217;fill:transparent}
-
-    /* shimmering headline */
-    .brand-hero{font-family:Poppins;font-weight:900;font-size:64px;margin:0;line-height:0.95;background-image:var(--accent);-webkit-background-clip:text;color:transparent;position:relative;display:inline-block}
-    .brand-hero::after{content:'';position:absolute;left:-30%;top:0;height:100%;width:30%;background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.22),rgba(255,255,255,0.06));transform:skewX(-18deg);animation:shimmer 4s linear infinite}
-    @keyframes shimmer{0%{left:-30%}50%{left:120%}100%{left:120%}}
-
-    .smallcap{margin-top:8px;font-size:14px;color:var(--muted);letter-spacing:1px;font-weight:600}
-    .lead{margin-top:16px;color:var(--muted);font-size:16px;max-width:680px;line-height:1.6}
-
-    /* hero visual-wall styles */
-    .visual-wall{position:relative;min-width:260px;max-width:360px;height:220px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.02);overflow:hidden;background:linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.35));}
-    .neon-name{font-family:Poppins;font-weight:800;font-size:20px;background-image:var(--accent);-webkit-background-clip:text;color:transparent;letter-spacing:0.6px}
-    .neon-sub{font-size:12px;color:var(--muted);margin-top:6px}
-    .neon-wall-blink{position:absolute;inset:0;pointer-events:none}
-    .neon-dot{position:absolute;width:12px;height:12px;border-radius:99px;background:var(--neon-1);box-shadow:0 6px 26px rgba(0,212,195,0.45);opacity:0;transform:scale(0.6);animation:blink 2.2s infinite ease-in-out}
-    @keyframes blink{0%{opacity:0;transform:scale(0.6)}10%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.85)}100%{opacity:0;transform:scale(0.6)}}
-
-    /* Hero */
-    .hero{margin:28px 0;padding:30px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.02);display:flex;gap:26px;align-items:center}
-    .hero .left{flex:1}
-
-    /* Grid */
-    .ribbons{margin:-8px 0 18px}
-    .ribbons svg{display:block}
-    /* tighten layout */
-    main{padding:12px 0 36px}
-    main{padding:36px 0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .card{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.02);cursor:pointer;transition:transform .3s,box-shadow .3s}
-    .card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.6)}
-    .thumb{height:170px;background:linear-gradient(135deg, rgba(0,212,195,0.02), rgba(77,184,255,0.02));display:grid;place-items:center}
-    .thumb img, .thumb video{width:100%;height:100%;object-fit:cover;display:block}
-    .meta{padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-    .meta .title{font-weight:700;color:#e6eefc}
-    .meta .sub{font-size:13px;color:var(--muted)}
-    .pill{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:700;color:var(--muted);font-size:13px}
-
-    /* preview modal */
-    #preview{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.68);visibility:hidden;opacity:0;transition:opacity .18s,visibility .18s;z-index:60}
-    #preview.open{visibility:visible;opacity:1}
-    .preview-card{width:92%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.008));border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    .preview-grid{display:grid;grid-template-columns:1fr 360px}
-    .preview-media{background:#000;min-height:420px;display:grid;place-items:center}
-    .preview-side{padding:18px}
-    .preview-side h2{margin:0;font-family:Poppins;font-weight:800;background-image:var(--accent);-webkit-background-clip:text;color:transparent}
-    .preview-actions{display:flex;gap:10px;margin-top:16px}
-
-    /* contact */
-    .contact{margin-top:48px;padding:28px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.006));border:1px solid rgba(255,255,255,0.02)}
-    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
-    .contact .info{color:var(--muted)}
-    .contact .email{font-weight:700;color:transparent;background-image:var(--accent);-webkit-background-clip:text}
-    .form{display:flex;flex-direction:column;gap:10px}
-    .form input,.form textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;color:inherit;outline:none}
-    .form button{padding:12px 14px;border-radius:10px;border:0;background:var(--accent);color:#031022;font-weight:700;cursor:pointer}
-
-    /* floating glowing footer */
-    .floating-footer{position:fixed;right:22px;bottom:22px;width:72px;height:72px;border-radius:999px;background:linear-gradient(90deg,var(--neon-1),var(--neon-2));display:grid;place-items:center;box-shadow:0 30px 80px rgba(77,184,255,0.14);z-index:80}
-    .floating-footer svg{width:28px;height:28px}
-
-    footer{padding:38px 0;color:var(--muted);text-align:center}
-
-    @media (max-width:980px){
-      .hero{flex-direction:column}
-      .preview-grid{grid-template-columns:1fr}
-      .contact-grid{grid-template-columns:1fr}
-      .hero .visual{width:100%;height:160px}
-    }
-    @media (max-width:520px){
-      .brand-hero{font-size:40px}
-      .grid{grid-template-columns:1fr}
-    }
-  </style>
-</head>
-<body>
-
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="brand-logo"><img src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" alt="GFXTAB"/></div>
-        <div>
-          <div class="name">GFXTAB</div>
-          <div class="tag">Designers choice | Assets & Reels</div>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <a class=\"social-btn behance\" href=\"https://www.behance.net/taiyyabsaiyyad1\" target=\"_blank\" aria-label=\"Behance\">
-          <!-- Behance brand icon (white on blue background) -->
-          <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6.5 10.5H10c1.933 0 3.5-1.567 3.5-3.5S11.933 3.5 10 3.5H6.5v7zM6.5 13.5V20H2.5V4h8c2.485 0 4.5 2.015 4.5 4.5S12.985 13 10.5 13H6.5z\" fill=\"#fff\" opacity=\"0.95\"/></svg>
-        </a>
-        <a class=\"social-btn instagram\" href=\"https://www.instagram.com/gfxtab\" target=\"_blank\" aria-label=\"Instagram\">
-          <!-- Instagram glyph simplified -->
-          <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\" fill=\"rgba(255,255,255,0.15)\"/><path d=\"M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z\" fill=\"#fff\" opacity=\"0.9\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"1\" fill=\"#fff\" opacity=\"0.9\"/></svg>
-        </a>
-        <a class=\"social-btn mail\" href=\"mailto:tabsaiyyad@gmail.com\" aria-label=\"Email\">
-          <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"2.5\" y=\"4.5\" width=\"19\" height=\"15\" rx=\"2\" fill=\"rgba(255,255,255,0.12)\"/><path d=\"M4 7l8 6 8-6\" stroke=\"#001217\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>
-        </a>
-      </div>
-    </header>
-
-    <section class="hero">
-      <div class="left">
-        <h1 class="brand-hero">GFXTAB</h1>
-        <div class="smallcap">Designers choice | Assets & Reels</div>
-        <p class="lead">Where visuals meet imagination, crafting premium assets<br>and reels that inspire, engage, and define brands.</p>
-      </div>
-
-      <div class=\"visual-wall\" aria-hidden=\"true\">
-        <div style=\"text-align:center\">
-          <div class=\"neon-name\">Taiyyab Saiyyad</div>
-          <div class=\"neon-sub\">Visual Designer • GFXTAB</div>
-        </div>
-        <div class=\"neon-wall-blink\">
-          <div class=\"neon-dot\" style=\"left:12%;top:22%;animation-delay:0s\"></div>
-          <div class=\"neon-dot\" style=\"left:72%;top:18%;background:var(--neon-2);animation-delay:0.6s\"></div>
-          <div class=\"neon-dot\" style=\"left:48%;top:68%;background:rgba(77,184,255,0.8);animation-delay:1.2s\"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Decorative ribbons background to fill empty space -->
-    <div class="ribbons" aria-hidden="true">
-      <svg viewBox="0 0 1200 260" width="100%" height="260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="rb1" x1="0" x2="1"><stop offset="0" stop-color="#00d4c3" stop-opacity="0.18"/><stop offset="1" stop-color="#4db8ff" stop-opacity="0.18"/></linearGradient>
-          <filter id="blur"><feGaussianBlur stdDeviation="14"/></filter>
-        </defs>
-        <path d="M0 140 C 220 40 380 220 600 120 C 820 20 980 200 1200 100 L 1200 260 L 0 260 Z" fill="url(#rb1)" filter="url(#blur)"/>
-        <path d="M0 170 C 200 90 400 240 600 160 C 800 80 1000 240 1200 160 L 1200 260 L 0 260 Z" fill="url(#rb1)" opacity="0.35"/>
-      </svg>
-    </div>
-
-    <main>
-      <div class="grid" id="grid" aria-live="polite"></div>
-    </main>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <div class="contact-grid">
-        <div class="info">
-          <h3 style="margin:0;font-family:Poppins;font-weight:800">Get in touch</h3>
-          <p class="email" style="margin:8px 0">tabsaiyyad@gmail.com</p>
-          <p class="info" style="margin-top:12px;color:var(--muted)">Available for freelance projects, collaborations, and creative partnerships. Send a brief about your project — timeline, budget, and goals.</p>
-
-          <div style="margin-top:16px;display:flex;gap:10px">
-            <a class="social-btn behance" href="https://www.behance.net/taiyyabsaiyyad1" target="_blank" aria-label="Behance">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 11h3a3 3 0 0 0 0-6H7v6zM5 20h5a3 3 0 1 0 0-6H5v6zM17 8a4 4 0 0 1 0 8 4 4 0 0 1 0-8z"/></svg>
-            </a>
-            <a class="social-btn instagram" href="https://www.instagram.com/gfxtab" target="_blank" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" ry="5"/><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg>
-            </a>
-            <a class="social-btn mail" href="mailto:tabsaiyyad@gmail.com" aria-label="Email">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2l-9 5-9-5V6z"/><path d="M21 10v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <form class="form" id="contactForm">
-            <input type="text" id="name" placeholder="Your name" required />
-            <input type="email" id="email" placeholder="Your email" required />
-            <textarea id="message" rows="5" placeholder="Brief — timeline, budget, goal" required></textarea>
-            <button type="submit">Send message</button>
-          </form>
-          <div id="formNote" style="margin-top:10px;color:var(--muted);font-size:13px"></div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © 2025 GFXTAB • Crafted by Taiyyab Saiyyad
-    </footer>
+<div id="gfxtab-bot" class="gfxtab-bot" aria-live="polite" aria-label="GFXTAB AI Design Assistant">
+  <header>
+    <div class="tt">GFXTAB — Design Assistant</div>
+    <button id="gfxtab-bot-close" aria-label="Close">✕</button>
+  </header>
+  <div class="msgs" id="gfxtab-bot-msgs"></div>
+  <div class="quick" id="gfxtab-bot-quick"></div>
+  <div class="composer">
+    <input id="gfxtab-bot-input" placeholder="Ask for a moodboard, palette, copy, prompt…"/>
+    <button class="send" id="gfxtab-bot-send">Send</button>
   </div>
+</div>
 
-  <div class="floating-footer" title="Hire / Contact">
-    <a href="#contact" style="display:block;width:100%;height:100%;border-radius:999px;display:grid;place-items:center;text-decoration:none;color:inherit">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="#001217" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 8V6a5 5 0 0 1 10 0v2" stroke="#001217" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
+<div class="gfxtab-bot-toggle" id="gfxtab-bot-toggle" title="Chat with GFXTAB">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a4 4 0 0 1-4 4H9l-6 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z" stroke="#001217" stroke-width="1.6" stroke-linecap="round"/></svg>
+</div>
 
 <script>
-  // Items: replace with your Drive links or public images
-  const ITEMS = [
-    { id:'logo_main', title:'GFXTAB — Main Logo', category:'Logo', type:'image',
-      thumb:'https://drive.google.com/uc?export=view&id=1U8I3NCuYq7cZdiKPCvMS5kinnUrogHbn',
-      folder:'https://drive.google.com/drive/folders/1zZ60RCjRjvodQv1UD5kT0fKd7kqH3BTp' },
+  // 👉 Set your backend URL (Render/Vercel/etc.)
+  const BACKEND_URL = 'https://YOUR-BACKEND-URL.example.com';
 
-    { id:'3d_01', title:'Neon Orb (3D Study)', category:'3D Art', type:'image',
-      thumb:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
-    { id:'3d_02', title:'Product Lighting (3D)', category:'3D Art', type:'image',
-      thumb:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1GRc6qEKyMAc2yy8B2zlWqj4ryml6mSoa' },
+  const el = (id)=>document.getElementById(id);
+  const toggle = el('gfxtab-bot-toggle');
+  const box = el('gfxtab-bot');
+  const closeBtn = el('gfxtab-bot-close');
+  const msgs = el('gfxtab-bot-msgs');
+  const quick = el('gfxtab-bot-quick');
+  const input = el('gfxtab-bot-input');
+  const send = el('gfxtab-bot-send');
 
-    { id:'pm_01', title:'City Manipulation', category:'Photo Manipulation', type:'image',
-      thumb:'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
-    { id:'pm_02', title:'Surreal Sky Composite', category:'Photo Manipulation', type:'image',
-      thumb:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1x5aVZfOgQ6F539wiDBntzZg_L9F5llQq' },
-
-    { id:'vid_01', title:'Promo Reel (Short)', category:'Video Editing', type:'video',
-      thumb:'https://sample-videos.com/img/Sample-jpg-image-50kb.jpg',
-      srcVideo:'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4',
-      folder:'https://drive.google.com/drive/folders/1yzzgIz2DJFmL9KxdHMSnGtuTgXlDJiQ4' },
-
-    { id:'mail_01', title:'Digital Invites Design', category:'Mailer / Invite', type:'image',
-      thumb:'https://images.unsplash.com/photo-1487017159836-2f8a4e66a2f3?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1fDT-2bMJw8aQf98-zgRYXzKUppXovODL' },
-
-    { id:'mock_01', title:'Phone Mockups', category:'Mockups', type:'image',
-      thumb:'https://images.unsplash.com/photo-1526178613306-0c2c3e6d1a8d?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
-    { id:'mock_02', title:'Package Mockups', category:'Mockups', type:'image',
-      thumb:'https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=1600&auto=format&fit=crop',
-      folder:'https://drive.google.com/drive/folders/1DQ5yul5M2VhZs2vxZFqqaJnjh2PKR_N7' },
+  const QUICK_PROMPTS = [
+    'Make a color palette for a tech brand',
+    'Turn this brief into a 5-slide carousel',
+    'Give me 3 logo directions (names + styles)',
+    'Write IG reel captions (short, punchy)',
+    'Moodboard keywords for "electric scooter"',
   ];
 
-  // render grid
-  const grid = document.getElementById('grid');
-  function buildGrid(){ grid.innerHTML = '';
-    ITEMS.forEach(it=>{
-      const card = document.createElement('div'); card.className='card'; card.tabIndex=0; card.setAttribute('role','button');
-      const thumb = document.createElement('div'); thumb.className='thumb';
-      if(it.type==='image'){ const img=document.createElement('img'); img.src=it.thumb; img.alt=it.title; thumb.appendChild(img); }
-      else{ const v=document.createElement('video'); v.src=it.srcVideo||it.thumb; v.muted=true; v.autoplay=true; v.loop=true; v.playsInline=true; thumb.appendChild(v); }
+  const history = [
+    {role:'system', content:`You are GFXTAB — a designer-first AI. Be concise, visual and practical. Output in clean lists and code blocks when helpful. Capabilities: palettes (hex+usage), layout wireframes (ASCII or steps), copy lines, reel ideas, prompts for Midjourney/StableDiffusion, After Effects expressions, GSAP snippets, CSS gradients.`},
+  ];
 
-      const meta=document.createElement('div'); meta.className='meta';
-      const openHref = it.folder && it.folder !== '#' ? it.folder : (it.srcVideo || it.thumb || '#');
-      meta.innerHTML = `<div><div class="title">${escapeHtml(it.title)}</div><div class="sub">${escapeHtml(it.category)}</div></div>
-                        <a class="pill" href="${openHref}" target="_blank" rel="noopener">Open</a>`;
-
-      card.appendChild(thumb); card.appendChild(meta);
-
-      card.addEventListener('click', (e)=>{ if(e.target.closest('a')) return; if(openHref && openHref !== '#') window.open(openHref,'_blank'); });
-      card.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ if(openHref && openHref !== '#') window.open(openHref,'_blank'); }});
-
-      grid.appendChild(card);
-    });
-    gsap.from('.card',{y:12,opacity:0,duration:.6,stagger:.04,ease:'power3.out'});
-  }
-  buildGrid();
-
-  // preview modal
-  const preview = document.getElementById('preview');
-  function openPreview(item){
-    if(!document.getElementById('preview')){
-      // create simple modal if missing (safety)
-      return alert('Preview not available');
-    }
-    const modal=document.getElementById('preview'); modal.innerHTML=''; // not used in this version
-    // fallback: open folder link
-    if(item.folder && item.folder !== '#') window.open(item.folder,'_blank');
+  function append(role, text){
+    const row = document.createElement('div'); row.className = 'm ' + (role==='user'?'you':'me');
+    const b = document.createElement('div'); b.className='b'; b.textContent = text; row.appendChild(b);
+    msgs.appendChild(row); msgs.scrollTop = msgs.scrollHeight;
   }
 
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&
+  function setQuick(){ quick.innerHTML=''; QUICK_PROMPTS.forEach(q=>{ const b=document.createElement('button'); b.textContent=q; b.onclick=()=>{input.value=q; sendMessage();}; quick.appendChild(b); }); }
+  setQuick();
+
+  async function sendMessage(){
+    const text = input.value.trim(); if(!text) return; input.value='';
+    append('user', text); history.push({role:'user', content:text});
+    try{
+      const r = await fetch(BACKEND_URL + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: history.slice(-12)})});
+      if(!r.ok) throw new Error('Request failed');
+      const data = await r.json();
+      const reply = (data.reply||'');
+      append('assistant', reply);
+      history.push({role:'assistant', content:reply});
+    }catch(err){ append('assistant','(Error connecting to AI)'); console.error(err); }
+  }
+
+  toggle.onclick = ()=> box.classList.toggle('open');
+  closeBtn.onclick = ()=> box.classList.remove('open');
+  send.onclick = sendMessage; input.onkeydown = (e)=>{ if(e.key==='Enter') sendMessage(); };
+
+  // Seed greeting
+  append('assistant','Hi! I can help with palettes, layouts, reels, prompts and more. What are we creating?');
+</script>
