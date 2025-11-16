@@ -1,0 +1,3 @@
+mkdir gfxtab-bot
+cd gfxtab-bot
+git init
