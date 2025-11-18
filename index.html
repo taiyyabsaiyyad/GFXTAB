@@ -4,11 +4,388 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GFXTAB AI — Design Smarter</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-red: #D32F2F;
+      --orange: #FF9800;
+      --green: #689F38;
+      --blue: #1976D2;
+      --purple: #7B1FA2;
+      --yellow: #FBC02D;
+      --bg-light: #FAFAFA;
+      --text-dark: #333;
+      --card-bg: #fff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    [data-theme="dark"] {
+      --bg-light: #121212;
+      --text-dark: #fff;
+      --card-bg: #1e1e1e;
+      --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      gap: 0.3rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .logo span:nth-child(1) { color: var(--yellow); }
+    .logo span:nth-child(2) { color: var(--primary-red); }
+    .logo span:nth-child(3) { color: var(--blue); }
+    .logo span:nth-child(4) { color: var(--green); }
+    .logo span:nth-child(5) { color: var(--orange); }
+    .logo span:nth-child(6) { color: var(--purple); }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--primary-red);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80vh;
+      padding: 5% 10%;
+      gap: 5%;
+      background: linear-gradient(135deg, var(--bg-light) 0%, #fff 100%);
+    }
+
+    .hero-text {
+      max-width: 500px;
+    }
+
+    .hero-text h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .editing { color: var(--yellow); }
+    .design { color: var(--primary-red); }
+    .motion { color: var(--green); }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      color: var(--text-dark);
+    }
+
+    .cta-button {
+      background: linear-gradient(90deg, var(--primary-red), var(--orange));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .red {
+      width: 200px;
+      height: 200px;
+      background: var(--primary-red);
+      top: -50px;
+      left: -50px;
+    }
+
+    .orange {
+      width: 150px;
+      height: 150px;
+      background: var(--orange);
+      bottom: -30px;
+      right: -30px;
+    }
+
+    .green {
+      width: 30px;
+      height: 30px;
+      background: var(--green);
+      bottom: 20%;
+      right: 20%;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0px, 0px); }
+      50% { transform: translate(5px, 5px); }
+      100% { transform: translate(0px, 0px); }
+    }
+
+    .section {
+      padding: 5% 10%;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      margin: 3% 0;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-red);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: var(--bg-light);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-red);
+    }
+
+    .ai-chat-container {
+      background: var(--bg-light);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-top: 2rem;
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+
+    .chat-input button {
+      background: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 10px;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .message {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      max-width: 80%;
+    }
+
+    .user-message {
+      background: var(--primary-red);
+      color: white;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .ai-message {
+      background: var(--green);
+      color: white;
+      align-self: flex-start;
+    }
+
+    footer {
+      background: var(--card-bg);
+      padding: 20px;
+      text-align: center;
+      margin-top: 3%;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        padding: 10% 5%;
+      }
+
+      .hero-text {
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .hero-visual {
+        width: 100%;
+        height: 300px;
+      }
+
+      .circle {
+        width: 100px !important;
+        height: 100px !important;
+      }
+
+      .red {
+        top: -20px;
+        left: -20px;
+      }
+
+      .orange {
+        bottom: -10px;
+        right: -10px;
+      }
+
+      .green {
+        width: 20px;
+        height: 20px;
+        bottom: 10%;
+        right: 10%;
+      }
+
+      .cta-button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+      }
+
+      .section {
+        padding: 5% 5%;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="logo">
+      <span>G</span><span>F</span><span>X</span><span>T</span><span>A</span><span>B</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
+
   <section class="hero">
-    <div class="text-content">
+    <div class="hero-text">
       <h1>
         <span class="editing">EDITING</span> |
         <span class="design">DESIGN</span> |
@@ -18,15 +395,117 @@
       <div class="logo">
         <span>G</span><span>F</span><span>X</span><span>T</span><span>A</span><span>B</span>
       </div>
-      <button class="cta">Start Designing with AI →</button>
+      <p>Your AI design partner — ready to create anything you imagine.</p>
+      <a href="#ai-chat" class="cta-button">Talk to GFXBot →</a>
     </div>
-    <div class="visuals">
+    <div class="hero-visual">
       <div class="circle red"></div>
       <div class="circle orange"></div>
       <div class="circle green"></div>
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <section class="section" id="ai-chat">
+    <h2 class="section-title">✨ Try Our AI Chatbot</h2>
+    <div class="ai-chat-container">
+      <div class="chat-header">
+        <h3>GFXBot — Your AI Design Assistant</h3>
+        <span>💬 Ask me anything!</span>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai-message">Hi! I’m GFXBot. Ask me to create logos, social posts, icons, or anything else. Try: “Make a birthday invitation with dinosaurs”</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Ask GFXBot..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">🚀 Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>AI Design Generator</h3>
+        <p>Create logos, posters, social media posts with natural language.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖼️</div>
+        <h3>5M+ Assets</h3>
+        <p>Vectors, photos, templates, fonts — all royalty-free.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>One-Click Editing</h3>
+        <p>Change colors, fonts, layouts instantly — no design skills needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 GFXTAB AI. All rights reserved.</p>
+    <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.querySelector('.theme-toggle');
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        themeToggle.textContent = '🌙';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '☀️';
+      }
+    }
+
+    // AI Chatbot Simulation
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+
+    function sendMessage() {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      addMessage(message, 'user');
+
+      // Simulate AI response
+      setTimeout(() => {
+        let response = "I'm sorry, I couldn't generate that. Try being more specific!";
+        
+        if (message.toLowerCase().includes('logo')) {
+          response = "Here's your logo! 🎨\n\n[Preview: Modern abstract logo with gradient]\n\n✅ Download as SVG or PNG";
+        } else if (message.toLowerCase().includes('birthday')) {
+          response = "🎉 Birthday Invitation Generated!\n\n[Preview: Dinosaur-themed invite with confetti]\n\n✅ Download as PDF or JPG";
+        } else if (message.toLowerCase().includes('social')) {
+          response = "📱 Social Media Post Ready!\n\n[Preview: Instagram post with bold typography]\n\n✅ Download as PNG or MP4";
+        }
+
+        addMessage(response, 'ai');
+      }, 1000);
+
+      userInput.value = '';
+    }
+
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message');
+      messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+      messageDiv.textContent = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Allow Enter key to send message
+    userInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
 </body>
 </html>
