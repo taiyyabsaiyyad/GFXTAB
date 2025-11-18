@@ -1,100 +1,32 @@
-<!-- GFXTAB Chatbot: markup + styles + script -->
-<style>
-  :root{ --bot-bg: #0b0f17; --bot-panel: rgba(255,255,255,0.04); --bot-accent-1:#00d4c3; --bot-accent-2:#4db8ff; }
-  .gfxtab-bot-toggle{position:fixed;right:22px;bottom:22px;width:64px;height:64px;border-radius:999px;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));box-shadow:0 24px 60px rgba(77,184,255,0.18);display:grid;place-items:center;cursor:pointer;z-index:9999}
-  .gfxtab-bot-toggle svg{width:28px;height:28px;stroke:#001217}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GFXTAB AI — Design Smarter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="hero">
+    <div class="text-content">
+      <h1>
+        <span class="editing">EDITING</span> |
+        <span class="design">DESIGN</span> |
+        <span class="motion">MOTION</span>
+      </h1>
+      <p>Powered by</p>
+      <div class="logo">
+        <span>G</span><span>F</span><span>X</span><span>T</span><span>A</span><span>B</span>
+      </div>
+      <button class="cta">Start Designing with AI →</button>
+    </div>
+    <div class="visuals">
+      <div class="circle red"></div>
+      <div class="circle orange"></div>
+      <div class="circle green"></div>
+    </div>
+  </section>
 
-  .gfxtab-bot{position:fixed;right:22px;bottom:98px;width:360px;max-width:92vw;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,0.6);overflow:hidden;display:none;z-index:9999}
-  .gfxtab-bot.open{display:block}
-  .gfxtab-bot header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.06)}
-  .gfxtab-bot header .tt{font:800 14px Poppins,Inter,sans-serif;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));-webkit-background-clip:text;color:transparent}
-  .gfxtab-bot header button{background:transparent;border:0;color:#9aa3b2;cursor:pointer}
-
-  .gfxtab-bot .msgs{height:360px;max-height:56vh;overflow:auto;scroll-behavior:smooth;padding:12px}
-  .gfxtab-bot .m{display:flex;gap:8px;margin-bottom:10px}
-  .gfxtab-bot .m.you{justify-content:flex-end}
-  .gfxtab-bot .b{max-width:80%;padding:10px 12px;border-radius:12px;font:13px/1.5 Inter,sans-serif}
-  .gfxtab-bot .m.me .b{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
-  .gfxtab-bot .m.you .b{background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));color:#001217;font-weight:600}
-
-  .gfxtab-bot .quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}
-  .gfxtab-bot .quick button{padding:6px 8px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:#cfd6e6;font:600 12px Inter;cursor:pointer}
-
-  .gfxtab-bot .composer{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,0.06)}
-  .gfxtab-bot input{flex:1;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;color:#e6eefc;outline:none;font:13px Inter}
-  .gfxtab-bot .send{padding:10px 12px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--bot-accent-1),var(--bot-accent-2));color:#001217;font:700 13px Inter;cursor:pointer}
-
-  @media (max-width:520px){ .gfxtab-bot{right:10px;left:10px;bottom:90px;width:auto} }
-</style>
-
-<div id="gfxtab-bot" class="gfxtab-bot" aria-live="polite" aria-label="GFXTAB AI Design Assistant">
-  <header>
-    <div class="tt">GFXTAB — Design Assistant</div>
-    <button id="gfxtab-bot-close" aria-label="Close">✕</button>
-  </header>
-  <div class="msgs" id="gfxtab-bot-msgs"></div>
-  <div class="quick" id="gfxtab-bot-quick"></div>
-  <div class="composer">
-    <input id="gfxtab-bot-input" placeholder="Ask for a moodboard, palette, copy, prompt…"/>
-    <button class="send" id="gfxtab-bot-send">Send</button>
-  </div>
-</div>
-
-<div class="gfxtab-bot-toggle" id="gfxtab-bot-toggle" title="Chat with GFXTAB">
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a4 4 0 0 1-4 4H9l-6 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z" stroke="#001217" stroke-width="1.6" stroke-linecap="round"/></svg>
-</div>
-
-<script>
-  // 👉 Set your backend URL (Render/Vercel/etc.)
-  const BACKEND_URL = 'https://YOUR-BACKEND-URL.example.com';
-
-  const el = (id)=>document.getElementById(id);
-  const toggle = el('gfxtab-bot-toggle');
-  const box = el('gfxtab-bot');
-  const closeBtn = el('gfxtab-bot-close');
-  const msgs = el('gfxtab-bot-msgs');
-  const quick = el('gfxtab-bot-quick');
-  const input = el('gfxtab-bot-input');
-  const send = el('gfxtab-bot-send');
-
-  const QUICK_PROMPTS = [
-    'Make a color palette for a tech brand',
-    'Turn this brief into a 5-slide carousel',
-    'Give me 3 logo directions (names + styles)',
-    'Write IG reel captions (short, punchy)',
-    'Moodboard keywords for "electric scooter"',
-  ];
-
-  const history = [
-    {role:'system', content:`You are GFXTAB — a designer-first AI. Be concise, visual and practical. Output in clean lists and code blocks when helpful. Capabilities: palettes (hex+usage), layout wireframes (ASCII or steps), copy lines, reel ideas, prompts for Midjourney/StableDiffusion, After Effects expressions, GSAP snippets, CSS gradients.`},
-  ];
-
-  function append(role, text){
-    const row = document.createElement('div'); row.className = 'm ' + (role==='user'?'you':'me');
-    const b = document.createElement('div'); b.className='b'; b.textContent = text; row.appendChild(b);
-    msgs.appendChild(row); msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function setQuick(){ quick.innerHTML=''; QUICK_PROMPTS.forEach(q=>{ const b=document.createElement('button'); b.textContent=q; b.onclick=()=>{input.value=q; sendMessage();}; quick.appendChild(b); }); }
-  setQuick();
-
-  async function sendMessage(){
-    const text = input.value.trim(); if(!text) return; input.value='';
-    append('user', text); history.push({role:'user', content:text});
-    try{
-      const r = await fetch(BACKEND_URL + '/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: history.slice(-12)})});
-      if(!r.ok) throw new Error('Request failed');
-      const data = await r.json();
-      const reply = (data.reply||'');
-      append('assistant', reply);
-      history.push({role:'assistant', content:reply});
-    }catch(err){ append('assistant','(Error connecting to AI)'); console.error(err); }
-  }
-
-  toggle.onclick = ()=> box.classList.toggle('open');
-  closeBtn.onclick = ()=> box.classList.remove('open');
-  send.onclick = sendMessage; input.onkeydown = (e)=>{ if(e.key==='Enter') sendMessage(); };
-
-  // Seed greeting
-  append('assistant','Hi! I can help with palettes, layouts, reels, prompts and more. What are we creating?');
-</script>
+  <script src="script.js"></script>
+</body>
+</html>
