@@ -1,70 +1,29 @@
 <!DOCTYPE html>
-
-<!-- SEO -->
-<meta name="title" content="GFXTAB — Free & Premium Design Assets for Creators">
-<meta name="description"
-  content="GFXTAB is a curated platform for modern design assets — UI kits, PSDs, vectors, and motion graphics made by real creators.">
-<meta name="keywords"
-  content="design assets, ui kits, figma resources, free psd, graphic design resources">
-<meta name="author" content="GFXTAB">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="GFXTAB — Built for Designers">
-<meta property="og:description"
-  content="Discover modern, production-ready design assets made by real creators.">
-<meta property="og:url" content="https://taiyyabsaiyyad.github.io/GFXTAB/">
-<meta property="og:image" content="https://placehold.co/1200x630">
-
-<!-- Mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ================= NAVBAR ================= -->
-<header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
-  <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-
-    <!-- Logo -->
-    <div class="font-extrabold text-xl tracking-tight">
-      GFX<span class="text-brand-500">TAB</span>
-    </div>
-
-    <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-      <a href="#assets" class="hover:text-brand-500">Assets</a>
-      <a href="#creator" class="hover:text-brand-500">Creators</a>
-      <a href="#" class="hover:text-brand-500">Upload</a>
-    </nav>
-
-    <!-- Actions -->
-    <div class="flex items-center gap-3">
-      <button
-        onclick="document.documentElement.classList.toggle('dark')"
-        class="rounded-full bg-slate-200 dark:bg-slate-700 px-3 py-1 text-sm">
-        🌙
-      </button>
-      <a href="#assets"
-        class="hidden md:inline-block rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white">
-        Browse
-      </a>
-    </div>
-
-  </div>
-</header>
-<button onclick="document.documentElement.classList.toggle('dark')"
-  class="fixed top-6 right-6 rounded-full bg-slate-200 dark:bg-slate-700 px-4 py-2 text-sm font-semibold">
-  🌙
-</button>
 <html lang="en" class="light">
 <head>
+  <!-- BASIC -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GFXTAB | Built for Designers</title>
 
-  <!-- Font -->
+  <title>GFXTAB — Built for Designers</title>
+
+  <!-- SEO -->
+  <meta name="description" content="GFXTAB is a curated platform for modern design assets — UI kits, PSDs, vectors, and motion graphics made by real creators.">
+  <meta name="keywords" content="design assets, ui kits, figma resources, free psd, graphic design resources">
+  <meta name="author" content="GFXTAB">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GFXTAB — Built for Designers">
+  <meta property="og:description" content="Discover modern, production-ready design assets made by real creators.">
+  <meta property="og:image" content="https://placehold.co/1200x630">
+
+  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CDN -->
+  <!-- TAILWIND -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -85,41 +44,44 @@
     }
   </script>
 
-  <div class="masonry-grid">
-  <!-- Repeat this block -->
-  <div class="break-inside-avoid mb-6">
-    <div class="group rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow hover:shadow-xl transition">
-      <div class="relative overflow-hidden">
-        <img src="https://placehold.co/600x400"
-          class="w-full object-cover group-hover:scale-105 transition duration-500" />
-        <span class="absolute top-3 left-3 rounded-full bg-black/70 px-3 py-1 text-xs text-white">
-          UI Kit
-        </span>
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
-          <span class="bg-white px-4 py-2 rounded-lg font-semibold text-slate-900">
-            Quick Preview
-          </span>
-        </div>
-      </div>
+  <!-- CUSTOM CSS -->
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+    @media (min-width: 768px) { .masonry-grid { column-count: 3; } }
+    .break-inside-avoid { break-inside: avoid; }
+    section { scroll-margin-top: 80px; }
+  </style>
+</head>
 
-      <div class="p-4">
-        <h3 class="font-semibold">Modern UI Card Pack</h3>
-        <p class="text-sm text-slate-500">Figma • 12 files</p>
-        <div class="mt-4 flex justify-between items-center">
-          <button class="bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">
-            Download
-          </button>
-          <button class="text-slate-400 hover:text-brand-500">♡</button>
-        </div>
-      </div>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+
+<!-- ================= NAVBAR ================= -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+    <div class="font-extrabold text-xl">
+      GFX<span class="text-brand-500">TAB</span>
+    </div>
+
+    <nav class="hidden md:flex gap-8 text-sm font-semibold">
+      <a href="#assets" class="hover:text-brand-500">Assets</a>
+      <a href="#creator" class="hover:text-brand-500">Creators</a>
+      <a href="#" class="hover:text-brand-500">Upload</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <button onclick="toggleDark()" class="rounded-full bg-slate-200 dark:bg-slate-700 px-3 py-1 text-sm">🌙</button>
+      <a href="#assets" class="hidden md:inline-block rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white">
+        Browse
+      </a>
     </div>
   </div>
-</div>
+</header>
 
 <!-- ================= HERO ================= -->
 <section class="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16 items-center">
   <div>
-    <h1 class="text-5xl font-extrabold leading-tight">
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
       Built for designers.<br>
       <span class="text-brand-500">Not for stock websites.</span>
     </h1>
@@ -130,7 +92,7 @@
     </p>
 
     <div class="mt-8 flex gap-4">
-      <a href="#assets" class="rounded-xl bg-brand-500 px-6 py-3 font-semibold text-white hover:bg-brand-600">
+      <a href="#assets" class="rounded-xl bg-brand-500 px-6 py-3 font-semibold text-white">
         🔥 Browse Trending Assets
       </a>
       <a href="#creator" class="rounded-xl border px-6 py-3 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">
@@ -154,32 +116,26 @@
   </div>
 
   <div class="masonry-grid">
-    <!-- ASSET CARD -->
+    <!-- CARD (duplicate 8–12 times) -->
     <div class="break-inside-avoid mb-6">
-      <div class="group rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow hover:shadow-xl transition">
-        <div class="relative overflow-hidden">
-          <img src="https://placehold.co/600x400" class="group-hover:scale-105 transition duration-500"/>
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
-            <span class="bg-white px-4 py-2 rounded-lg font-semibold text-slate-900">Quick Preview</span>
-          </div>
-        </div>
+      <div class="rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow hover:shadow-xl transition">
+        <img src="https://placehold.co/600x400" class="w-full"/>
         <div class="p-4">
           <h3 class="font-semibold">Modern UI Card Pack</h3>
-          <p class="text-sm text-slate-500">UI Kit • Figma • 12 files</p>
-          <div class="mt-4 flex justify-between">
-            <button class="bg-brand-500 text-white px-4 py-2 rounded-lg font-semibold">⬇ Download</button>
-            <button class="text-slate-400 hover:text-brand-500">♡</button>
-          </div>
+          <p class="text-sm text-slate-500">Figma • 12 files</p>
+          <button class="mt-4 bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+            ⬇ Download
+          </button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= WHY GFXTAB ================= -->
-<section class="mx-auto max-w-7xl px-6 py-20">
-  <h2 class="text-center text-3xl font-bold mb-12">Why Designers Choose GFXTAB</h2>
-  <div class="grid md:grid-cols-3 gap-10 text-center">
+<!-- ================= WHY ================= -->
+<section class="mx-auto max-w-7xl px-6 py-20 text-center">
+  <h2 class="text-3xl font-bold mb-12">Why Designers Choose GFXTAB</h2>
+  <div class="grid md:grid-cols-3 gap-10">
     <div>
       <h3 class="font-semibold text-lg">Curated Quality</h3>
       <p class="mt-2 text-slate-600 dark:text-slate-400">Only modern, usable assets.</p>
@@ -195,29 +151,7 @@
   </div>
 </section>
 
-<!-- ================= ASSET DETAIL ================= -->
-<section class="mx-auto max-w-7xl px-6 py-20 grid lg:grid-cols-2 gap-16">
-  <img src="https://placehold.co/900x600" class="rounded-2xl shadow-lg"/>
-
-  <div>
-    <h1 class="text-3xl font-bold">Modern UI Card Pack</h1>
-    <p class="mt-4 text-slate-600 dark:text-slate-400">
-      Clean UI components designed for real-world projects.
-    </p>
-
-    <ul class="mt-6 space-y-2 text-sm">
-      <li>✔ Figma & PSD</li>
-      <li>✔ 12 components</li>
-      <li>✔ Commercial use</li>
-    </ul>
-
-    <button class="mt-8 bg-brand-500 text-white px-8 py-4 rounded-xl font-semibold">
-      ⬇ Download Asset
-    </button>
-  </div>
-</section>
-
-<!-- ================= CREATOR PROFILE ================= -->
+<!-- ================= CREATOR ================= -->
 <section id="creator" class="mx-auto max-w-7xl px-6 py-20">
   <div class="flex items-center gap-6">
     <img src="https://placehold.co/100" class="rounded-full"/>
@@ -226,286 +160,25 @@
       <p class="text-slate-500">Visual Designer & Motion Artist</p>
     </div>
   </div>
-
-  <div class="mt-8 grid grid-cols-3 gap-6 text-center">
-    <div><p class="text-xl font-bold">124</p><p class="text-sm text-slate-500">Assets</p></div>
-    <div><p class="text-xl font-bold">52k</p><p class="text-sm text-slate-500">Downloads</p></div>
-    <div><p class="text-xl font-bold">4.9★</p><p class="text-sm text-slate-500">Rating</p></div>
-  </div>
 </section>
 
-<!-- ================= FOOTER CTA ================= -->
-<section class="bg-brand-500 py-20 text-center text-white">
-  <h2 class="text-4xl font-extrabold">Ready to design better?</h2>
-  <p class="mt-4 text-lg opacity-90">Explore modern, curated design assets.</p>
-  <a href="#assets" class="mt-8 inline-block bg-white text-brand-600 px-8 py-4 rounded-xl font-semibold">
+<!-- ================= FOOTER ================= -->
+<footer class="bg-brand-500 py-16 text-center text-white">
+  <h2 class="text-3xl font-extrabold">Ready to design better?</h2>
+  <p class="mt-4 opacity-90">Explore modern, curated design assets.</p>
+  <a href="#assets" class="mt-6 inline-block bg-white text-brand-600 px-6 py-3 rounded-xl font-semibold">
     Start Browsing
   </a>
-</section>
+</footer>
+
+<script>
+  function toggleDark() {
+    document.documentElement.classList.toggle('dark');
+  }
+</script>
 
 </body>
-</html>
-    .hero-text {
-      max-width: 500px;
-    }
-
-    .hero-text h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .editing { color: var(--yellow); }
-    .design { color: var(--primary-red); }
-    .motion { color: var(--green); }
-
-    .hero-text p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-      color: var(--text-dark);
-    }
-
-    .cta-button {
-      background: linear-gradient(90deg, var(--primary-red), var(--orange));
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 1rem;
-      display: inline-block;
-    }
-
-    .cta-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-    }
-
-    .hero-visual {
-      position: relative;
-      width: 50%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .red {
-      width: 200px;
-      height: 200px;
-      background: var(--primary-red);
-      top: -50px;
-      left: -50px;
-    }
-
-    .orange {
-      width: 150px;
-      height: 150px;
-      background: var(--orange);
-      bottom: -30px;
-      right: -30px;
-    }
-
-    .green {
-      width: 30px;
-      height: 30px;
-      background: var(--green);
-      bottom: 20%;
-      right: 20%;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0px, 0px); }
-      50% { transform: translate(5px, 5px); }
-      100% { transform: translate(0px, 0px); }
-    }
-
-    .section {
-      padding: 5% 10%;
-      background: var(--card-bg);
-      box-shadow: var(--shadow);
-      margin: 3% 0;
-    }
-
-    .section-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.5rem;
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--primary-red);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 2rem;
-    }
-
-    .feature-card {
-      background: var(--bg-light);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: var(--primary-red);
-    }
-
-    .ai-chat-container {
-      background: var(--bg-light);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-      margin-top: 2rem;
-    }
-
-    .chat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .chat-input {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-family: inherit;
-    }
-
-    .chat-input button {
-      background: var(--primary-red);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .chat-messages {
-      max-height: 300px;
-      overflow-y: auto;
-      margin-top: 10px;
-      padding: 10px;
-      background: #f5f5f5;
-      border-radius: 5px;
-    }
-
-    .message {
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 5px;
-      max-width: 80%;
-    }
-
-    .user-message {
-      background: var(--primary-red);
-      color: white;
-      align-self: flex-end;
-      margin-left: auto;
-    }
-
-    .ai-message {
-      background: var(--green);
-      color: white;
-      align-self: flex-start;
-    }
-
-    footer {
-      background: var(--card-bg);
-      padding: 20px;
-      text-align: center;
-      margin-top: 3%;
-      box-shadow: var(--shadow);
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-        padding: 10% 5%;
-      }
-
-      .hero-text {
-        text-align: center;
-        max-width: 100%;
-      }
-
-      .hero-visual {
-        width: 100%;
-        height: 300px;
-      }
-
-      .circle {
-        width: 100px !important;
-        height: 100px !important;
-      }
-
-      .red {
-        top: -20px;
-        left: -20px;
-      }
-
-      .orange {
-        bottom: -10px;
-        right: -10px;
-      }
-
-      .green {
-        width: 20px;
-        height: 20px;
-        bottom: 10%;
-        right: 10%;
-      }
-
-      .cta-button {
-        width: 100%;
-        padding: 15px;
-        font-size: 1.2rem;
-      }
-
-      .section {
-        padding: 5% 5%;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
+</html>  <header>
     <div class="logo">
       <span>G</span><span>F</span><span>X</span><span>T</span><span>A</span><span>B</span>
     </div>
@@ -645,6 +318,7 @@
   </script>
 </body>
 </html>
+
 
 
 
