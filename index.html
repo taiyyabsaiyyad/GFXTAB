@@ -1,4 +1,54 @@
 <!DOCTYPE html>
+
+<!-- SEO -->
+<meta name="title" content="GFXTAB — Free & Premium Design Assets for Creators">
+<meta name="description"
+  content="GFXTAB is a curated platform for modern design assets — UI kits, PSDs, vectors, and motion graphics made by real creators.">
+<meta name="keywords"
+  content="design assets, ui kits, figma resources, free psd, graphic design resources">
+<meta name="author" content="GFXTAB">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="GFXTAB — Built for Designers">
+<meta property="og:description"
+  content="Discover modern, production-ready design assets made by real creators.">
+<meta property="og:url" content="https://taiyyabsaiyyad.github.io/GFXTAB/">
+<meta property="og:image" content="https://placehold.co/1200x630">
+
+<!-- Mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ================= NAVBAR ================= -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+  <div class="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+
+    <!-- Logo -->
+    <div class="font-extrabold text-xl tracking-tight">
+      GFX<span class="text-brand-500">TAB</span>
+    </div>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+      <a href="#assets" class="hover:text-brand-500">Assets</a>
+      <a href="#creator" class="hover:text-brand-500">Creators</a>
+      <a href="#" class="hover:text-brand-500">Upload</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-3">
+      <button
+        onclick="document.documentElement.classList.toggle('dark')"
+        class="rounded-full bg-slate-200 dark:bg-slate-700 px-3 py-1 text-sm">
+        🌙
+      </button>
+      <a href="#assets"
+        class="hidden md:inline-block rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white">
+        Browse
+      </a>
+    </div>
+
+  </div>
+</header>
 <button onclick="document.documentElement.classList.toggle('dark')"
   class="fixed top-6 right-6 rounded-full bg-slate-200 dark:bg-slate-700 px-4 py-2 text-sm font-semibold">
   🌙
@@ -35,16 +85,36 @@
     }
   </script>
 
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .masonry-grid { column-count: 1; column-gap: 1.5rem; }
-    @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
-    @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
-    .break-inside-avoid { break-inside: avoid; }
-  </style>
-</head>
+  <div class="masonry-grid">
+  <!-- Repeat this block -->
+  <div class="break-inside-avoid mb-6">
+    <div class="group rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow hover:shadow-xl transition">
+      <div class="relative overflow-hidden">
+        <img src="https://placehold.co/600x400"
+          class="w-full object-cover group-hover:scale-105 transition duration-500" />
+        <span class="absolute top-3 left-3 rounded-full bg-black/70 px-3 py-1 text-xs text-white">
+          UI Kit
+        </span>
+        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+          <span class="bg-white px-4 py-2 rounded-lg font-semibold text-slate-900">
+            Quick Preview
+          </span>
+        </div>
+      </div>
 
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+      <div class="p-4">
+        <h3 class="font-semibold">Modern UI Card Pack</h3>
+        <p class="text-sm text-slate-500">Figma • 12 files</p>
+        <div class="mt-4 flex justify-between items-center">
+          <button class="bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+            Download
+          </button>
+          <button class="text-slate-400 hover:text-brand-500">♡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= HERO ================= -->
 <section class="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16 items-center">
@@ -575,5 +645,6 @@
   </script>
 </body>
 </html>
+
 
 
