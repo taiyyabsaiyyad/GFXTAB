@@ -1,114 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GFXTAB AI — Design Smarter</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>GFXTAB | Built for Designers</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              500: '#3b82f6',
+              600: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --primary-red: #D32F2F;
-      --orange: #FF9800;
-      --green: #689F38;
-      --blue: #1976D2;
-      --purple: #7B1FA2;
-      --yellow: #FBC02D;
-      --bg-light: #FAFAFA;
-      --text-dark: #333;
-      --card-bg: #fff;
-      --shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .masonry-grid { column-count: 1; column-gap: 1.5rem; }
+    @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+    @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+    .break-inside-avoid { break-inside: avoid; }
+  </style>
+</head>
 
-    [data-theme="dark"] {
-      --bg-light: #121212;
-      --text-dark: #fff;
-      --card-bg: #1e1e1e;
-      --shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      transition: background 0.3s, color 0.3s;
-    }
+<!-- ================= HERO ================= -->
+<section class="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-16 items-center">
+  <div>
+    <h1 class="text-5xl font-extrabold leading-tight">
+      Built for designers.<br>
+      <span class="text-brand-500">Not for stock websites.</span>
+    </h1>
 
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
-      line-height: 1.6;
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
+    <p class="mt-6 max-w-xl text-lg text-slate-600 dark:text-slate-300">
+      Skip recycled visuals. Discover clean, modern design assets made by real creators —
+      free, premium-ready, and production-tested.
+    </p>
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+    <div class="mt-8 flex gap-4">
+      <a href="#assets" class="rounded-xl bg-brand-500 px-6 py-3 font-semibold text-white hover:bg-brand-600">
+        🔥 Browse Trending Assets
+      </a>
+      <a href="#creator" class="rounded-xl border px-6 py-3 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">
+        Upload Your Work
+      </a>
+    </div>
+  </div>
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: var(--card-bg);
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  <div class="hidden lg:grid grid-cols-2 gap-6">
+    <div class="h-56 rounded-2xl bg-white dark:bg-slate-800 shadow-xl"></div>
+    <div class="h-56 rounded-2xl bg-white dark:bg-slate-800 shadow-xl translate-y-8"></div>
+    <div class="col-span-2 h-56 rounded-2xl bg-white dark:bg-slate-800 shadow-xl"></div>
+  </div>
+</section>
 
-    .logo {
-      display: flex;
-      gap: 0.3rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.5rem;
-    }
+<!-- ================= TRENDING ASSETS ================= -->
+<section id="assets" class="mx-auto max-w-7xl px-6 py-20">
+  <div class="flex justify-between items-center mb-10">
+    <h2 class="text-3xl font-bold">Trending Assets</h2>
+    <span class="text-brand-500 font-semibold">View all →</span>
+  </div>
 
-    .logo span:nth-child(1) { color: var(--yellow); }
-    .logo span:nth-child(2) { color: var(--primary-red); }
-    .logo span:nth-child(3) { color: var(--blue); }
-    .logo span:nth-child(4) { color: var(--green); }
-    .logo span:nth-child(5) { color: var(--orange); }
-    .logo span:nth-child(6) { color: var(--purple); }
+  <div class="masonry-grid">
+    <!-- ASSET CARD -->
+    <div class="break-inside-avoid mb-6">
+      <div class="group rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow hover:shadow-xl transition">
+        <div class="relative overflow-hidden">
+          <img src="https://placehold.co/600x400" class="group-hover:scale-105 transition duration-500"/>
+          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+            <span class="bg-white px-4 py-2 rounded-lg font-semibold text-slate-900">Quick Preview</span>
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold">Modern UI Card Pack</h3>
+          <p class="text-sm text-slate-500">UI Kit • Figma • 12 files</p>
+          <div class="mt-4 flex justify-between">
+            <button class="bg-brand-500 text-white px-4 py-2 rounded-lg font-semibold">⬇ Download</button>
+            <button class="text-slate-400 hover:text-brand-500">♡</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-    }
+<!-- ================= WHY GFXTAB ================= -->
+<section class="mx-auto max-w-7xl px-6 py-20">
+  <h2 class="text-center text-3xl font-bold mb-12">Why Designers Choose GFXTAB</h2>
+  <div class="grid md:grid-cols-3 gap-10 text-center">
+    <div>
+      <h3 class="font-semibold text-lg">Curated Quality</h3>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">Only modern, usable assets.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold text-lg">Creator-Driven</h3>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">Built by real designers.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold text-lg">Fast Discovery</h3>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">No clutter. No ads.</p>
+    </div>
+  </div>
+</section>
 
-    nav a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 600;
-      transition: color 0.2s;
-    }
+<!-- ================= ASSET DETAIL ================= -->
+<section class="mx-auto max-w-7xl px-6 py-20 grid lg:grid-cols-2 gap-16">
+  <img src="https://placehold.co/900x600" class="rounded-2xl shadow-lg"/>
 
-    nav a:hover {
-      color: var(--primary-red);
-    }
+  <div>
+    <h1 class="text-3xl font-bold">Modern UI Card Pack</h1>
+    <p class="mt-4 text-slate-600 dark:text-slate-400">
+      Clean UI components designed for real-world projects.
+    </p>
 
-    .theme-toggle {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: var(--text-dark);
-    }
+    <ul class="mt-6 space-y-2 text-sm">
+      <li>✔ Figma & PSD</li>
+      <li>✔ 12 components</li>
+      <li>✔ Commercial use</li>
+    </ul>
 
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 80vh;
-      padding: 5% 10%;
-      gap: 5%;
-      background: linear-gradient(135deg, var(--bg-light) 0%, #fff 100%);
-    }
+    <button class="mt-8 bg-brand-500 text-white px-8 py-4 rounded-xl font-semibold">
+      ⬇ Download Asset
+    </button>
+  </div>
+</section>
 
+<!-- ================= CREATOR PROFILE ================= -->
+<section id="creator" class="mx-auto max-w-7xl px-6 py-20">
+  <div class="flex items-center gap-6">
+    <img src="https://placehold.co/100" class="rounded-full"/>
+    <div>
+      <h2 class="text-2xl font-bold">GFXTAB Studio</h2>
+      <p class="text-slate-500">Visual Designer & Motion Artist</p>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-3 gap-6 text-center">
+    <div><p class="text-xl font-bold">124</p><p class="text-sm text-slate-500">Assets</p></div>
+    <div><p class="text-xl font-bold">52k</p><p class="text-sm text-slate-500">Downloads</p></div>
+    <div><p class="text-xl font-bold">4.9★</p><p class="text-sm text-slate-500">Rating</p></div>
+  </div>
+</section>
+
+<!-- ================= FOOTER CTA ================= -->
+<section class="bg-brand-500 py-20 text-center text-white">
+  <h2 class="text-4xl font-extrabold">Ready to design better?</h2>
+  <p class="mt-4 text-lg opacity-90">Explore modern, curated design assets.</p>
+  <a href="#assets" class="mt-8 inline-block bg-white text-brand-600 px-8 py-4 rounded-xl font-semibold">
+    Start Browsing
+  </a>
+</section>
+
+</body>
+</html>
     .hero-text {
       max-width: 500px;
     }
@@ -509,3 +571,4 @@
   </script>
 </body>
 </html>
+
