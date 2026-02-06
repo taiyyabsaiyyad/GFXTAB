@@ -26,184 +26,282 @@ const GfxtabPortfolio = () => {
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     
+    // Deep space background
+    scene.background = new THREE.Color(0x000005);
+    scene.fog = new THREE.FogExp2(0x000005, 0.0003);
+    
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
-    camera.position.set(0, 50, 200);
+    camera.position.set(0, 0, 300);
 
     const renderer = new THREE.WebGLRenderer({ 
       canvas, 
-      antialias: true,
-      alpha: false
+      antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // LIGHTING
-    const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
+    // LIGHTING - Much brighter for visibility
+    const ambientLight = new THREE.AmbientLight(0x404080, 1);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.PointLight(0xffffff, 2, 2000);
+    const sunLight = new THREE.PointLight(0xffffff, 3, 2000);
     sunLight.position.set(0, 0, 0);
     scene.add(sunLight);
 
-    const textureLoader = new THREE.TextureLoader();
+    const blueLight = new THREE.PointLight(0x00ddff, 2, 1500);
+    blueLight.position.set(500, 0, -500);
+    scene.add(blueLight);
 
-    // EARTH (Realistic)
-    const earthGeo = new THREE.SphereGeometry(30, 64, 64);
+    const purpleLight = new THREE.PointLight(0xff00ff, 2, 1500);
+    purpleLight.position.set(-500, 0, -500);
+    scene.add(purpleLight);
+
+    // SPIRAL GALAXY
+    const createSpiralGalaxy = () => {
+      const geometry = new THREE.BufferGeometry();
+      const count = 15000;
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      
+      for (let i = 0; i < count; i++) {
+        const i3 = i * 3;
+        const radius = Math.random() * 800 + 200;
+        const spinAngle = radius * 0.005;
+        const branchAngle = ((i % 6) / 6) * Math.PI * 2;
+        
+        const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 50;
+        const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 50;
+        const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 50;
+        
+        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+        positions[i3 + 1] = randomY;
+        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ - 1000;
+        
+        const colorInside = new THREE.Color('#00ffff');
+        const colorOutside = new THREE.Color('#0033ff');
+        const mixedColor = colorInside.clone();
+        mixedColor.lerp(colorOutside, radius / 1000);
+        
+        colors[i3] = mixedColor.r;
+        colors[i3 + 1] = mixedColor.g;
+        colors[i3 + 2] = mixedColor.b;
+      }
+      
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      
+      const material = new THREE.PointsMaterial({
+        size: 4,
+        sizeAttenuation: true,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      
+      return new THREE.Points(geometry, material);
+    };
+
+    const galaxy = createSpiralGalaxy();
+    scene.add(galaxy);
+
+    // COLORFUL NEBULA CLOUDS
+    const createNebula = (x, y, z, size, color, opacity) => {
+      const geometry = new THREE.SphereGeometry(size, 32, 32);
+      const material = new THREE.MeshBasicMaterial({
+        color: color,
+        transparent: true,
+        opacity: opacity,
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide
+      });
+      const nebula = new THREE.Mesh(geometry, material);
+      nebula.position.set(x, y, z);
+      return nebula;
+    };
+
+    // Multiple colorful nebulas
+    const nebulas = [];
+    nebulas.push(createNebula(200, 100, -400, 200, 0xff0088, 0.15));
+    nebulas.push(createNebula(-250, -80, -600, 250, 0x00ffff, 0.12));
+    nebulas.push(createNebula(150, -120, -800, 280, 0x8800ff, 0.18));
+    nebulas.push(createNebula(-200, 150, -1000, 300, 0x00ff88, 0.14));
+    nebulas.push(createNebula(300, -100, -1200, 320, 0xff00ff, 0.16));
+    nebulas.forEach(n => scene.add(n));
+
+    // BRIGHT STARS
+    const starsGeo = new THREE.BufferGeometry();
+    const starCount = 8000;
+    const starPositions = new Float32Array(starCount * 3);
+    const starColors = new Float32Array(starCount * 3);
+    const starSizes = new Float32Array(starCount);
+    
+    for (let i = 0; i < starCount; i++) {
+      const i3 = i * 3;
+      starPositions[i3] = (Math.random() - 0.5) * 3000;
+      starPositions[i3 + 1] = (Math.random() - 0.5) * 2000;
+      starPositions[i3 + 2] = (Math.random() - 0.5) * 3000;
+      
+      const colorChoice = Math.random();
+      if (colorChoice < 0.3) {
+        starColors[i3] = 0.3 + Math.random() * 0.7;
+        starColors[i3 + 1] = 0.6 + Math.random() * 0.4;
+        starColors[i3 + 2] = 1;
+      } else if (colorChoice < 0.6) {
+        starColors[i3] = 1;
+        starColors[i3 + 1] = 0.8 + Math.random() * 0.2;
+        starColors[i3 + 2] = 0.8 + Math.random() * 0.2;
+      } else {
+        starColors[i3] = 1;
+        starColors[i3 + 1] = 0.3 + Math.random() * 0.4;
+        starColors[i3 + 2] = 0.6 + Math.random() * 0.4;
+      }
+      
+      starSizes[i] = Math.random() * 4 + 1;
+    }
+    
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starsGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+    starsGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
+    
+    const starsMat = new THREE.PointsMaterial({
+      size: 3,
+      sizeAttenuation: true,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.95,
+      blending: THREE.AdditiveBlending
+    });
+    const stars = new THREE.Points(starsGeo, starsMat);
+    scene.add(stars);
+
+    // EARTH with glow
+    const earthGeo = new THREE.SphereGeometry(40, 64, 64);
     const earthMat = new THREE.MeshPhongMaterial({
-      color: 0x2233ff,
-      emissive: 0x112244,
-      shininess: 25,
-      specular: 0x333333
+      color: 0x2244ff,
+      emissive: 0x002288,
+      emissiveIntensity: 0.3,
+      shininess: 30,
+      specular: 0x4488ff
     });
     const earth = new THREE.Mesh(earthGeo, earthMat);
-    earth.position.set(-150, 0, -300);
+    earth.position.set(-200, -50, -400);
     scene.add(earth);
 
+    // Earth atmosphere glow
+    const glowGeo = new THREE.SphereGeometry(42, 32, 32);
+    const glowMat = new THREE.MeshBasicMaterial({
+      color: 0x00aaff,
+      transparent: true,
+      opacity: 0.15,
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending
+    });
+    const earthGlow = new THREE.Mesh(glowGeo, glowMat);
+    earth.add(earthGlow);
+
     // MOON
-    const moonGeo = new THREE.SphereGeometry(8, 32, 32);
+    const moonGeo = new THREE.SphereGeometry(10, 32, 32);
     const moonMat = new THREE.MeshPhongMaterial({
-      color: 0xaaaaaa,
-      emissive: 0x222222
+      color: 0xcccccc,
+      emissive: 0x444444,
+      shininess: 5
     });
     const moon = new THREE.Mesh(moonGeo, moonMat);
-    moon.position.set(-150, 0, -250);
+    moon.position.set(-150, -50, -350);
     scene.add(moon);
 
     // MARS
-    const marsGeo = new THREE.SphereGeometry(15, 48, 48);
+    const marsGeo = new THREE.SphereGeometry(20, 48, 48);
     const marsMat = new THREE.MeshPhongMaterial({
-      color: 0xff5533,
-      emissive: 0x331100
+      color: 0xff4422,
+      emissive: 0x661100,
+      emissiveIntensity: 0.2,
+      shininess: 15
     });
     const mars = new THREE.Mesh(marsGeo, marsMat);
-    mars.position.set(200, -50, -500);
+    mars.position.set(300, -80, -700);
     scene.add(mars);
 
-    // JUPITER (Big planet)
-    const jupiterGeo = new THREE.SphereGeometry(50, 64, 64);
-    const jupiterMat = new THREE.MeshPhongMaterial({
-      color: 0xddaa88,
-      emissive: 0x332211
-    });
-    const jupiter = new THREE.Mesh(jupiterGeo, jupiterMat);
-    jupiter.position.set(-300, 100, -800);
-    scene.add(jupiter);
-
-    // SATURN with RINGS
-    const saturnGeo = new THREE.SphereGeometry(40, 64, 64);
+    // SATURN with bright rings
+    const saturnGeo = new THREE.SphereGeometry(50, 64, 64);
     const saturnMat = new THREE.MeshPhongMaterial({
-      color: 0xffdd99,
-      emissive: 0x332200
+      color: 0xffcc77,
+      emissive: 0x664422,
+      emissiveIntensity: 0.2,
+      shininess: 20
     });
     const saturn = new THREE.Mesh(saturnGeo, saturnMat);
-    saturn.position.set(350, -80, -1200);
+    saturn.position.set(-400, 100, -1100);
     scene.add(saturn);
 
-    // Saturn rings
-    const ringGeo = new THREE.RingGeometry(50, 80, 64);
+    const ringGeo = new THREE.RingGeometry(60, 100, 64);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0xccaa77,
+      color: 0xffdd99,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.7
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending
     });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.rotation.x = Math.PI / 2.5;
     saturn.add(ring);
 
-    // ASTEROID BELT
-    const asteroids = [];
-    for (let i = 0; i < 300; i++) {
-      const size = Math.random() * 2 + 0.5;
-      const asteroidGeo = new THREE.DodecahedronGeometry(size, 0);
-      const asteroidMat = new THREE.MeshPhongMaterial({
-        color: 0x666666,
-        emissive: 0x111111
-      });
-      const asteroid = new THREE.Mesh(asteroidGeo, asteroidMat);
-      
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 400 + Math.random() * 200;
-      asteroid.position.set(
-        Math.cos(angle) * radius,
-        (Math.random() - 0.5) * 100,
-        Math.sin(angle) * radius - 600
-      );
-      
-      asteroid.userData.rotationSpeed = {
-        x: (Math.random() - 0.5) * 0.02,
-        y: (Math.random() - 0.5) * 0.02,
-        z: (Math.random() - 0.5) * 0.02
-      };
-      
-      asteroids.push(asteroid);
-      scene.add(asteroid);
-    }
-
-    // DISTANT STARS
-    const starsGeo = new THREE.BufferGeometry();
-    const starCount = 2000;
-    const positions = new Float32Array(starCount * 3);
+    // COLORFUL ENERGY PARTICLES
+    const particleGeo = new THREE.BufferGeometry();
+    const particleCount = 2000;
+    const particlePos = new Float32Array(particleCount * 3);
+    const particleColors = new Float32Array(particleCount * 3);
     
-    for (let i = 0; i < starCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 4000;
-      positions[i + 1] = (Math.random() - 0.5) * 4000;
-      positions[i + 2] = (Math.random() - 0.5) * 4000;
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      particlePos[i3] = (Math.random() - 0.5) * 2000;
+      particlePos[i3 + 1] = (Math.random() - 0.5) * 1000;
+      particlePos[i3 + 2] = Math.random() * -2000;
+      
+      const hue = Math.random();
+      if (hue < 0.33) {
+        particleColors[i3] = 0;
+        particleColors[i3 + 1] = 0.8 + Math.random() * 0.2;
+        particleColors[i3 + 2] = 1;
+      } else if (hue < 0.66) {
+        particleColors[i3] = 1;
+        particleColors[i3 + 1] = 0;
+        particleColors[i3 + 2] = 0.8 + Math.random() * 0.2;
+      } else {
+        particleColors[i3] = 0.8 + Math.random() * 0.2;
+        particleColors[i3 + 1] = 0;
+        particleColors[i3 + 2] = 1;
+      }
     }
     
-    starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const starsMat = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 2,
-      transparent: true,
-      opacity: 0.8
-    });
-    const stars = new THREE.Points(starsGeo, starsMat);
-    scene.add(stars);
-
-    // GALAXY DUST
-    const dustGeo = new THREE.BufferGeometry();
-    const dustCount = 1000;
-    const dustPositions = new Float32Array(dustCount * 3);
-    const dustColors = new Float32Array(dustCount * 3);
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
     
-    for (let i = 0; i < dustCount * 3; i += 3) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = Math.random() * 1000 + 200;
-      dustPositions[i] = Math.cos(angle) * radius;
-      dustPositions[i + 1] = (Math.random() - 0.5) * 200;
-      dustPositions[i + 2] = Math.sin(angle) * radius - 800;
-      
-      dustColors[i] = 0.3 + Math.random() * 0.4;
-      dustColors[i + 1] = 0.2 + Math.random() * 0.3;
-      dustColors[i + 2] = 0.5 + Math.random() * 0.5;
-    }
-    
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-    dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
-    
-    const dustMat = new THREE.PointsMaterial({
-      size: 3,
+    const particleMat = new THREE.PointsMaterial({
+      size: 5,
       vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.8,
       blending: THREE.AdditiveBlending
     });
-    const dust = new THREE.Points(dustGeo, dustMat);
-    scene.add(dust);
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
 
     // SCROLL CAMERA JOURNEY
-    let targetZ = 200;
-    let targetY = 50;
+    let targetZ = 300;
+    let targetY = 0;
+    let targetRotY = 0;
 
     ScrollTrigger.create({
       start: 'top top',
       end: 'bottom bottom',
       onUpdate: (self) => {
         const progress = self.progress;
-        targetZ = 200 - (progress * 1500);
-        targetY = 50 + Math.sin(progress * Math.PI * 2) * 80;
-        camera.lookAt(0, 0, targetZ - 500);
+        targetZ = 300 - (progress * 2000);
+        targetY = Math.sin(progress * Math.PI * 3) * 100;
+        targetRotY = progress * Math.PI * 0.2;
       }
     });
 
@@ -213,38 +311,36 @@ const GfxtabPortfolio = () => {
       requestAnimationFrame(animate);
       time += 0.01;
       
-      // Smooth camera movement
       camera.position.z += (targetZ - camera.position.z) * 0.05;
       camera.position.y += (targetY - camera.position.y) * 0.05;
+      camera.rotation.y += (targetRotY - camera.rotation.y) * 0.05;
       
-      // Rotate planets
-      earth.rotation.y += 0.001;
-      mars.rotation.y += 0.0008;
-      jupiter.rotation.y += 0.0012;
-      saturn.rotation.y += 0.0009;
+      galaxy.rotation.y += 0.0002;
+      galaxy.rotation.z += 0.0001;
       
-      // Orbit moon around earth
-      moon.position.x = earth.position.x + Math.cos(time * 0.5) * 50;
-      moon.position.z = earth.position.z + Math.sin(time * 0.5) * 50;
-      
-      // Rotate asteroids
-      asteroids.forEach(asteroid => {
-        asteroid.rotation.x += asteroid.userData.rotationSpeed.x;
-        asteroid.rotation.y += asteroid.userData.rotationSpeed.y;
-        asteroid.rotation.z += asteroid.userData.rotationSpeed.z;
+      nebulas.forEach((nebula, i) => {
+        nebula.rotation.y += 0.0001 * (i + 1);
+        nebula.scale.setScalar(1 + Math.sin(time + i) * 0.05);
       });
       
-      // Rotate stars slowly
-      stars.rotation.y += 0.0001;
+      earth.rotation.y += 0.002;
+      mars.rotation.y += 0.0015;
+      saturn.rotation.y += 0.001;
       
-      // Rotate dust
-      dust.rotation.y += 0.0002;
+      moon.position.x = earth.position.x + Math.cos(time * 0.5) * 80;
+      moon.position.z = earth.position.z + Math.sin(time * 0.5) * 80;
+      
+      particles.rotation.y += 0.0003;
+      
+      stars.rotation.y += 0.00005;
+      
+      blueLight.intensity = 2 + Math.sin(time) * 0.5;
+      purpleLight.intensity = 2 + Math.cos(time * 1.3) * 0.5;
       
       renderer.render(scene, camera);
     };
     animate();
 
-    // RESIZE
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -258,34 +354,126 @@ const GfxtabPortfolio = () => {
     };
   }, []);
 
+  // SECTION ANIMATIONS
+  useEffect(() => {
+    // Hero entrance
+    gsap.from('.galaxy-hero-content > *', {
+      opacity: 0,
+      y: 60,
+      duration: 1.2,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+
+    // Animate each section on scroll
+    const sections = [
+      '.galaxy-proof',
+      '.galaxy-work',
+      '.galaxy-positioning',
+      '.galaxy-capabilities',
+      '.galaxy-founder',
+      '.galaxy-process',
+      '.galaxy-trust',
+      '.galaxy-platforms',
+      '.galaxy-cta'
+    ];
+
+    sections.forEach((selector, index) => {
+      gsap.from(selector, {
+        scrollTrigger: {
+          trigger: selector,
+          start: 'top 85%',
+          end: 'top 40%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 0,
+        y: 100,
+        scale: 0.9,
+        duration: 1.2,
+        ease: 'power3.out'
+      });
+    });
+
+    // Cards stagger animation
+    gsap.from('.galaxy-project-card', {
+      scrollTrigger: {
+        trigger: '.galaxy-work-grid',
+        start: 'top 80%'
+      },
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'back.out(1.2)'
+    });
+
+    gsap.from('.galaxy-cap-item', {
+      scrollTrigger: {
+        trigger: '.galaxy-cap-grid',
+        start: 'top 80%'
+      },
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out'
+    });
+
+    gsap.from('.galaxy-process-step', {
+      scrollTrigger: {
+        trigger: '.galaxy-process-grid',
+        start: 'top 80%'
+      },
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: 'back.out(1.5)'
+    });
+
+    gsap.from('.galaxy-platform-card', {
+      scrollTrigger: {
+        trigger: '.galaxy-platforms-grid',
+        start: 'top 80%'
+      },
+      opacity: 0,
+      y: 60,
+      rotateY: -15,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power3.out'
+    });
+  }, []);
+
   return (
-    <div className="solar-portfolio">
-      <canvas ref={canvasRef} className="solar-canvas" />
+    <div className="galaxy-portfolio">
+      <canvas ref={canvasRef} className="galaxy-canvas" />
       
-      <div className="solar-content">
+      <div className="galaxy-content">
         {/* HERO */}
-        <section className="solar-hero" data-testid="hero-section">
-          <div className="solar-hero-content">
-            <div className="solar-brand" data-testid="brand-mark">GFXTAB</div>
-            <h1 className="solar-title" data-testid="hero-headline">
+        <section className="galaxy-hero" data-testid="hero-section">
+          <div className="galaxy-hero-content">
+            <div className="galaxy-brand" data-testid="brand-mark">GFXTAB</div>
+            <h1 className="galaxy-title" data-testid="hero-headline">
               We Design Visual Experiences<br/>That Define Modern Brands
             </h1>
-            <p className="solar-subtitle" data-testid="hero-subline">
-              Journey through creativity. Where imagination meets execution in a cosmic dance of pixels, motion, and meaning.
+            <p className="galaxy-subtitle" data-testid="hero-subline">
+              Journey through the cosmos of creativity. Where imagination meets execution in a stellar dance of design.
             </p>
-            <div className="solar-tagline" data-testid="hero-power-statement">
+            <div className="galaxy-tagline" data-testid="hero-power-statement">
               Premium by design. Strategic by intention.
             </div>
-            <div className="solar-buttons">
+            <div className="galaxy-buttons">
               <button 
-                className="solar-btn-primary" 
+                className="galaxy-btn-primary" 
                 data-testid="start-project-btn-hero"
                 onClick={() => setShowContactForm(true)}
               >
                 Start a Project
               </button>
               <button 
-                className="solar-btn-secondary" 
+                className="galaxy-btn-secondary" 
                 data-testid="view-work-btn"
                 onClick={() => document.getElementById('workSection').scrollIntoView({ behavior: 'smooth' })}
               >
@@ -296,48 +484,48 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* PROOF */}
-        <section className="solar-proof" data-testid="proof-strip">
-          <div className="solar-proof-item">
-            <div className="solar-proof-num">120+</div>
-            <div className="solar-proof-label">Projects Delivered</div>
+        <section className="galaxy-proof" data-testid="proof-strip">
+          <div className="galaxy-proof-item">
+            <div className="galaxy-proof-num">120+</div>
+            <div className="galaxy-proof-label">Projects Delivered</div>
           </div>
-          <div className="solar-divider"></div>
-          <div className="solar-proof-item">
-            <div className="solar-proof-num">4+</div>
-            <div className="solar-proof-label">Years Expertise</div>
+          <div className="galaxy-divider"></div>
+          <div className="galaxy-proof-item">
+            <div className="galaxy-proof-num">4+</div>
+            <div className="galaxy-proof-label">Years Expertise</div>
           </div>
-          <div className="solar-divider"></div>
-          <div className="solar-proof-item">
-            <div className="solar-proof-num">Studio-Level</div>
-            <div className="solar-proof-label">Execution</div>
+          <div className="galaxy-divider"></div>
+          <div className="galaxy-proof-item">
+            <div className="galaxy-proof-num">Studio-Level</div>
+            <div className="galaxy-proof-label">Execution</div>
           </div>
         </section>
 
         {/* WORK */}
-        <section className="solar-work" id="workSection" data-testid="work-section">
-          <div className="solar-section-header">
-            <h2 className="solar-section-title" data-testid="work-title">Selected Work</h2>
-            <p className="solar-section-sub">
+        <section className="galaxy-work" id="workSection" data-testid="work-section">
+          <div className="galaxy-section-header">
+            <h2 className="galaxy-section-title" data-testid="work-title">Selected Work</h2>
+            <p className="galaxy-section-sub">
               A refined selection of projects demonstrating strategic thinking, modern aesthetics, and meticulous execution.
             </p>
-            <div className="solar-quote">Great brands are not accidental. They are designed.</div>
+            <div className="galaxy-quote">Great brands are not accidental. They are designed.</div>
           </div>
           
-          <div className="solar-work-grid">
+          <div className="galaxy-work-grid">
             {projects.map((project, index) => (
               <div 
                 key={index} 
-                className="solar-project-card" 
+                className="galaxy-project-card" 
                 data-testid={`project-card-${index}`}
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="solar-project-img">
+                <div className="galaxy-project-img">
                   <img src={project.image} alt={project.title} loading="lazy" />
-                  <div className="solar-project-overlay">
+                  <div className="galaxy-project-overlay">
                     <span>View Project</span>
                   </div>
                 </div>
-                <div className="solar-project-info">
+                <div className="galaxy-project-info">
                   <h3>{project.title}</h3>
                   <p>{project.category}</p>
                 </div>
@@ -347,26 +535,26 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* POSITIONING */}
-        <section className="solar-positioning" data-testid="positioning-section">
-          <h2 className="solar-section-title">Built for Brands That Intend to Lead</h2>
-          <div className="solar-positioning-content">
+        <section className="galaxy-positioning" data-testid="positioning-section">
+          <h2 className="galaxy-section-title">Built for Brands That Intend to Lead</h2>
+          <div className="galaxy-positioning-content">
             <p>We partner with ambitious businesses and emerging brands to craft visuals that influence perception and accelerate growth.</p>
             <p>Every detail is deliberate. Every design serves a purpose.</p>
-            <p className="solar-closer">Not decoration. Direction.</p>
+            <p className="galaxy-closer">Not decoration. Direction.</p>
           </div>
         </section>
 
         {/* CAPABILITIES */}
-        <section className="solar-capabilities" data-testid="capabilities-section">
-          <h2 className="solar-section-title">Capabilities</h2>
-          <div className="solar-cap-grid">
+        <section className="galaxy-capabilities" data-testid="capabilities-section">
+          <h2 className="galaxy-section-title">Capabilities</h2>
+          <div className="galaxy-cap-grid">
             {[
               { title: 'Brand Identity', desc: 'Strategic visual systems designed for recognition and long-term brand equity.' },
               { title: 'Motion Design', desc: 'Cinematic visuals engineered to capture attention in fast-moving digital spaces.' },
               { title: 'Digital Creatives', desc: 'Modern, conversion-aware design tailored for today platforms.' },
               { title: 'Photo Manipulation', desc: 'High-detail compositions that transform concepts into powerful visuals.' }
             ].map((cap, i) => (
-              <div key={i} className="solar-cap-item">
+              <div key={i} className="galaxy-cap-item">
                 <h3>{cap.title}</h3>
                 <p>{cap.desc}</p>
               </div>
@@ -375,18 +563,18 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* FOUNDER */}
-        <section className="solar-founder" data-testid="founder-section">
-          <div className="solar-founder-logo">
+        <section className="galaxy-founder" data-testid="founder-section">
+          <div className="galaxy-founder-logo">
             <img 
               src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" 
               alt="GFXTAB"
             />
           </div>
-          <h2 className="solar-section-title">Founder-Led. Detail-Obsessed.</h2>
-          <div className="solar-founder-content">
+          <h2 className="galaxy-section-title">Founder-Led. Detail-Obsessed.</h2>
+          <div className="galaxy-founder-content">
             <p>GFXTAB was founded by <strong>Taiyyab Saiyyad</strong>, a visual designer known for blending strategic clarity with striking aesthetics.</p>
             <p>With over four years of professional experience, his work reflects a commitment to precision, modern design language, and results-driven creativity.</p>
-            <div className="solar-founder-quote">
+            <div className="galaxy-founder-quote">
               Good design attracts attention.<br/>
               Exceptional design earns trust.
             </div>
@@ -394,9 +582,9 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* PROCESS */}
-        <section className="solar-process" data-testid="process-section">
-          <h2 className="solar-section-title">Process</h2>
-          <div className="solar-process-grid">
+        <section className="galaxy-process" data-testid="process-section">
+          <h2 className="galaxy-section-title">Process</h2>
+          <div className="galaxy-process-grid">
             {[
               { num: '01', title: 'Discover', desc: 'Understanding your brand, audience, and objectives.' },
               { num: '02', title: 'Define', desc: 'Translating insights into clear creative direction.' },
@@ -404,8 +592,8 @@ const GfxtabPortfolio = () => {
               { num: '04', title: 'Refine', desc: 'Polishing every detail until it meets studio standards.' },
               { num: '05', title: 'Deliver', desc: 'Production-ready assets built for impact.' }
             ].map((step, i) => (
-              <div key={i} className="solar-process-step">
-                <div className="solar-step-num">{step.num}</div>
+              <div key={i} className="galaxy-process-step">
+                <div className="galaxy-step-num">{step.num}</div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
               </div>
@@ -414,17 +602,17 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* TRUST */}
-        <section className="solar-trust" data-testid="trust-section">
-          <h2 className="solar-section-title">Building Long-Term Creative Partnerships</h2>
-          <p className="solar-trust-text">
+        <section className="galaxy-trust" data-testid="trust-section">
+          <h2 className="galaxy-section-title">Building Long-Term Creative Partnerships</h2>
+          <p className="galaxy-trust-text">
             Clients value GFXTAB for reliability, refined aesthetics, and a process that respects both timelines and quality.
           </p>
         </section>
 
         {/* PLATFORMS */}
-        <section className="solar-platforms" data-testid="platforms-section">
-          <h2 className="solar-section-title">Professional Platforms</h2>
-          <div className="solar-platforms-grid">
+        <section className="galaxy-platforms" data-testid="platforms-section">
+          <h2 className="galaxy-section-title">Professional Platforms</h2>
+          <div className="galaxy-platforms-grid">
             {[
               { 
                 name: 'Behance', 
@@ -453,10 +641,10 @@ const GfxtabPortfolio = () => {
                 href={platform.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="solar-platform-card"
+                className="galaxy-platform-card"
                 data-testid={platform.testid}
               >
-                <div className="solar-platform-icon">{platform.icon}</div>
+                <div className="galaxy-platform-icon">{platform.icon}</div>
                 <h3>{platform.name}</h3>
                 <p>{platform.desc}</p>
               </a>
@@ -465,46 +653,46 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* CTA */}
-        <section className="solar-cta" data-testid="final-cta">
-          <h2 className="solar-cta-title">Let's Create Something Remarkable</h2>
-          <p className="solar-cta-text">
+        <section className="galaxy-cta" data-testid="final-cta">
+          <h2 className="galaxy-cta-title">Let's Create Something Remarkable</h2>
+          <p className="galaxy-cta-text">
             Whether you are launching a brand, elevating your presence, or redefining your visual identity, the right design can transform perception.
           </p>
-          <p className="solar-cta-sub">Start the conversation.</p>
+          <p className="galaxy-cta-sub">Start the conversation.</p>
           <button 
-            className="solar-btn-primary-large" 
+            className="galaxy-btn-primary-large" 
             data-testid="start-project-btn-cta"
             onClick={() => setShowContactForm(true)}
           >
             Start a Project
           </button>
-          <p className="solar-cta-notice">Currently accepting select projects.</p>
+          <p className="galaxy-cta-notice">Currently accepting select projects.</p>
         </section>
 
         {/* FOOTER */}
-        <footer className="solar-footer" data-testid="footer">
+        <footer className="galaxy-footer" data-testid="footer">
           <p>© 2025 GFXTAB — Crafted by Taiyyab Saiyyad</p>
-          <p className="solar-footer-tag">Where visuals meet the cosmos.</p>
+          <p className="galaxy-footer-tag">Where visuals meet the cosmos.</p>
         </footer>
       </div>
 
-      {/* PROJECT MODAL with CREATIVE CLOSE */}
+      {/* PROJECT MODAL */}
       {selectedProject && (
-        <div className="solar-modal-overlay" onClick={() => setSelectedProject(null)}>
-          <div className="solar-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="solar-modal-close" onClick={() => setSelectedProject(null)}>
+        <div className="galaxy-modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="galaxy-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="galaxy-modal-close" onClick={() => setSelectedProject(null)}>
               <span className="close-line close-line-1"></span>
               <span className="close-line close-line-2"></span>
             </button>
-            <div className="solar-modal-img">
+            <div className="galaxy-modal-img">
               <img src={selectedProject.image} alt={selectedProject.title} />
             </div>
-            <div className="solar-modal-details">
+            <div className="galaxy-modal-details">
               <div>
                 <h3>{selectedProject.title}</h3>
                 <p>{selectedProject.category}</p>
               </div>
-              <a href={selectedProject.folder} target="_blank" rel="noopener noreferrer" className="solar-btn-small">
+              <a href={selectedProject.folder} target="_blank" rel="noopener noreferrer" className="galaxy-btn-small">
                 Open Folder
               </a>
             </div>
