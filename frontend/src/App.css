@@ -154,6 +154,12 @@ body {
   z-index: 2;
 }
 
+/* Ensure hero content children are visible by default */
+.universe-hero-content > * {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 .universe-brand {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
