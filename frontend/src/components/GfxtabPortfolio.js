@@ -15,15 +15,15 @@ const GfxtabPortfolio = () => {
 
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x050505, 5, 40);
+    scene.fog = new THREE.FogExp2(0x020207, 0.015);
 
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      100
+      200
     );
-    camera.position.z = 10;
+    camera.position.z = 50;
 
     const renderer = new THREE.WebGLRenderer({ 
       canvas, 
@@ -33,97 +33,145 @@ const GfxtabPortfolio = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // LIGHTS
-    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-    const neonLight = new THREE.PointLight(0x00f6ff, 2, 20);
-    neonLight.position.set(0, 0, 10);
-    scene.add(neonLight);
+    // AMBIENT LIGHTING
+    scene.add(new THREE.AmbientLight(0x1a1a2e, 0.3));
+    
+    // NEON LIGHTS (Multiple for depth)
+    const neonLight1 = new THREE.PointLight(0x00f6ff, 1.5, 100);
+    neonLight1.position.set(30, 20, 30);
+    scene.add(neonLight1);
 
-    // BACKGROUND PARTICLES
-    const starGeo = new THREE.BufferGeometry();
-    const starCount = 2500;
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starPos.length; i++) {
-      starPos[i] = (Math.random() - 0.5) * 40;
-    }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const neonLight2 = new THREE.PointLight(0x4facfe, 1, 80);
+    neonLight2.position.set(-30, -20, 20);
+    scene.add(neonLight2);
 
-    const starMat = new THREE.PointsMaterial({
-      color: 0x00f6ff,
-      size: 0.05,
-      transparent: true,
-      opacity: 0.8
-    });
-    const stars = new THREE.Points(starGeo, starMat);
-    scene.add(stars);
+    const accentLight = new THREE.PointLight(0x00d4ff, 0.8, 60);
+    accentLight.position.set(0, 0, 40);
+    scene.add(accentLight);
 
-    // PROJECT PANELS DATA
-    const projects = [
-      { title: 'Logo Design', category: 'Branding' },
-      { title: 'Digital Invite', category: 'Design' },
-      { title: 'Social Media Post', category: 'Content' },
-      { title: 'Motion Reels', category: 'Animation' },
-      { title: 'VFX Edits', category: 'Visual Effects' },
-    ];
+    // STAR FIELD (Multiple layers for depth)
+    const createStarField = (count, spread, size, color, opacity) => {
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(count * 3);
+      
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i] = (Math.random() - 0.5) * spread;
+        positions[i + 1] = (Math.random() - 0.5) * spread;
+        positions[i + 2] = (Math.random() - 0.5) * spread;
+      }
+      
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      const material = new THREE.PointsMaterial({
+        color: color,
+        size: size,
+        transparent: true,
+        opacity: opacity,
+        blending: THREE.AdditiveBlending
+      });
+      
+      return new THREE.Points(geometry, material);
+    };
 
-    const panelGroup = new THREE.Group();
-    scene.add(panelGroup);
+    const starField1 = createStarField(3000, 200, 0.15, 0x00f6ff, 0.8);
+    const starField2 = createStarField(2000, 150, 0.1, 0x4facfe, 0.6);
+    const starField3 = createStarField(1500, 100, 0.08, 0xffffff, 0.4);
+    
+    scene.add(starField1);
+    scene.add(starField2);
+    scene.add(starField3);
 
-    const panelMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x111111,
-      roughness: 0.2,
-      transmission: 0.6,
-      thickness: 1,
-      clearcoat: 1,
-      emissive: new THREE.Color(0x00f6ff),
-      emissiveIntensity: 0.15
-    });
+    // FLOATING GEOMETRIC SHAPES (Universe objects)
+    const universeObjects = new THREE.Group();
+    scene.add(universeObjects);
 
-    const panels = [];
-    for (let i = 0; i < projects.length; i++) {
-      const panelGeo = new THREE.PlaneGeometry(4, 2.2);
-      const panel = new THREE.Mesh(panelGeo, panelMaterial);
-      panel.position.set(
-        (i % 2 === 0 ? -1 : 1) * 3,
-        -i * 2,
-        -i * 4
+    const createGlassPanel = (width, height, x, y, z, rotationY) => {
+      const geometry = new THREE.PlaneGeometry(width, height);
+      const material = new THREE.MeshPhysicalMaterial({
+        color: 0x0a0a15,
+        roughness: 0.1,
+        transmission: 0.7,
+        thickness: 1.5,
+        clearcoat: 1,
+        emissive: new THREE.Color(0x00f6ff),
+        emissiveIntensity: 0.1,
+        side: THREE.DoubleSide
+      });
+      
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(x, y, z);
+      mesh.rotation.y = rotationY;
+      return mesh;
+    };
+
+    // Create floating panels at different depths
+    for (let i = 0; i < 8; i++) {
+      const panel = createGlassPanel(
+        8 + Math.random() * 4,
+        5 + Math.random() * 3,
+        (Math.random() - 0.5) * 60,
+        (Math.random() - 0.5) * 40,
+        -i * 30 - 20,
+        Math.random() * Math.PI
       );
-      panel.rotation.y = i % 2 === 0 ? 0.2 : -0.2;
-      panel.userData = { index: i, project: projects[i] };
-      panelGroup.add(panel);
-      panels.push(panel);
+      universeObjects.add(panel);
     }
 
-    // CAMERA SCROLL
+    // CAMERA JOURNEY THROUGH SPACE
     gsap.to(camera.position, {
-      z: -25,
+      z: -180,
       scrollTrigger: {
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true
+        scrub: 1.5
+      }
+    });
+
+    // Camera rotation for immersive feel
+    gsap.to(camera.rotation, {
+      y: 0.3,
+      scrollTrigger: {
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 2
       }
     });
 
     // HERO FADE
-    gsap.to('#heroText', {
+    gsap.to('#heroSection', {
       opacity: 0,
       scrollTrigger: {
         start: 'top top',
-        end: '30% top',
+        end: '20% top',
         scrub: true
       }
     });
 
     // ANIMATION LOOP
+    let time = 0;
     const animate = () => {
       requestAnimationFrame(animate);
-      stars.rotation.y += 0.0006;
-      panelGroup.rotation.y += 0.0005;
+      time += 0.001;
       
-      // Subtle panel animation
-      panels.forEach((panel, i) => {
-        panel.rotation.x = Math.sin(Date.now() * 0.0005 + i) * 0.05;
+      // Rotate star fields at different speeds
+      starField1.rotation.y += 0.0003;
+      starField1.rotation.x += 0.0001;
+      
+      starField2.rotation.y -= 0.0002;
+      starField2.rotation.x += 0.00015;
+      
+      starField3.rotation.y += 0.00025;
+      
+      // Animate universe objects
+      universeObjects.children.forEach((obj, i) => {
+        obj.rotation.y += 0.001 * (i % 2 === 0 ? 1 : -1);
+        obj.rotation.x = Math.sin(time + i) * 0.1;
+        obj.position.y += Math.sin(time * 2 + i) * 0.02;
       });
+      
+      // Animate lights
+      neonLight1.intensity = 1.5 + Math.sin(time * 2) * 0.3;
+      neonLight2.intensity = 1 + Math.cos(time * 1.5) * 0.2;
       
       renderer.render(scene, camera);
     };
@@ -137,7 +185,6 @@ const GfxtabPortfolio = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
@@ -145,87 +192,277 @@ const GfxtabPortfolio = () => {
     };
   }, []);
 
+  const projects = [
+    { title: 'Brand Identity Systems', category: 'Branding', desc: 'Strategic visual systems designed for recognition and long-term brand equity.' },
+    { title: 'Motion Graphics', category: 'Animation', desc: 'Cinematic visuals engineered to capture attention in fast-moving digital spaces.' },
+    { title: 'Digital Creatives', category: 'Design', desc: 'Modern, conversion-aware design tailored for today's platforms.' },
+    { title: 'Photo Manipulation', category: 'Art Direction', desc: 'High-detail compositions that transform concepts into powerful visuals.' },
+    { title: 'Social Media Assets', category: 'Content', desc: 'Platform-optimized visuals that drive engagement and brand consistency.' },
+    { title: 'VFX & Compositing', category: 'Visual Effects', desc: 'Professional-grade effects that elevate storytelling and production value.' }
+  ];
+
   return (
     <div style={{ position: 'relative' }}>
       <canvas ref={canvasRef} style={{ position: 'fixed', top: 0, left: 0, zIndex: 0 }} />
       
-      <div className="ui-overlay">
-        <div className="hero-text" id="heroText" data-testid="hero-text">
-          GFXTAB
-        </div>
-        
-        <div className="section-label work-label" data-testid="work-label">
-          SELECTED WORK
-        </div>
-        
-        <div className="section-label about-label" data-testid="about-label">
-          ABOUT
-        </div>
-        
-        <div className="section-label contact-label" data-testid="contact-label">
-          CONTACT
-        </div>
-
-        {/* Work Section */}
-        <div className="work-section" data-testid="work-section">
-          <div className="work-grid">
-            {[
-              { title: 'Logo Design', category: 'Branding', desc: 'Premium brand identity systems' },
-              { title: 'Digital Invite', category: 'Design', desc: 'Elegant event invitations' },
-              { title: 'Social Media Post', category: 'Content', desc: 'Engaging social visuals' },
-              { title: 'Motion Reels', category: 'Animation', desc: 'Dynamic motion graphics' },
-              { title: 'VFX Edits', category: 'Visual Effects', desc: 'Professional video effects' },
-              { title: 'Manipulation Visuals', category: 'Art', desc: 'Creative photo manipulation' }
-            ].map((project, index) => (
-              <div 
-                key={index} 
-                className="project-card" 
-                data-testid={`project-card-${index}`}
+      <div className="content-wrapper">
+        {/* HERO SECTION */}
+        <section className="hero-section" id="heroSection" data-testid="hero-section">
+          <div className="hero-content">
+            <div className="brand-mark" data-testid="brand-mark">GFXTAB</div>
+            <h1 className="hero-headline" data-testid="hero-headline">
+              We Design Visual Experiences<br/>That Define Modern Brands.
+            </h1>
+            <p className="hero-subline" data-testid="hero-subline">
+              GFXTAB is a designer-led creative studio delivering high-impact branding, motion, and digital design for businesses that refuse to look ordinary.
+            </p>
+            <div className="hero-power-statement" data-testid="hero-power-statement">
+              Premium by design. Strategic by intention.
+            </div>
+            <div className="hero-actions">
+              <button 
+                className="btn-primary" 
+                data-testid="start-project-btn-hero"
+                onClick={() => setShowContactForm(true)}
               >
-                <div className="project-number">0{index + 1}</div>
+                Start a Project
+              </button>
+              <button 
+                className="btn-secondary" 
+                data-testid="view-work-btn"
+                onClick={() => document.getElementById('workSection').scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Selected Work
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* SOCIAL PROOF STRIP */}
+        <section className="proof-strip" data-testid="proof-strip">
+          <div className="proof-item">
+            <div className="proof-number">120+</div>
+            <div className="proof-label">Projects Delivered</div>
+          </div>
+          <div className="proof-divider"></div>
+          <div className="proof-item">
+            <div className="proof-number">4+</div>
+            <div className="proof-label">Years Expertise</div>
+          </div>
+          <div className="proof-divider"></div>
+          <div className="proof-item">
+            <div className="proof-number">Studio-Level</div>
+            <div className="proof-label">Execution</div>
+          </div>
+          <div className="proof-divider"></div>
+          <div className="proof-item">
+            <div className="proof-number">Trusted</div>
+            <div className="proof-label">by Brands & Creators</div>
+          </div>
+        </section>
+
+        {/* SELECTED WORK */}
+        <section className="work-section" id="workSection" data-testid="work-section">
+          <div className="section-header">
+            <h2 className="section-title" data-testid="work-title">Selected Work</h2>
+            <p className="section-subtitle">
+              A refined selection of projects demonstrating strategic thinking, modern aesthetics, and meticulous execution.
+            </p>
+            <div className="section-quote">Great brands are not accidental. They are designed.</div>
+          </div>
+          
+          <div className="work-grid">
+            {projects.map((project, index) => (
+              <div key={index} className="project-card" data-testid={`project-card-${index}`}>
+                <div className="project-number">{String(index + 1).padStart(2, '0')}</div>
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-category">{project.category}</p>
                 <p className="project-desc">{project.desc}</p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* About Section */}
-        <div className="about-section" data-testid="about-section">
-          <div className="about-content">
-            <h2 className="about-heading">Designers Choice | Assets & Reels</h2>
-            <p className="about-text">
-              Where visuals meet imagination, crafting premium assets and reels 
-              that inspire, engage, and define brands.
+        {/* POSITIONING SECTION */}
+        <section className="positioning-section" data-testid="positioning-section">
+          <h2 className="positioning-title">Built for Brands That Intend to Lead</h2>
+          <div className="positioning-content">
+            <p>
+              We partner with ambitious businesses and emerging brands to craft visuals that influence perception and accelerate growth.
             </p>
-            <p className="about-subtext">
-              GFXTAB specializes in creating cinematic visual experiences that 
-              push creative boundaries. From motion design to VFX, every project 
-              is crafted with precision and artistic vision.
+            <p>
+              Every detail is deliberate.<br/>
+              Every design serves a purpose.
             </p>
+            <p className="positioning-closer">Not decoration. Direction.</p>
           </div>
-        </div>
+        </section>
 
-        {/* Contact Section */}
-        <div className="contact-section" data-testid="contact-section">
-          <div className="contact-content">
-            <h2 className="contact-heading">Let's Create Something</h2>
-            <p className="contact-subtext">Ready to bring your vision to life?</p>
-            <button 
-              className="contact-button"
-              data-testid="open-contact-form-btn"
-              onClick={() => setShowContactForm(true)}
-            >
-              Get In Touch
-            </button>
+        {/* CAPABILITIES */}
+        <section className="capabilities-section" data-testid="capabilities-section">
+          <h2 className="section-title">Capabilities</h2>
+          
+          <div className="capabilities-grid">
+            <div className="capability-item">
+              <h3>Brand Identity</h3>
+              <p>Strategic visual systems designed for recognition and long-term brand equity.</p>
+            </div>
+            
+            <div className="capability-item">
+              <h3>Motion Design</h3>
+              <p>Cinematic visuals engineered to capture attention in fast-moving digital spaces.</p>
+            </div>
+            
+            <div className="capability-item">
+              <h3>Digital Creatives</h3>
+              <p>Modern, conversion-aware design tailored for today's platforms.</p>
+            </div>
+            
+            <div className="capability-item">
+              <h3>Photo Manipulation</h3>
+              <p>High-detail compositions that transform concepts into powerful visuals.</p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Footer */}
-        <div className="footer" data-testid="footer">
-          <p>© 2025 GFXTAB - Crafted by Taiyyab Saiyyad</p>
-        </div>
+        {/* FOUNDER SECTION */}
+        <section className="founder-section" data-testid="founder-section">
+          <h2 className="section-title">Founder-Led. Detail-Obsessed.</h2>
+          <div className="founder-content">
+            <p>
+              GFXTAB was founded by <strong>Taiyyab Saiyyad</strong>, a visual designer known for blending strategic clarity with striking aesthetics.
+            </p>
+            <p>
+              With over four years of professional experience, his work reflects a commitment to precision, modern design language, and results-driven creativity.
+            </p>
+            <div className="founder-quote">
+              Good design attracts attention.<br/>
+              Exceptional design earns trust.
+            </div>
+          </div>
+        </section>
+
+        {/* PROCESS SECTION */}
+        <section className="process-section" data-testid="process-section">
+          <h2 className="section-title">Process</h2>
+          
+          <div className="process-steps">
+            <div className="process-step">
+              <div className="step-number">01</div>
+              <h3>Discover</h3>
+              <p>Understanding your brand, audience, and objectives.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">02</div>
+              <h3>Define</h3>
+              <p>Translating insights into clear creative direction.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">03</div>
+              <h3>Design</h3>
+              <p>Crafting visuals with precision and intention.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">04</div>
+              <h3>Refine</h3>
+              <p>Polishing every detail until it meets studio standards.</p>
+            </div>
+            
+            <div className="process-step">
+              <div className="step-number">05</div>
+              <h3>Deliver</h3>
+              <p>Production-ready assets built for impact.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* TRUST BLOCK */}
+        <section className="trust-section" data-testid="trust-section">
+          <h2 className="section-title">Building Long-Term Creative Partnerships</h2>
+          <p className="trust-text">
+            Clients value GFXTAB for reliability, refined aesthetics, and a process that respects both timelines and quality.
+          </p>
+        </section>
+
+        {/* PROFESSIONAL PLATFORMS */}
+        <section className="platforms-section" data-testid="platforms-section">
+          <h2 className="section-title">Professional Platforms</h2>
+          
+          <div className="platforms-grid">
+            <div className="platform-card">
+              <div className="platform-icon">🎨</div>
+              <h3>Behance — Portfolio & Case Studies</h3>
+              <p>Explore detailed projects, creative breakdowns, and studio-quality executions.</p>
+              <a 
+                href="https://www.behance.net/taiyyabsaiyyad1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="platform-link"
+                data-testid="behance-link"
+              >
+                View Portfolio →
+              </a>
+            </div>
+            
+            <div className="platform-card">
+              <div className="platform-icon">📸</div>
+              <h3>Instagram — Creative Showcase</h3>
+              <p>A live stream of trending reels, motion edits, design experiments, and visual storytelling.</p>
+              <a 
+                href="https://www.instagram.com/gfxtab" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="platform-link"
+                data-testid="instagram-link"
+              >
+                Follow GFXTAB →
+              </a>
+            </div>
+            
+            <div className="platform-card">
+              <div className="platform-icon">💼</div>
+              <h3>LinkedIn — Professional Journey</h3>
+              <p>Experience, collaborations, career milestones, and professional credibility in one place.</p>
+              <a 
+                href="https://www.linkedin.com/in/taiyyab-saiyyad-031887192" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="platform-link"
+                data-testid="linkedin-link"
+              >
+                Connect on LinkedIn →
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="final-cta" data-testid="final-cta">
+          <h2 className="cta-title">Let's Create Something Remarkable</h2>
+          <p className="cta-text">
+            Whether you are launching a brand, elevating your presence, or redefining your visual identity, the right design can transform perception.
+          </p>
+          <p className="cta-subtext">Start the conversation.</p>
+          
+          <button 
+            className="btn-primary-large" 
+            data-testid="start-project-btn-cta"
+            onClick={() => setShowContactForm(true)}
+          >
+            Start a Project
+          </button>
+          
+          <p className="cta-notice">Currently accepting select projects.</p>
+        </section>
+
+        {/* FOOTER */}
+        <footer className="footer" data-testid="footer">
+          <p>© 2025 GFXTAB — Crafted by Taiyyab Saiyyad</p>
+          <p className="footer-tagline">Where visuals meet intention.</p>
+        </footer>
       </div>
 
       {showContactForm && (
