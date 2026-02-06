@@ -195,7 +195,7 @@ const GfxtabPortfolio = () => {
   const projects = [
     { title: 'Brand Identity Systems', category: 'Branding', desc: 'Strategic visual systems designed for recognition and long-term brand equity.' },
     { title: 'Motion Graphics', category: 'Animation', desc: 'Cinematic visuals engineered to capture attention in fast-moving digital spaces.' },
-    { title: 'Digital Creatives', category: 'Design', desc: 'Modern, conversion-aware design tailored for today's platforms.' },
+    { title: 'Digital Creatives', category: 'Design', desc: 'Modern, conversion-aware design tailored for today platforms.' },
     { title: 'Photo Manipulation', category: 'Art Direction', desc: 'High-detail compositions that transform concepts into powerful visuals.' },
     { title: 'Social Media Assets', category: 'Content', desc: 'Platform-optimized visuals that drive engagement and brand consistency.' },
     { title: 'VFX & Compositing', category: 'Visual Effects', desc: 'Professional-grade effects that elevate storytelling and production value.' }
