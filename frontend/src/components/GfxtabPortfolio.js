@@ -65,7 +65,7 @@ const GfxtabPortfolio = () => {
     // ULTRA HD SPIRAL GALAXY
     const createHDGalaxy = () => {
       const geometry = new THREE.BufferGeometry();
-      const count = 25000;
+      const count = 8000; // Reduced for better performance
       const positions = new Float32Array(count * 3);
       const colors = new Float32Array(count * 3);
       const sizes = new Float32Array(count);
@@ -74,7 +74,7 @@ const GfxtabPortfolio = () => {
         const i3 = i * 3;
         const radius = Math.random() * 1000 + 300;
         const spinAngle = radius * 0.004;
-        const branchAngle = ((i % 8) / 8) * Math.PI * 2;
+        const branchAngle = ((i % 6) / 6) * Math.PI * 2; // 6 branches instead of 8
         
         const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 80;
         const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 80;
@@ -100,7 +100,7 @@ const GfxtabPortfolio = () => {
         colors[i3 + 1] = mixedColor.g;
         colors[i3 + 2] = mixedColor.b;
         
-        sizes[i] = Math.random() * 6 + 2;
+        sizes[i] = Math.random() * 8 + 3; // Larger particles compensate for fewer count
       }
       
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -108,7 +108,7 @@ const GfxtabPortfolio = () => {
       geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
       
       const material = new THREE.PointsMaterial({
-        size: 5,
+        size: 6,
         sizeAttenuation: true,
         vertexColors: true,
         transparent: true,
