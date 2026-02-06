@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const GfxtabPortfolio = () => {
   const canvasRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const [showContactForm, setShowContactForm] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -27,176 +26,184 @@ const GfxtabPortfolio = () => {
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-    camera.position.set(0, 0, 100);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+    camera.position.set(0, 50, 200);
 
     const renderer = new THREE.WebGLRenderer({ 
       canvas, 
       antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
+      alpha: false
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // LIGHTING SETUP
-    const ambientLight = new THREE.AmbientLight(0x0a0a1a, 0.3);
+    // LIGHTING
+    const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0x00f6ff, 2, 500);
-    pointLight1.position.set(100, 100, 100);
-    scene.add(pointLight1);
+    const sunLight = new THREE.PointLight(0xffffff, 2, 2000);
+    sunLight.position.set(0, 0, 0);
+    scene.add(sunLight);
 
-    const pointLight2 = new THREE.PointLight(0xff00ff, 1.5, 400);
-    pointLight2.position.set(-100, -100, -50);
-    scene.add(pointLight2);
+    const textureLoader = new THREE.TextureLoader();
 
-    const pointLight3 = new THREE.PointLight(0x00ffff, 1, 300);
-    pointLight3.position.set(0, -200, 150);
-    scene.add(pointLight3);
+    // EARTH (Realistic)
+    const earthGeo = new THREE.SphereGeometry(30, 64, 64);
+    const earthMat = new THREE.MeshPhongMaterial({
+      color: 0x2233ff,
+      emissive: 0x112244,
+      shininess: 25,
+      specular: 0x333333
+    });
+    const earth = new THREE.Mesh(earthGeo, earthMat);
+    earth.position.set(-150, 0, -300);
+    scene.add(earth);
 
-    // MULTI-LAYER STAR SYSTEMS
-    const createStarLayer = (count, spread, size, color, depth) => {
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(count * 3);
-      const colors = new Float32Array(count * 3);
-      
-      for (let i = 0; i < count * 3; i += 3) {
-        const angle = Math.random() * Math.PI * 2;
-        const radius = spread * (0.5 + Math.random() * 0.5);
-        
-        positions[i] = Math.cos(angle) * radius + (Math.random() - 0.5) * 100;
-        positions[i + 1] = (Math.random() - 0.5) * spread;
-        positions[i + 2] = Math.sin(angle) * radius - depth;
-        
-        const colorVariation = 0.7 + Math.random() * 0.3;
-        colors[i] = color.r * colorVariation;
-        colors[i + 1] = color.g * colorVariation;
-        colors[i + 2] = color.b * colorVariation;
-      }
-      
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-      
-      const material = new THREE.PointsMaterial({
-        size: size,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.9,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
+    // MOON
+    const moonGeo = new THREE.SphereGeometry(8, 32, 32);
+    const moonMat = new THREE.MeshPhongMaterial({
+      color: 0xaaaaaa,
+      emissive: 0x222222
+    });
+    const moon = new THREE.Mesh(moonGeo, moonMat);
+    moon.position.set(-150, 0, -250);
+    scene.add(moon);
+
+    // MARS
+    const marsGeo = new THREE.SphereGeometry(15, 48, 48);
+    const marsMat = new THREE.MeshPhongMaterial({
+      color: 0xff5533,
+      emissive: 0x331100
+    });
+    const mars = new THREE.Mesh(marsGeo, marsMat);
+    mars.position.set(200, -50, -500);
+    scene.add(mars);
+
+    // JUPITER (Big planet)
+    const jupiterGeo = new THREE.SphereGeometry(50, 64, 64);
+    const jupiterMat = new THREE.MeshPhongMaterial({
+      color: 0xddaa88,
+      emissive: 0x332211
+    });
+    const jupiter = new THREE.Mesh(jupiterGeo, jupiterMat);
+    jupiter.position.set(-300, 100, -800);
+    scene.add(jupiter);
+
+    // SATURN with RINGS
+    const saturnGeo = new THREE.SphereGeometry(40, 64, 64);
+    const saturnMat = new THREE.MeshPhongMaterial({
+      color: 0xffdd99,
+      emissive: 0x332200
+    });
+    const saturn = new THREE.Mesh(saturnGeo, saturnMat);
+    saturn.position.set(350, -80, -1200);
+    scene.add(saturn);
+
+    // Saturn rings
+    const ringGeo = new THREE.RingGeometry(50, 80, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xccaa77,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.7
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = Math.PI / 2.5;
+    saturn.add(ring);
+
+    // ASTEROID BELT
+    const asteroids = [];
+    for (let i = 0; i < 300; i++) {
+      const size = Math.random() * 2 + 0.5;
+      const asteroidGeo = new THREE.DodecahedronGeometry(size, 0);
+      const asteroidMat = new THREE.MeshPhongMaterial({
+        color: 0x666666,
+        emissive: 0x111111
       });
+      const asteroid = new THREE.Mesh(asteroidGeo, asteroidMat);
       
-      return new THREE.Points(geometry, material);
-    };
-
-    const starLayers = [
-      createStarLayer(1500, 400, 0.3, { r: 0, g: 0.96, b: 1 }, 0),
-      createStarLayer(1200, 350, 0.25, { r: 0.5, g: 0.7, b: 1 }, 200),
-      createStarLayer(1000, 300, 0.2, { r: 1, g: 0.5, b: 1 }, 400),
-      createStarLayer(800, 250, 0.15, { r: 1, g: 1, b: 1 }, 600)
-    ];
-    
-    starLayers.forEach(layer => scene.add(layer));
-
-    // NEBULA CLOUDS
-    const nebulaGroup = new THREE.Group();
-    
-    const createNebula = (x, y, z, size, color) => {
-      const geometry = new THREE.SphereGeometry(size, 16, 16);
-      const material = new THREE.MeshBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: 0.03,
-        blending: THREE.AdditiveBlending,
-        side: THREE.BackSide
-      });
-      const nebula = new THREE.Mesh(geometry, material);
-      nebula.position.set(x, y, z);
-      return nebula;
-    };
-
-    nebulaGroup.add(createNebula(100, 50, -200, 150, 0xff00ff));
-    nebulaGroup.add(createNebula(-120, -80, -400, 180, 0x00ffff));
-    nebulaGroup.add(createNebula(80, -100, -600, 200, 0x0088ff));
-    nebulaGroup.add(createNebula(-150, 120, -800, 220, 0xff0088));
-    
-    scene.add(nebulaGroup);
-
-    // FLOATING ENERGY ORBS
-    const energyOrbs = [];
-    for (let i = 0; i < 20; i++) {
-      const geometry = new THREE.SphereGeometry(Math.random() * 3 + 1, 16, 16);
-      const material = new THREE.MeshBasicMaterial({
-        color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6),
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending
-      });
-      const orb = new THREE.Mesh(geometry, material);
-      orb.position.set(
-        (Math.random() - 0.5) * 300,
-        (Math.random() - 0.5) * 300,
-        -Math.random() * 800 - 100
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 400 + Math.random() * 200;
+      asteroid.position.set(
+        Math.cos(angle) * radius,
+        (Math.random() - 0.5) * 100,
+        Math.sin(angle) * radius - 600
       );
-      orb.userData.speed = Math.random() * 0.002 + 0.001;
-      energyOrbs.push(orb);
-      scene.add(orb);
+      
+      asteroid.userData.rotationSpeed = {
+        x: (Math.random() - 0.5) * 0.02,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.02
+      };
+      
+      asteroids.push(asteroid);
+      scene.add(asteroid);
     }
 
-    // COSMIC PORTAL RINGS
-    const createPortalRing = (radius, z, color) => {
-      const geometry = new THREE.TorusGeometry(radius, 1, 16, 100);
-      const material = new THREE.MeshBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: 0.15,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide
-      });
-      const ring = new THREE.Mesh(geometry, material);
-      ring.position.z = z;
-      ring.rotation.x = Math.PI / 2;
-      return ring;
-    };
-
-    const portalRings = [
-      createPortalRing(50, -300, 0x00ffff),
-      createPortalRing(70, -600, 0xff00ff),
-      createPortalRing(90, -900, 0x00f6ff)
-    ];
+    // DISTANT STARS
+    const starsGeo = new THREE.BufferGeometry();
+    const starCount = 2000;
+    const positions = new Float32Array(starCount * 3);
     
-    portalRings.forEach(ring => scene.add(ring));
+    for (let i = 0; i < starCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 4000;
+      positions[i + 1] = (Math.random() - 0.5) * 4000;
+      positions[i + 2] = (Math.random() - 0.5) * 4000;
+    }
+    
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const starsMat = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 2,
+      transparent: true,
+      opacity: 0.8
+    });
+    const stars = new THREE.Points(starsGeo, starsMat);
+    scene.add(stars);
 
-    // MOUSE/TOUCH INTERACTION
-    const handleMouseMove = (e) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
+    // GALAXY DUST
+    const dustGeo = new THREE.BufferGeometry();
+    const dustCount = 1000;
+    const dustPositions = new Float32Array(dustCount * 3);
+    const dustColors = new Float32Array(dustCount * 3);
+    
+    for (let i = 0; i < dustCount * 3; i += 3) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * 1000 + 200;
+      dustPositions[i] = Math.cos(angle) * radius;
+      dustPositions[i + 1] = (Math.random() - 0.5) * 200;
+      dustPositions[i + 2] = Math.sin(angle) * radius - 800;
+      
+      dustColors[i] = 0.3 + Math.random() * 0.4;
+      dustColors[i + 1] = 0.2 + Math.random() * 0.3;
+      dustColors[i + 2] = 0.5 + Math.random() * 0.5;
+    }
+    
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+    dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
+    
+    const dustMat = new THREE.PointsMaterial({
+      size: 3,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending
+    });
+    const dust = new THREE.Points(dustGeo, dustMat);
+    scene.add(dust);
 
-    const handleTouchMove = (e) => {
-      if (e.touches.length > 0) {
-        mouseRef.current.x = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
-        mouseRef.current.y = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove);
-
-    // SCROLL-BASED CAMERA JOURNEY
-    let targetCameraZ = 100;
-    let targetCameraY = 0;
-    let targetRotationY = 0;
+    // SCROLL CAMERA JOURNEY
+    let targetZ = 200;
+    let targetY = 50;
 
     ScrollTrigger.create({
       start: 'top top',
       end: 'bottom bottom',
       onUpdate: (self) => {
         const progress = self.progress;
-        targetCameraZ = 100 - (progress * 800);
-        targetCameraY = Math.sin(progress * Math.PI * 2) * 30;
-        targetRotationY = progress * Math.PI * 0.3;
+        targetZ = 200 - (progress * 1500);
+        targetY = 50 + Math.sin(progress * Math.PI * 2) * 80;
+        camera.lookAt(0, 0, targetZ - 500);
       }
     });
 
@@ -206,42 +213,32 @@ const GfxtabPortfolio = () => {
       requestAnimationFrame(animate);
       time += 0.01;
       
-      // Smooth camera interpolation (5D movement feel)
-      camera.position.z += (targetCameraZ - camera.position.z) * 0.05;
-      camera.position.y += (targetCameraY - camera.position.y) * 0.05;
-      camera.rotation.y += (targetRotationY - camera.rotation.y) * 0.05;
+      // Smooth camera movement
+      camera.position.z += (targetZ - camera.position.z) * 0.05;
+      camera.position.y += (targetY - camera.position.y) * 0.05;
       
-      // Mouse parallax effect
-      camera.position.x += (mouseRef.current.x * 20 - camera.position.x) * 0.05;
-      camera.position.y += (mouseRef.current.y * 10 - (targetCameraY + camera.position.y)) * 0.03;
+      // Rotate planets
+      earth.rotation.y += 0.001;
+      mars.rotation.y += 0.0008;
+      jupiter.rotation.y += 0.0012;
+      saturn.rotation.y += 0.0009;
       
-      // Rotate star layers at different speeds
-      starLayers.forEach((layer, i) => {
-        layer.rotation.y += 0.0001 * (i + 1);
-        layer.rotation.x += 0.00005 * (i + 1);
+      // Orbit moon around earth
+      moon.position.x = earth.position.x + Math.cos(time * 0.5) * 50;
+      moon.position.z = earth.position.z + Math.sin(time * 0.5) * 50;
+      
+      // Rotate asteroids
+      asteroids.forEach(asteroid => {
+        asteroid.rotation.x += asteroid.userData.rotationSpeed.x;
+        asteroid.rotation.y += asteroid.userData.rotationSpeed.y;
+        asteroid.rotation.z += asteroid.userData.rotationSpeed.z;
       });
       
-      // Animate nebula clouds
-      nebulaGroup.rotation.y += 0.0002;
-      nebulaGroup.rotation.x = Math.sin(time * 0.1) * 0.1;
+      // Rotate stars slowly
+      stars.rotation.y += 0.0001;
       
-      // Pulse energy orbs
-      energyOrbs.forEach((orb, i) => {
-        orb.position.y += Math.sin(time + i) * 0.05;
-        orb.scale.setScalar(1 + Math.sin(time * 2 + i) * 0.1);
-        orb.rotation.y += orb.userData.speed;
-      });
-      
-      // Spin portal rings
-      portalRings.forEach((ring, i) => {
-        ring.rotation.z += 0.001 * (i + 1);
-        ring.scale.setScalar(1 + Math.sin(time + i) * 0.05);
-      });
-      
-      // Pulse lights
-      pointLight1.intensity = 2 + Math.sin(time) * 0.5;
-      pointLight2.intensity = 1.5 + Math.cos(time * 1.5) * 0.3;
-      pointLight3.intensity = 1 + Math.sin(time * 2) * 0.2;
+      // Rotate dust
+      dust.rotation.y += 0.0002;
       
       renderer.render(scene, camera);
     };
@@ -257,147 +254,92 @@ const GfxtabPortfolio = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
       renderer.dispose();
     };
   }, []);
 
-  useEffect(() => {
-    // TEXT ANIMATIONS
-    gsap.fromTo('.cosmic-text',
-      { opacity: 0, y: 50, scale: 0.9 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        scale: 1,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.15
-      }
-    );
-
-    // Floating animation for hero elements
-    gsap.to('.float-element', {
-      y: -15,
-      duration: 2,
-      ease: 'power1.inOut',
-      repeat: -1,
-      yoyo: true,
-      stagger: 0.3
-    });
-
-    // Section entrance animations
-    const sections = document.querySelectorAll('.cosmic-section');
-    sections.forEach((section, i) => {
-      gsap.from(section, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          end: 'top 20%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 0,
-        y: 80,
-        scale: 0.95,
-        duration: 1.2,
-        ease: 'power3.out'
-      });
-    });
-  }, []);
-
   return (
-    <div className="cosmic-portfolio">
-      <canvas ref={canvasRef} className="cosmic-canvas" />
+    <div className="solar-portfolio">
+      <canvas ref={canvasRef} className="solar-canvas" />
       
-      <div className="content-journey">
-        {/* HERO - SPIRITUAL ENERGY SECTION */}
-        <section className="hero-cosmic" data-testid="hero-section">
-          <div className="spiritual-aura"></div>
-          <div className="hero-silhouette"></div>
-          
-          <div className="hero-cosmic-content">
-            <div className="brand-cosmic cosmic-text float-element" data-testid="brand-mark">
-              GFXTAB
-            </div>
-            <h1 className="hero-cosmic-title cosmic-text float-element" data-testid="hero-headline">
-              <span className="glitch-text" data-text="We Design Visual Experiences">We Design Visual Experiences</span><br/>
-              <span className="glitch-text" data-text="That Define Modern Brands">That Define Modern Brands</span>
+      <div className="solar-content">
+        {/* HERO */}
+        <section className="solar-hero" data-testid="hero-section">
+          <div className="solar-hero-content">
+            <div className="solar-brand" data-testid="brand-mark">GFXTAB</div>
+            <h1 className="solar-title" data-testid="hero-headline">
+              We Design Visual Experiences<br/>That Define Modern Brands
             </h1>
-            <p className="hero-cosmic-sub cosmic-text float-element" data-testid="hero-subline">
+            <p className="solar-subtitle" data-testid="hero-subline">
               Journey through creativity. Where imagination meets execution in a cosmic dance of pixels, motion, and meaning.
             </p>
-            <div className="hero-tagline cosmic-text float-element" data-testid="hero-power-statement">
+            <div className="solar-tagline" data-testid="hero-power-statement">
               Premium by design. Strategic by intention.
             </div>
-            <div className="hero-actions cosmic-text">
+            <div className="solar-buttons">
               <button 
-                className="btn-cosmic-primary" 
+                className="solar-btn-primary" 
                 data-testid="start-project-btn-hero"
                 onClick={() => setShowContactForm(true)}
               >
-                <span>Start a Project</span>
-                <div className="btn-glow"></div>
+                Start a Project
               </button>
               <button 
-                className="btn-cosmic-secondary" 
+                className="solar-btn-secondary" 
                 data-testid="view-work-btn"
                 onClick={() => document.getElementById('workSection').scrollIntoView({ behavior: 'smooth' })}
               >
-                <span>View Selected Work</span>
+                View Selected Work
               </button>
             </div>
           </div>
         </section>
 
-        {/* PROOF STRIP */}
-        <section className="proof-cosmic cosmic-section" data-testid="proof-strip">
-          <div className="proof-cosmic-item">
-            <div className="proof-number-cosmic">120+</div>
-            <div className="proof-label-cosmic">Projects Delivered</div>
+        {/* PROOF */}
+        <section className="solar-proof" data-testid="proof-strip">
+          <div className="solar-proof-item">
+            <div className="solar-proof-num">120+</div>
+            <div className="solar-proof-label">Projects Delivered</div>
           </div>
-          <div className="cosmic-divider"></div>
-          <div className="proof-cosmic-item">
-            <div className="proof-number-cosmic">4+</div>
-            <div className="proof-label-cosmic">Years Expertise</div>
+          <div className="solar-divider"></div>
+          <div className="solar-proof-item">
+            <div className="solar-proof-num">4+</div>
+            <div className="solar-proof-label">Years Expertise</div>
           </div>
-          <div className="cosmic-divider"></div>
-          <div className="proof-cosmic-item">
-            <div className="proof-number-cosmic">Studio-Level</div>
-            <div className="proof-label-cosmic">Execution</div>
+          <div className="solar-divider"></div>
+          <div className="solar-proof-item">
+            <div className="solar-proof-num">Studio-Level</div>
+            <div className="solar-proof-label">Execution</div>
           </div>
         </section>
 
-        {/* WORK SECTION - GALAXY CARDS */}
-        <section className="work-cosmic cosmic-section" id="workSection" data-testid="work-section">
-          <div className="section-cosmic-header">
-            <h2 className="section-cosmic-title" data-testid="work-title">
-              <span className="gradient-text">Selected Work</span>
-            </h2>
-            <p className="section-cosmic-subtitle">
-              Navigate through our cosmic portfolio. Each project is a star in our creative universe.
+        {/* WORK */}
+        <section className="solar-work" id="workSection" data-testid="work-section">
+          <div className="solar-section-header">
+            <h2 className="solar-section-title" data-testid="work-title">Selected Work</h2>
+            <p className="solar-section-sub">
+              A refined selection of projects demonstrating strategic thinking, modern aesthetics, and meticulous execution.
             </p>
-            <div className="section-cosmic-quote">Great brands are not accidental. They are designed.</div>
+            <div className="solar-quote">Great brands are not accidental. They are designed.</div>
           </div>
           
-          <div className="work-cosmic-grid">
+          <div className="solar-work-grid">
             {projects.map((project, index) => (
               <div 
                 key={index} 
-                className="project-cosmic-card" 
+                className="solar-project-card" 
                 data-testid={`project-card-${index}`}
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="project-cosmic-glow"></div>
-                <div className="project-cosmic-media">
+                <div className="solar-project-img">
                   <img src={project.image} alt={project.title} loading="lazy" />
-                  <div className="project-cosmic-overlay">
-                    <span className="view-text">Enter Universe</span>
+                  <div className="solar-project-overlay">
+                    <span>View Project</span>
                   </div>
                 </div>
-                <div className="project-cosmic-info">
-                  <h3 className="project-cosmic-title">{project.title}</h3>
-                  <p className="project-cosmic-category">{project.category}</p>
+                <div className="solar-project-info">
+                  <h3>{project.title}</h3>
+                  <p>{project.category}</p>
                 </div>
               </div>
             ))}
@@ -405,30 +347,26 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* POSITIONING */}
-        <section className="positioning-cosmic cosmic-section" data-testid="positioning-section">
-          <div className="cosmic-energy-bg"></div>
-          <h2 className="positioning-cosmic-title gradient-text">
-            Built for Brands That Intend to Lead
-          </h2>
-          <div className="positioning-cosmic-content">
+        <section className="solar-positioning" data-testid="positioning-section">
+          <h2 className="solar-section-title">Built for Brands That Intend to Lead</h2>
+          <div className="solar-positioning-content">
             <p>We partner with ambitious businesses and emerging brands to craft visuals that influence perception and accelerate growth.</p>
             <p>Every detail is deliberate. Every design serves a purpose.</p>
-            <p className="positioning-cosmic-closer">Not decoration. Direction.</p>
+            <p className="solar-closer">Not decoration. Direction.</p>
           </div>
         </section>
 
         {/* CAPABILITIES */}
-        <section className="capabilities-cosmic cosmic-section" data-testid="capabilities-section">
-          <h2 className="section-cosmic-title gradient-text">Capabilities</h2>
-          <div className="capabilities-cosmic-grid">
+        <section className="solar-capabilities" data-testid="capabilities-section">
+          <h2 className="solar-section-title">Capabilities</h2>
+          <div className="solar-cap-grid">
             {[
               { title: 'Brand Identity', desc: 'Strategic visual systems designed for recognition and long-term brand equity.' },
               { title: 'Motion Design', desc: 'Cinematic visuals engineered to capture attention in fast-moving digital spaces.' },
               { title: 'Digital Creatives', desc: 'Modern, conversion-aware design tailored for today platforms.' },
               { title: 'Photo Manipulation', desc: 'High-detail compositions that transform concepts into powerful visuals.' }
             ].map((cap, i) => (
-              <div key={i} className="capability-cosmic-item">
-                <div className="capability-cosmic-icon"></div>
+              <div key={i} className="solar-cap-item">
                 <h3>{cap.title}</h3>
                 <p>{cap.desc}</p>
               </div>
@@ -437,19 +375,18 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* FOUNDER */}
-        <section className="founder-cosmic cosmic-section" data-testid="founder-section">
-          <div className="founder-cosmic-aura"></div>
-          <div className="founder-cosmic-logo">
+        <section className="solar-founder" data-testid="founder-section">
+          <div className="solar-founder-logo">
             <img 
               src="https://drive.google.com/uc?export=view&id=1sMjejBtmc5If2PABfdaWv35U3duIu57h" 
               alt="GFXTAB"
             />
           </div>
-          <h2 className="section-cosmic-title gradient-text">Founder-Led. Detail-Obsessed.</h2>
-          <div className="founder-cosmic-content">
+          <h2 className="solar-section-title">Founder-Led. Detail-Obsessed.</h2>
+          <div className="solar-founder-content">
             <p>GFXTAB was founded by <strong>Taiyyab Saiyyad</strong>, a visual designer known for blending strategic clarity with striking aesthetics.</p>
             <p>With over four years of professional experience, his work reflects a commitment to precision, modern design language, and results-driven creativity.</p>
-            <div className="founder-cosmic-quote">
+            <div className="solar-founder-quote">
               Good design attracts attention.<br/>
               Exceptional design earns trust.
             </div>
@@ -457,9 +394,9 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* PROCESS */}
-        <section className="process-cosmic cosmic-section" data-testid="process-section">
-          <h2 className="section-cosmic-title gradient-text">Process</h2>
-          <div className="process-cosmic-steps">
+        <section className="solar-process" data-testid="process-section">
+          <h2 className="solar-section-title">Process</h2>
+          <div className="solar-process-grid">
             {[
               { num: '01', title: 'Discover', desc: 'Understanding your brand, audience, and objectives.' },
               { num: '02', title: 'Define', desc: 'Translating insights into clear creative direction.' },
@@ -467,9 +404,8 @@ const GfxtabPortfolio = () => {
               { num: '04', title: 'Refine', desc: 'Polishing every detail until it meets studio standards.' },
               { num: '05', title: 'Deliver', desc: 'Production-ready assets built for impact.' }
             ].map((step, i) => (
-              <div key={i} className="process-cosmic-step">
-                <div className="step-cosmic-orb"></div>
-                <div className="step-cosmic-number">{step.num}</div>
+              <div key={i} className="solar-process-step">
+                <div className="solar-step-num">{step.num}</div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
               </div>
@@ -478,17 +414,17 @@ const GfxtabPortfolio = () => {
         </section>
 
         {/* TRUST */}
-        <section className="trust-cosmic cosmic-section" data-testid="trust-section">
-          <h2 className="section-cosmic-title gradient-text">Building Long-Term Creative Partnerships</h2>
-          <p className="trust-cosmic-text">
+        <section className="solar-trust" data-testid="trust-section">
+          <h2 className="solar-section-title">Building Long-Term Creative Partnerships</h2>
+          <p className="solar-trust-text">
             Clients value GFXTAB for reliability, refined aesthetics, and a process that respects both timelines and quality.
           </p>
         </section>
 
         {/* PLATFORMS */}
-        <section className="platforms-cosmic cosmic-section" data-testid="platforms-section">
-          <h2 className="section-cosmic-title gradient-text">Professional Platforms</h2>
-          <div className="platforms-cosmic-grid">
+        <section className="solar-platforms" data-testid="platforms-section">
+          <h2 className="solar-section-title">Professional Platforms</h2>
+          <div className="solar-platforms-grid">
             {[
               { 
                 name: 'Behance', 
@@ -517,58 +453,58 @@ const GfxtabPortfolio = () => {
                 href={platform.url} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="platform-cosmic-card"
+                className="solar-platform-card"
                 data-testid={platform.testid}
               >
-                <div className="platform-cosmic-icon">{platform.icon}</div>
+                <div className="solar-platform-icon">{platform.icon}</div>
                 <h3>{platform.name}</h3>
                 <p>{platform.desc}</p>
-                <div className="platform-cosmic-shine"></div>
               </a>
             ))}
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="cta-cosmic cosmic-section" data-testid="final-cta">
-          <div className="cta-cosmic-aura"></div>
-          <h2 className="cta-cosmic-title gradient-text">Let's Create Something Remarkable</h2>
-          <p className="cta-cosmic-text">
+        {/* CTA */}
+        <section className="solar-cta" data-testid="final-cta">
+          <h2 className="solar-cta-title">Let's Create Something Remarkable</h2>
+          <p className="solar-cta-text">
             Whether you are launching a brand, elevating your presence, or redefining your visual identity, the right design can transform perception.
           </p>
-          <p className="cta-cosmic-subtext">Start the conversation.</p>
+          <p className="solar-cta-sub">Start the conversation.</p>
           <button 
-            className="btn-cosmic-primary-large" 
+            className="solar-btn-primary-large" 
             data-testid="start-project-btn-cta"
             onClick={() => setShowContactForm(true)}
           >
-            <span>Start a Project</span>
-            <div className="btn-glow"></div>
+            Start a Project
           </button>
-          <p className="cta-cosmic-notice">Currently accepting select projects.</p>
+          <p className="solar-cta-notice">Currently accepting select projects.</p>
         </section>
 
         {/* FOOTER */}
-        <footer className="footer-cosmic" data-testid="footer">
+        <footer className="solar-footer" data-testid="footer">
           <p>© 2025 GFXTAB — Crafted by Taiyyab Saiyyad</p>
-          <p className="footer-cosmic-tagline">Where visuals meet the cosmos.</p>
+          <p className="solar-footer-tag">Where visuals meet the cosmos.</p>
         </footer>
       </div>
 
-      {/* PROJECT MODAL */}
+      {/* PROJECT MODAL with CREATIVE CLOSE */}
       {selectedProject && (
-        <div className="modal-cosmic-overlay" onClick={() => setSelectedProject(null)}>
-          <div className="modal-cosmic-card" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-cosmic-close" onClick={() => setSelectedProject(null)}>×</button>
-            <div className="modal-cosmic-image">
+        <div className="solar-modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="solar-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="solar-modal-close" onClick={() => setSelectedProject(null)}>
+              <span className="close-line close-line-1"></span>
+              <span className="close-line close-line-2"></span>
+            </button>
+            <div className="solar-modal-img">
               <img src={selectedProject.image} alt={selectedProject.title} />
             </div>
-            <div className="modal-cosmic-details">
+            <div className="solar-modal-details">
               <div>
                 <h3>{selectedProject.title}</h3>
                 <p>{selectedProject.category}</p>
               </div>
-              <a href={selectedProject.folder} target="_blank" rel="noopener noreferrer" className="btn-cosmic-secondary-small">
+              <a href={selectedProject.folder} target="_blank" rel="noopener noreferrer" className="solar-btn-small">
                 Open Folder
               </a>
             </div>
