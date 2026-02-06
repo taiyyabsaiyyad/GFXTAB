@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ContactForm from './ContactForm';
+import { Linkedin, Instagram } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
