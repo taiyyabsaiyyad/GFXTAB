@@ -1,0 +1,125 @@
+{
+  "summary": {
+    "tests_run": 6,
+    "tests_passed": 5,
+    "success_rate": 83.33333333333334
+  },
+  "detailed_results": [
+    {
+      "test_name": "Root API Endpoint",
+      "method": "GET",
+      "endpoint": "api/",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "message": "Hello World"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Status Check",
+      "method": "POST",
+      "endpoint": "api/status",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "id": "22bb4033-b8d1-48e0-bdd0-303354f87649",
+        "client_name": "test_client_162143",
+        "timestamp": "2026-02-06T16:21:43.831790Z"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Get Status Checks",
+      "method": "GET",
+      "endpoint": "api/status",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": [
+        {
+          "id": "22bb4033-b8d1-48e0-bdd0-303354f87649",
+          "client_name": "test_client_162143",
+          "timestamp": "2026-02-06T16:21:43.831790Z"
+        }
+      ],
+      "error": null
+    },
+    {
+      "test_name": "Contact Form - Valid Data",
+      "method": "POST",
+      "endpoint": "api/contact",
+      "expected_status": 200,
+      "actual_status": 520,
+      "success": false,
+      "response_data": null,
+      "error": {
+        "detail": "Failed to send message. Please try again."
+      }
+    },
+    {
+      "test_name": "Contact Form - Invalid Email",
+      "method": "POST",
+      "endpoint": "api/contact",
+      "expected_status": 422,
+      "actual_status": 422,
+      "success": true,
+      "response_data": {
+        "detail": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body",
+              "email"
+            ],
+            "msg": "value is not a valid email address: An email address must have an @-sign.",
+            "input": "invalid-email",
+            "ctx": {
+              "reason": "An email address must have an @-sign."
+            }
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "test_name": "Contact Form - Missing Fields",
+      "method": "POST",
+      "endpoint": "api/contact",
+      "expected_status": 422,
+      "actual_status": 422,
+      "success": true,
+      "response_data": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "email"
+            ],
+            "msg": "Field required",
+            "input": {
+              "name": "Test User"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          },
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "message"
+            ],
+            "msg": "Field required",
+            "input": {
+              "name": "Test User"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          }
+        ]
+      },
+      "error": null
+    }
+  ]
+}
