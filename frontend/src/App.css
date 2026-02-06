@@ -12,19 +12,19 @@ html {
 
 body {
   margin: 0;
-  background: #000000;
+  background: #000005;
   font-family: 'Inter', sans-serif;
   color: #ffffff;
   overflow-x: hidden;
 }
 
-.solar-portfolio {
+.galaxy-portfolio {
   position: relative;
   min-height: 100vh;
 }
 
-/* SOLAR CANVAS - ALWAYS BEHIND */
-.solar-canvas {
+/* GALAXY CANVAS - VIBRANT AND VISIBLE */
+.galaxy-canvas {
   position: fixed !important;
   top: 0;
   left: 0;
@@ -34,629 +34,746 @@ body {
   pointer-events: none;
 }
 
-/* CONTENT - ALWAYS ON TOP AND VISIBLE */
-.solar-content {
+/* CONTENT - VISIBLE WITH GLASS EFFECT */
+.galaxy-content {
   position: relative;
   z-index: 10 !important;
   pointer-events: auto;
 }
 
-.solar-content section {
-  background: rgba(0, 0, 10, 0.75);
-  backdrop-filter: blur(8px);
+.galaxy-content section {
+  background: linear-gradient(135deg, rgba(10, 10, 40, 0.7) 0%, rgba(5, 5, 20, 0.8) 100%);
+  backdrop-filter: blur(12px);
   position: relative;
+  border: 1px solid rgba(0, 200, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
 /* HERO */
-.solar-hero {
+.galaxy-hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 3rem 2rem;
   text-align: center;
+  background: linear-gradient(180deg, rgba(10, 10, 50, 0.6) 0%, rgba(5, 5, 20, 0.8) 100%);
+  border: none;
 }
 
-.solar-hero-content {
-  max-width: 1000px;
+.galaxy-hero-content {
+  max-width: 1100px;
   position: relative;
   z-index: 2;
 }
 
-.solar-brand {
+.galaxy-brand {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 900;
-  letter-spacing: 0.5em;
-  color: #00f6ff;
+  letter-spacing: 0.6em;
+  background: linear-gradient(135deg, #00f6ff 0%, #00ffff 50%, #00f6ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 2.5rem;
-  text-shadow: 
-    0 0 20px rgba(0, 246, 255, 1),
-    0 0 40px rgba(0, 246, 255, 0.8),
-    0 0 80px rgba(0, 246, 255, 0.6);
-  animation: brandPulse 3s ease-in-out infinite;
+  text-shadow: 0 0 60px rgba(0, 246, 255, 0.9);
+  animation: brandShine 4s linear infinite, brandFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 1));
 }
 
-@keyframes brandPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+@keyframes brandShine {
+  to { background-position: 200% center; }
 }
 
-.solar-title {
+@keyframes brandFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.galaxy-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
   font-weight: 900;
   line-height: 1.15;
   margin-bottom: 2rem;
   color: #ffffff;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  text-shadow: 
+    0 0 40px rgba(255, 255, 255, 0.8),
+    0 0 80px rgba(0, 200, 255, 0.6),
+    0 4px 20px rgba(0, 0, 0, 0.9);
+  animation: titleGlow 3s ease-in-out infinite;
 }
 
-.solar-subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 40px rgba(255, 255, 255, 0.8), 0 0 80px rgba(0, 200, 255, 0.6); }
+  50% { text-shadow: 0 0 60px rgba(255, 255, 255, 1), 0 0 120px rgba(0, 200, 255, 0.9); }
+}
+
+.galaxy-subtitle {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 2rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9);
+  font-weight: 300;
 }
 
-.solar-tagline {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
+.galaxy-tagline {
+  font-size: clamp(1.05rem, 1.9vw, 1.25rem);
   font-style: italic;
-  color: #00d4ff;
+  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 3rem;
-  text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+  font-weight: 600;
+  text-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
+  filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8));
 }
 
-.solar-buttons {
+.galaxy-buttons {
   display: flex;
-  gap: 1.2rem;
+  gap: 1.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.solar-btn-primary {
-  padding: 1.3rem 3rem;
+.galaxy-btn-primary {
+  padding: 1.4rem 3.5rem;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   color: #000;
-  background: linear-gradient(135deg, #00f6ff 0%, #00d4ff 100%);
+  background: linear-gradient(135deg, #00f6ff 0%, #00ffff 100%);
   border: none;
   border-radius: 50px;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.18em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 40px rgba(0, 246, 255, 0.8),
+    0 15px 40px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
 }
 
-.solar-btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 50px rgba(0, 246, 255, 1), 0 15px 40px rgba(0, 0, 0, 0.6);
+.galaxy-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
-.solar-btn-secondary {
-  padding: 1.3rem 3rem;
+.galaxy-btn-primary:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.galaxy-btn-primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    0 0 60px rgba(0, 246, 255, 1),
+    0 0 100px rgba(0, 246, 255, 0.6),
+    0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.galaxy-btn-secondary {
+  padding: 1.4rem 3.5rem;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   color: #00f6ff;
   background: transparent;
-  border: 2px solid rgba(0, 246, 255, 0.6);
+  border: 2px solid rgba(0, 246, 255, 0.7);
   border-radius: 50px;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
+  letter-spacing: 0.18em;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
 }
 
-.solar-btn-secondary:hover {
+.galaxy-btn-secondary:hover {
   border-color: #00f6ff;
-  background: rgba(0, 246, 255, 0.1);
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
-  transform: translateY(-3px);
+  background: rgba(0, 246, 255, 0.15);
+  box-shadow: 0 0 40px rgba(0, 246, 255, 0.8);
+  transform: translateY(-5px);
 }
 
 /* PROOF */
-.solar-proof {
+.galaxy-proof {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
-  padding: 5rem 2rem;
+  gap: 4rem;
+  padding: 6rem 2rem;
   flex-wrap: wrap;
-  background: rgba(0, 10, 20, 0.8);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(0, 246, 255, 0.2);
-  border-bottom: 1px solid rgba(0, 246, 255, 0.2);
+  background: linear-gradient(135deg, rgba(15, 15, 60, 0.8) 0%, rgba(5, 5, 30, 0.9) 100%);
+  border-top: 2px solid rgba(0, 246, 255, 0.3);
+  border-bottom: 2px solid rgba(0, 246, 255, 0.3);
+  box-shadow: 
+    0 0 60px rgba(0, 246, 255, 0.3),
+    inset 0 0 60px rgba(0, 100, 200, 0.1);
 }
 
-.solar-proof-item {
+.galaxy-proof-item {
   text-align: center;
 }
 
-.solar-proof-num {
+.galaxy-proof-num {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   font-weight: 900;
-  color: #00f6ff;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
+  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.9));
 }
 
-.solar-proof-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+.galaxy-proof-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
+  font-weight: 600;
 }
 
-.solar-divider {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 246, 255, 0.6), transparent);
+.galaxy-divider {
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 246, 255, 0.8), transparent);
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.6);
 }
 
 /* SECTIONS */
 section {
-  padding: 7rem 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 8rem 2rem;
+  max-width: 1500px;
+  margin: 2rem auto;
+  border-radius: 20px;
 }
 
-.solar-section-header {
+.galaxy-section-header {
   text-align: center;
-  margin-bottom: 5rem;
+  margin-bottom: 6rem;
 }
 
-.solar-section-title {
+.galaxy-section-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 900;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #00f6ff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(0, 246, 255, 0.8));
+  animation: titlePulse 4s ease-in-out infinite;
 }
 
-.solar-section-sub {
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 800px;
+@keyframes titlePulse {
+  0%, 100% { filter: drop-shadow(0 0 40px rgba(0, 246, 255, 0.8)); }
+  50% { filter: drop-shadow(0 0 60px rgba(0, 246, 255, 1)); }
+}
+
+.galaxy-section-sub {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.solar-quote {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+.galaxy-quote {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-style: italic;
-  color: #00d4ff;
-  margin-top: 2rem;
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  color: #00f6ff;
+  margin-top: 2.5rem;
+  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
+  font-weight: 500;
 }
 
 /* WORK */
-.solar-work {
-  background: rgba(0, 10, 25, 0.85);
-  backdrop-filter: blur(10px);
+.galaxy-work {
+  background: linear-gradient(135deg, rgba(15, 15, 70, 0.85) 0%, rgba(10, 10, 40, 0.9) 100%);
+  box-shadow: 
+    0 0 80px rgba(0, 246, 255, 0.3),
+    inset 0 0 80px rgba(0, 150, 255, 0.1);
 }
 
-.solar-work-grid {
+.galaxy-work-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 3rem;
 }
 
-.solar-project-card {
-  background: rgba(10, 10, 30, 0.9);
-  border: 1px solid rgba(0, 246, 255, 0.3);
-  border-radius: 16px;
+.galaxy-project-card {
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.9) 0%, rgba(10, 10, 30, 0.95) 100%);
+  border: 2px solid rgba(0, 246, 255, 0.4);
+  border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.solar-project-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(0, 246, 255, 0.8);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 
-    0 0 40px rgba(0, 246, 255, 0.5),
-    0 20px 50px rgba(0, 0, 0, 0.7);
+    0 15px 50px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(0, 246, 255, 0.2);
 }
 
-.solar-project-img {
+.galaxy-project-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  border-color: rgba(0, 246, 255, 1);
+  box-shadow: 
+    0 0 60px rgba(0, 246, 255, 0.8),
+    0 25px 70px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(0, 246, 255, 0.1);
+}
+
+.galaxy-project-img {
   width: 100%;
-  height: 260px;
+  height: 280px;
   position: relative;
   overflow: hidden;
   background: #000;
 }
 
-.solar-project-img img {
+.galaxy-project-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
-.solar-project-card:hover .solar-project-img img {
-  transform: scale(1.1);
+.galaxy-project-card:hover .galaxy-project-img img {
+  transform: scale(1.15) rotate(2deg);
 }
 
-.solar-project-overlay {
+.galaxy-project-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 246, 255, 0.95);
+  background: linear-gradient(135deg, rgba(0, 246, 255, 0.95) 0%, rgba(255, 0, 255, 0.95) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
-.solar-project-card:hover .solar-project-overlay {
+.galaxy-project-card:hover .galaxy-project-overlay {
   opacity: 1;
 }
 
-.solar-project-overlay span {
+.galaxy-project-overlay span {
   font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   color: #000;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.95rem;
+  letter-spacing: 0.25em;
+  font-size: 1.05rem;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
 }
 
-.solar-project-info {
-  padding: 1.8rem;
-  background: rgba(0, 0, 0, 0.7);
+.galaxy-project-info {
+  padding: 2.2rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
 }
 
-.solar-project-info h3 {
+.galaxy-project-info h3 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-.solar-project-info p {
-  font-size: 0.8rem;
+.galaxy-project-info p {
+  font-size: 0.85rem;
   color: #00f6ff;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
+  font-weight: 600;
 }
 
 /* POSITIONING */
-.solar-positioning {
+.galaxy-positioning {
   text-align: center;
-  padding: 10rem 2rem;
-  background: rgba(0, 15, 35, 0.85);
-  backdrop-filter: blur(10px);
+  padding: 12rem 2rem;
+  background: linear-gradient(135deg, rgba(20, 20, 80, 0.85) 0%, rgba(10, 10, 50, 0.9) 100%);
+  box-shadow: 
+    0 0 80px rgba(255, 0, 255, 0.3),
+    inset 0 0 80px rgba(150, 0, 255, 0.1);
 }
 
-.solar-positioning-content {
-  max-width: 750px;
+.galaxy-positioning-content {
+  max-width: 850px;
   margin: 0 auto;
 }
 
-.solar-positioning-content p {
-  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2rem;
+.galaxy-positioning-content p {
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2.5rem;
 }
 
-.solar-closer {
-  font-size: clamp(1.3rem, 2.4vw, 1.6rem) !important;
-  font-weight: 700;
-  color: #00f6ff !important;
-  margin-top: 3rem !important;
-  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
+.galaxy-closer {
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem) !important;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 3.5rem !important;
+  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.9));
 }
 
 /* CAPABILITIES */
-.solar-capabilities {
-  background: rgba(0, 10, 20, 0.85);
-  backdrop-filter: blur(10px);
+.galaxy-capabilities {
+  background: linear-gradient(135deg, rgba(15, 15, 60, 0.85) 0%, rgba(10, 10, 35, 0.9) 100%);
 }
 
-.solar-cap-grid {
+.galaxy-cap-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3.5rem;
+  margin-top: 5rem;
 }
 
-.solar-cap-item {
-  padding: 2.5rem;
-  background: rgba(10, 10, 30, 0.8);
-  border: 1px solid rgba(0, 246, 255, 0.3);
-  border-radius: 12px;
-  transition: all 0.4s ease;
+.galaxy-cap-item {
+  padding: 3rem 2.5rem;
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.8) 0%, rgba(10, 10, 30, 0.9) 100%);
+  border: 2px solid rgba(0, 246, 255, 0.4);
+  border-radius: 16px;
+  transition: all 0.5s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
-.solar-cap-item:hover {
-  transform: translateY(-5px);
-  border-color: rgba(0, 246, 255, 0.7);
-  box-shadow: 0 15px 40px rgba(0, 246, 255, 0.3);
+.galaxy-cap-item:hover {
+  transform: translateY(-10px);
+  border-color: rgba(0, 246, 255, 1);
+  box-shadow: 
+    0 0 50px rgba(0, 246, 255, 0.6),
+    0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
-.solar-cap-item h3 {
+.galaxy-cap-item h3 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-.solar-cap-item p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
+.galaxy-cap-item p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* FOUNDER */
-.solar-founder {
+.galaxy-founder {
   text-align: center;
-  padding: 10rem 2rem;
-  background: rgba(0, 15, 30, 0.85);
-  backdrop-filter: blur(10px);
+  padding: 12rem 2rem;
+  background: linear-gradient(135deg, rgba(15, 15, 70, 0.85) 0%, rgba(10, 10, 40, 0.9) 100%);
 }
 
-.solar-founder-logo {
-  margin-bottom: 3rem;
+.galaxy-founder-logo {
+  margin-bottom: 3.5rem;
 }
 
-.solar-founder-logo img {
-  height: 90px;
-  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.8));
+.galaxy-founder-logo img {
+  height: 100px;
+  filter: drop-shadow(0 0 40px rgba(0, 246, 255, 1));
+  animation: logoFloat 4s ease-in-out infinite;
 }
 
-.solar-founder-content {
-  max-width: 800px;
-  margin: 3rem auto 0;
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.05); }
 }
 
-.solar-founder-content p {
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 2rem;
+.galaxy-founder-content {
+  max-width: 900px;
+  margin: 4rem auto 0;
 }
 
-.solar-founder-content strong {
+.galaxy-founder-content p {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2.5rem;
+}
+
+.galaxy-founder-content strong {
   color: #00f6ff;
-  font-weight: 700;
+  font-weight: 800;
+  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
 }
 
-.solar-founder-quote {
-  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+.galaxy-founder-quote {
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
   font-style: italic;
-  color: #00d4ff;
-  margin-top: 3rem;
-  padding-top: 3rem;
-  border-top: 1px solid rgba(0, 246, 255, 0.3);
-  line-height: 1.7;
-  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 3.5rem;
+  padding-top: 3.5rem;
+  border-top: 2px solid rgba(0, 246, 255, 0.4);
+  line-height: 1.8;
+  filter: drop-shadow(0 0 25px rgba(0, 246, 255, 0.8));
 }
 
 /* PROCESS */
-.solar-process {
-  background: rgba(0, 10, 20, 0.85);
-  backdrop-filter: blur(10px);
+.galaxy-process {
+  background: linear-gradient(135deg, rgba(15, 15, 60, 0.85) 0%, rgba(10, 10, 35, 0.9) 100%);
 }
 
-.solar-process-grid {
+.galaxy-process-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3.5rem;
+  margin-top: 5rem;
 }
 
-.solar-process-step {
+.galaxy-process-step {
   text-align: center;
-  padding: 2.5rem 1.5rem;
-  border-top: 3px solid rgba(0, 246, 255, 0.5);
-  background: rgba(10, 10, 30, 0.6);
-  border-radius: 8px;
-  transition: all 0.4s ease;
+  padding: 3rem 2rem;
+  border-top: 4px solid rgba(0, 246, 255, 0.6);
+  background: linear-gradient(180deg, rgba(20, 20, 60, 0.7) 0%, rgba(10, 10, 30, 0.8) 100%);
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
-.solar-process-step:hover {
+.galaxy-process-step:hover {
   border-top-color: #00f6ff;
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 246, 255, 0.3);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 
+    0 0 50px rgba(0, 246, 255, 0.5),
+    0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
-.solar-step-num {
+.galaxy-step-num {
   font-family: 'Orbitron', sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
-  color: rgba(0, 246, 255, 0.5);
-  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(0, 246, 255, 0.7) 0%, rgba(255, 0, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.2rem;
+  filter: drop-shadow(0 0 20px rgba(0, 246, 255, 0.8));
 }
 
-.solar-process-step h3 {
+.galaxy-process-step h3 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
-.solar-process-step p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.75);
+.galaxy-process-step p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* TRUST */
-.solar-trust {
+.galaxy-trust {
   text-align: center;
-  background: rgba(0, 15, 35, 0.85);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(15, 15, 70, 0.85) 0%, rgba(10, 10, 40, 0.9) 100%);
 }
 
-.solar-trust-text {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 750px;
-  margin: 2rem auto 0;
+.galaxy-trust-text {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 850px;
+  margin: 3rem auto 0;
 }
 
 /* PLATFORMS */
-.solar-platforms {
-  background: rgba(0, 10, 25, 0.85);
-  backdrop-filter: blur(10px);
+.galaxy-platforms {
+  background: linear-gradient(135deg, rgba(15, 15, 60, 0.85) 0%, rgba(10, 10, 35, 0.9) 100%);
 }
 
-.solar-platforms-grid {
+.galaxy-platforms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  margin-top: 5rem;
 }
 
-.solar-platform-card {
-  background: rgba(10, 10, 30, 0.9);
-  border: 1px solid rgba(0, 246, 255, 0.3);
-  border-radius: 16px;
-  padding: 3rem 2.5rem;
+.galaxy-platform-card {
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.9) 0%, rgba(10, 10, 30, 0.95) 100%);
+  border: 2px solid rgba(0, 246, 255, 0.4);
+  border-radius: 20px;
+  padding: 3.5rem 3rem;
   text-decoration: none;
   color: inherit;
   display: block;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s ease;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
 }
 
-.solar-platform-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(0, 246, 255, 0.8);
-  box-shadow: 0 20px 50px rgba(0, 246, 255, 0.3);
+.galaxy-platform-card:hover {
+  transform: translateY(-12px) rotateY(5deg);
+  border-color: rgba(0, 246, 255, 1);
+  box-shadow: 
+    0 0 60px rgba(0, 246, 255, 0.7),
+    0 25px 70px rgba(0, 0, 0, 0.8);
 }
 
-.solar-platform-icon {
-  width: 50px;
-  height: 50px;
+.galaxy-platform-icon {
+  width: 60px;
+  height: 60px;
   color: #00f6ff;
-  margin-bottom: 1.5rem;
-  filter: drop-shadow(0 0 10px rgba(0, 246, 255, 0.8));
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 0 20px rgba(0, 246, 255, 1));
+  transition: all 0.3s ease;
 }
 
-.solar-platform-icon svg {
+.galaxy-platform-card:hover .galaxy-platform-icon {
+  transform: scale(1.2) rotate(360deg);
+}
+
+.galaxy-platform-icon svg {
   width: 100%;
   height: 100%;
 }
 
-.solar-platform-card h3 {
+.galaxy-platform-card h3 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-.solar-platform-card p {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.75);
+.galaxy-platform-card p {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* CTA */
-.solar-cta {
+.galaxy-cta {
   text-align: center;
-  padding: 12rem 2rem;
-  background: rgba(0, 15, 35, 0.85);
-  backdrop-filter: blur(10px);
+  padding: 14rem 2rem;
+  background: linear-gradient(135deg, rgba(20, 20, 80, 0.85) 0%, rgba(10, 10, 50, 0.9) 100%);
+  box-shadow: 
+    0 0 100px rgba(255, 0, 255, 0.4),
+    inset 0 0 100px rgba(150, 0, 255, 0.15);
 }
 
-.solar-cta-title {
+.galaxy-cta-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #00f6ff 50%, #ff00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 50px rgba(0, 246, 255, 1));
 }
 
-.solar-cta-text {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 800px;
-  margin: 0 auto 1.5rem;
+.galaxy-cta-text {
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 900px;
+  margin: 0 auto 2rem;
 }
 
-.solar-cta-sub {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 3.5rem;
+.galaxy-cta-sub {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4rem;
 }
 
-.solar-btn-primary-large {
-  padding: 1.6rem 4.5rem;
+.galaxy-btn-primary-large {
+  padding: 1.8rem 5rem;
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-size: 1.2rem;
+  font-weight: 900;
   color: #000;
-  background: linear-gradient(135deg, #00f6ff 0%, #00d4ff 100%);
+  background: linear-gradient(135deg, #00f6ff 0%, #00ffff 100%);
   border: none;
   border-radius: 50px;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 50px rgba(0, 246, 255, 0.7), 0 15px 40px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.22em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 60px rgba(0, 246, 255, 1),
+    0 20px 50px rgba(0, 0, 0, 0.7);
 }
 
-.solar-btn-primary-large:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 1), 0 20px 50px rgba(0, 0, 0, 0.7);
+.galaxy-btn-primary-large:hover {
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 
+    0 0 100px rgba(0, 246, 255, 1),
+    0 0 150px rgba(0, 246, 255, 0.7),
+    0 30px 70px rgba(0, 0, 0, 0.8);
 }
 
-.solar-cta-notice {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin-top: 2rem;
+.galaxy-cta-notice {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2.5rem;
   font-style: italic;
 }
 
 /* FOOTER */
-.solar-footer {
+.galaxy-footer {
   text-align: center;
-  padding: 4rem 2rem 3rem;
-  border-top: 1px solid rgba(0, 246, 255, 0.3);
-  background: rgba(0, 0, 0, 0.9);
+  padding: 5rem 2rem 4rem;
+  border-top: 2px solid rgba(0, 246, 255, 0.4);
+  background: linear-gradient(180deg, rgba(10, 10, 40, 0.95) 0%, rgba(0, 0, 10, 1) 100%);
+  box-shadow: 0 -20px 60px rgba(0, 246, 255, 0.2);
 }
 
-.solar-footer p {
+.galaxy-footer p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.6rem;
+}
+
+.galaxy-footer-tag {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.5rem;
-}
-
-.solar-footer-tag {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
 
-/* MODAL - CREATIVE CLOSE BUTTON */
-.solar-modal-overlay {
+/* MODAL */
+.galaxy-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.96);
-  backdrop-filter: blur(15px);
-  z-index: 3000;
+  background: rgba(0, 0, 5, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 4000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  animation: modalFadeIn 0.3s ease;
+  animation: modalFadeIn 0.4s ease;
 }
 
 @keyframes modalFadeIn {
@@ -664,22 +781,24 @@ section {
   to { opacity: 1; }
 }
 
-.solar-modal {
-  background: rgba(10, 10, 30, 0.98);
-  border: 2px solid rgba(0, 246, 255, 0.5);
-  border-radius: 20px;
-  max-width: 950px;
+.galaxy-modal {
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.98) 0%, rgba(10, 10, 30, 0.99) 100%);
+  border: 3px solid rgba(0, 246, 255, 0.7);
+  border-radius: 25px;
+  max-width: 1000px;
   width: 100%;
   overflow: hidden;
   position: relative;
-  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 0.5);
+  animation: modalSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 100px rgba(0, 246, 255, 0.8),
+    inset 0 0 80px rgba(0, 150, 255, 0.1);
 }
 
 @keyframes modalSlideIn {
   from { 
     opacity: 0; 
-    transform: translateY(50px) scale(0.9);
+    transform: translateY(60px) scale(0.9);
   }
   to { 
     opacity: 1; 
@@ -687,37 +806,38 @@ section {
   }
 }
 
-/* CREATIVE X CLOSE BUTTON */
-.solar-modal-close {
+.galaxy-modal-close {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 50px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid rgba(0, 246, 255, 0.6);
+  top: 2rem;
+  right: 2rem;
+  width: 55px;
+  height: 55px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 3px solid rgba(0, 246, 255, 0.7);
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
 }
 
-.solar-modal-close:hover {
-  background: rgba(0, 246, 255, 0.2);
+.galaxy-modal-close:hover {
+  background: rgba(0, 246, 255, 0.3);
   border-color: #00f6ff;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
-  transform: rotate(90deg);
+  box-shadow: 0 0 50px rgba(0, 246, 255, 1);
+  transform: rotate(90deg) scale(1.1);
 }
 
 .close-line {
   position: absolute;
-  width: 20px;
-  height: 2px;
+  width: 24px;
+  height: 3px;
   background: #00f6ff;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 15px rgba(0, 246, 255, 1);
 }
 
 .close-line-1 {
@@ -728,156 +848,162 @@ section {
   transform: rotate(-45deg);
 }
 
-.solar-modal-close:hover .close-line {
+.galaxy-modal-close:hover .close-line {
   background: #fff;
-  box-shadow: 0 0 10px rgba(0, 246, 255, 1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 1);
 }
 
-.solar-modal-img {
+.galaxy-modal-img {
   background: #000;
-  max-height: 65vh;
+  max-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.solar-modal-img img {
+.galaxy-modal-img img {
   max-width: 100%;
-  max-height: 65vh;
+  max-height: 70vh;
   object-fit: contain;
 }
 
-.solar-modal-details {
-  padding: 2rem;
+.galaxy-modal-details {
+  padding: 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(0, 246, 255, 0.3);
-  background: rgba(0, 0, 0, 0.7);
+  border-top: 2px solid rgba(0, 246, 255, 0.4);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
 }
 
-.solar-modal-details h3 {
+.galaxy-modal-details h3 {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  font-size: 1.4rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
 }
 
-.solar-modal-details p {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
+.galaxy-modal-details p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
 }
 
-.solar-btn-small {
-  padding: 0.8rem 1.8rem;
+.galaxy-btn-small {
+  padding: 1rem 2.2rem;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #00f6ff;
   background: transparent;
-  border: 2px solid rgba(0, 246, 255, 0.6);
+  border: 2px solid rgba(0, 246, 255, 0.7);
   border-radius: 50px;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
 }
 
-.solar-btn-small:hover {
+.galaxy-btn-small:hover {
   border-color: #00f6ff;
-  background: rgba(0, 246, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.6);
+  background: rgba(0, 246, 255, 0.15);
+  box-shadow: 0 0 35px rgba(0, 246, 255, 0.8);
+  transform: translateY(-2px);
 }
 
-/* CONTACT MODAL - SAME CLOSE STYLE */
+/* CONTACT MODAL */
 .contact-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.96);
-  backdrop-filter: blur(15px);
-  z-index: 2000;
+  background: rgba(0, 0, 5, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 3000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  animation: modalFadeIn 0.3s ease;
+  animation: modalFadeIn 0.4s ease;
 }
 
 .contact-modal {
-  background: rgba(10, 10, 30, 0.98);
-  border: 2px solid rgba(0, 246, 255, 0.5);
-  border-radius: 20px;
-  padding: 3.5rem;
-  max-width: 550px;
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.98) 0%, rgba(10, 10, 30, 0.99) 100%);
+  border: 3px solid rgba(0, 246, 255, 0.7);
+  border-radius: 25px;
+  padding: 4rem;
+  max-width: 600px;
   width: 100%;
   position: relative;
-  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 0.5);
+  animation: modalSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 100px rgba(0, 246, 255, 0.8),
+    inset 0 0 80px rgba(0, 150, 255, 0.1);
 }
 
 .close-button {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  width: 45px;
-  height: 45px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 2px solid rgba(0, 246, 255, 0.6);
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 3px solid rgba(0, 246, 255, 0.7);
   color: #00f6ff;
-  font-size: 1.8rem;
+  font-size: 2rem;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
 }
 
 .close-button:hover {
-  background: rgba(0, 246, 255, 0.2);
+  background: rgba(0, 246, 255, 0.3);
   border-color: #00f6ff;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
-  transform: rotate(90deg);
+  box-shadow: 0 0 50px rgba(0, 246, 255, 1);
+  transform: rotate(90deg) scale(1.1);
 }
 
 .modal-heading {
   font-family: 'Orbitron', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 900;
   color: #fff;
-  margin-bottom: 0.8rem;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
 }
 
 .modal-subtext {
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 3rem;
 }
 
 .form-group {
-  margin-bottom: 1.8rem;
+  margin-bottom: 2rem;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 0.6rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 1.1rem;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 246, 255, 0.3);
-  border-radius: 8px;
+  padding: 1.2rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 246, 255, 0.4);
+  border-radius: 10px;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-family: 'Inter', sans-serif;
   transition: all 0.3s ease;
 }
@@ -886,35 +1012,36 @@ section {
 .form-group textarea:focus {
   outline: none;
   border-color: #00f6ff;
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.5);
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .form-group textarea {
   resize: vertical;
-  min-height: 130px;
+  min-height: 140px;
 }
 
 .submit-button {
   width: 100%;
-  padding: 1.3rem;
+  padding: 1.4rem;
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 800;
   color: #000;
-  background: linear-gradient(135deg, #00f6ff, #00d4ff);
+  background: linear-gradient(135deg, #00f6ff, #00ffff);
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-top: 1rem;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.5);
+  letter-spacing: 0.18em;
+  margin-top: 1.5rem;
+  box-shadow: 0 0 40px rgba(0, 246, 255, 0.7);
 }
 
 .submit-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(0, 246, 255, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 0 60px rgba(0, 246, 255, 1);
 }
 
 .submit-button:disabled {
@@ -923,23 +1050,23 @@ section {
 }
 
 .error-message {
-  padding: 1.1rem;
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  border-radius: 8px;
+  padding: 1.2rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 2px solid rgba(239, 68, 68, 0.5);
+  border-radius: 10px;
   color: #ef4444;
-  font-size: 0.95rem;
-  margin-top: 1rem;
+  font-size: 1rem;
+  margin-top: 1.5rem;
 }
 
 .success-message {
-  padding: 1.1rem;
-  background: rgba(0, 246, 255, 0.1);
-  border: 1px solid rgba(0, 246, 255, 0.4);
-  border-radius: 8px;
+  padding: 1.2rem;
+  background: rgba(0, 246, 255, 0.15);
+  border: 2px solid rgba(0, 246, 255, 0.5);
+  border-radius: 10px;
   color: #00f6ff;
-  font-size: 0.95rem;
-  margin-top: 1rem;
+  font-size: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
@@ -947,48 +1074,49 @@ section {
 @media (max-width: 768px) {
   section {
     padding: 5rem 1.5rem;
+    margin: 1rem auto;
   }
 
-  .solar-hero {
+  .galaxy-hero {
     padding: 2rem 1.5rem;
   }
 
-  .solar-proof {
-    gap: 2.5rem;
+  .galaxy-proof {
+    gap: 3rem;
     padding: 4rem 1.5rem;
   }
 
-  .solar-divider {
+  .galaxy-divider {
     display: none;
   }
 
-  .solar-work-grid {
+  .galaxy-work-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
-  .solar-buttons {
+  .galaxy-buttons {
     flex-direction: column;
     width: 100%;
   }
 
-  .solar-btn-primary,
-  .solar-btn-secondary {
+  .galaxy-btn-primary,
+  .galaxy-btn-secondary {
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
   }
 
   .contact-modal {
-    padding: 2.5rem 2rem;
+    padding: 3rem 2rem;
   }
 
-  .solar-platforms-grid,
-  .solar-cap-grid,
-  .solar-process-grid {
+  .galaxy-platforms-grid,
+  .galaxy-cap-grid,
+  .galaxy-process-grid {
     grid-template-columns: 1fr;
   }
 
-  .solar-project-img {
-    height: 220px;
+  .galaxy-project-img {
+    height: 240px;
   }
 }
