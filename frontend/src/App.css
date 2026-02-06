@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap');
 
 * {
   margin: 0;
@@ -16,16 +16,15 @@ body {
   font-family: 'Inter', sans-serif;
   color: #ffffff;
   overflow-x: hidden;
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="rgba(0,246,255,0.3)" stroke="rgba(0,246,255,0.8)" stroke-width="1"/></svg>') 10 10, auto;
 }
 
-.cosmic-portfolio {
+.solar-portfolio {
   position: relative;
   min-height: 100vh;
 }
 
-/* COSMIC CANVAS */
-.cosmic-canvas {
+/* SOLAR CANVAS - ALWAYS BEHIND */
+.solar-canvas {
   position: fixed !important;
   top: 0;
   left: 0;
@@ -35,175 +34,88 @@ body {
   pointer-events: none;
 }
 
-.content-journey {
+/* CONTENT - ALWAYS ON TOP AND VISIBLE */
+.solar-content {
   position: relative;
-  z-index: 1;
+  z-index: 10 !important;
+  pointer-events: auto;
 }
 
-/* HERO COSMIC - SPIRITUAL ENERGY */
-.hero-cosmic {
+.solar-content section {
+  background: rgba(0, 0, 10, 0.75);
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+/* HERO */
+.solar-hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 3rem 2rem;
   text-align: center;
-  position: relative;
-  overflow: hidden;
 }
 
-.spiritual-aura {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 246, 255, 0.15) 0%, transparent 70%);
-  animation: aurapulse 4s ease-in-out infinite;
-}
-
-@keyframes aurapulse {
-  0%, 100% { transform: scale(1); opacity: 0.15; }
-  50% { transform: scale(1.2); opacity: 0.3; }
-}
-
-.hero-silhouette {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0, 246, 255, 0.05) 0%, transparent 60%);
-  filter: blur(60px);
-  animation: silhouettepulse 6s ease-in-out infinite;
-}
-
-@keyframes silhouettepulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.3); }
-}
-
-.hero-cosmic-content {
-  max-width: 1100px;
+.solar-hero-content {
+  max-width: 1000px;
   position: relative;
   z-index: 2;
 }
 
-.brand-cosmic {
+.solar-brand {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.5em;
   color: #00f6ff;
   margin-bottom: 2.5rem;
   text-shadow: 
-    0 0 20px rgba(0, 246, 255, 0.8),
-    0 0 40px rgba(0, 246, 255, 0.6),
-    0 0 80px rgba(0, 246, 255, 0.4);
-  animation: brandglow 3s ease-in-out infinite;
+    0 0 20px rgba(0, 246, 255, 1),
+    0 0 40px rgba(0, 246, 255, 0.8),
+    0 0 80px rgba(0, 246, 255, 0.6);
+  animation: brandPulse 3s ease-in-out infinite;
 }
 
-@keyframes brandglow {
-  0%, 100% { 
-    text-shadow: 
-      0 0 20px rgba(0, 246, 255, 0.8),
-      0 0 40px rgba(0, 246, 255, 0.6),
-      0 0 80px rgba(0, 246, 255, 0.4);
-  }
-  50% { 
-    text-shadow: 
-      0 0 30px rgba(0, 246, 255, 1),
-      0 0 60px rgba(0, 246, 255, 0.8),
-      0 0 120px rgba(0, 246, 255, 0.6);
-  }
+@keyframes brandPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
 
-.hero-cosmic-title {
+.solar-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 2rem;
-  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-.glitch-text {
-  position: relative;
-  display: inline-block;
-  animation: glitch 5s infinite;
-}
-
-@keyframes glitch {
-  0%, 90%, 100% { transform: translate(0); }
-  91% { transform: translate(-2px, 2px); }
-  92% { transform: translate(2px, -2px); }
-  93% { transform: translate(-2px, -2px); }
-  94% { transform: translate(2px, 2px); }
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-
-.glitch-text::before {
-  color: #00f6ff;
-  animation: glitchbefore 5s infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-}
-
-.glitch-text::after {
-  color: #ff00ff;
-  animation: glitchafter 5s infinite;
-  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-}
-
-@keyframes glitchbefore {
-  0%, 90%, 100% { transform: translate(0); opacity: 0; }
-  91% { transform: translate(-2px, 0); opacity: 0.8; }
-  94% { transform: translate(2px, 0); opacity: 0; }
-}
-
-@keyframes glitchafter {
-  0%, 90%, 100% { transform: translate(0); opacity: 0; }
-  92% { transform: translate(2px, 0); opacity: 0.8; }
-  95% { transform: translate(-2px, 0); opacity: 0; }
-}
-
-.hero-cosmic-sub {
-  font-size: clamp(1rem, 2vw, 1.3rem);
+.solar-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2rem;
-  max-width: 850px;
-  margin-left: auto;
-  margin-right: auto;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.hero-tagline {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
+.solar-tagline {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
   font-style: italic;
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00d4ff;
   margin-bottom: 3rem;
-  font-weight: 600;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
 }
 
-.hero-actions {
+.solar-buttons {
   display: flex;
   gap: 1.2rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.btn-cosmic-primary {
-  position: relative;
+.solar-btn-primary {
   padding: 1.3rem 3rem;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
@@ -213,231 +125,148 @@ body {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s ease;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.5);
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.6), 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.btn-cosmic-primary span {
-  position: relative;
-  z-index: 2;
-}
-
-.btn-glow {
-  position: absolute;
-  inset: -4px;
-  background: linear-gradient(135deg, #00f6ff, #ff00ff);
-  border-radius: 50px;
-  filter: blur(15px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.btn-cosmic-primary:hover .btn-glow {
-  opacity: 0.8;
-  animation: rotateborder 3s linear infinite;
-}
-
-@keyframes rotateborder {
-  to { transform: rotate(360deg); }
-}
-
-.btn-cosmic-primary:hover {
+.solar-btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 50px rgba(0, 246, 255, 0.8), 0 10px 40px rgba(0, 246, 255, 0.3);
+  box-shadow: 0 0 50px rgba(0, 246, 255, 1), 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
-.btn-cosmic-secondary {
+.solar-btn-secondary {
   padding: 1.3rem 3rem;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
   color: #00f6ff;
   background: transparent;
-  border: 2px solid rgba(0, 246, 255, 0.5);
+  border: 2px solid rgba(0, 246, 255, 0.6);
   border-radius: 50px;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  text-shadow: 0 0 10px rgba(0, 246, 255, 0.8);
 }
 
-.btn-cosmic-secondary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 246, 255, 0.1);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-
-.btn-cosmic-secondary:hover::before {
-  transform: scaleX(1);
-}
-
-.btn-cosmic-secondary:hover {
+.solar-btn-secondary:hover {
   border-color: #00f6ff;
+  background: rgba(0, 246, 255, 0.1);
   box-shadow: 0 0 30px rgba(0, 246, 255, 0.6);
   transform: translateY(-3px);
 }
 
-/* FLOATING ANIMATION */
-.float-element {
-  animation: floating 3s ease-in-out infinite;
-}
-
-@keyframes floating {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* COSMIC TEXT ENTRANCE */
-.cosmic-text {
-  opacity: 0;
-  animation: textentrance 1s forwards;
-}
-
-@keyframes textentrance {
-  to { opacity: 1; }
-}
-
-/* PROOF STRIP */
-.proof-cosmic {
+/* PROOF */
+.solar-proof {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3rem;
   padding: 5rem 2rem;
   flex-wrap: wrap;
-  background: rgba(0, 10, 20, 0.4);
+  background: rgba(0, 10, 20, 0.8);
   backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 246, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 246, 255, 0.2);
 }
 
-.proof-cosmic-item {
+.solar-proof-item {
   text-align: center;
 }
 
-.proof-number-cosmic {
+.solar-proof-num {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   font-weight: 900;
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00f6ff;
   margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
 }
 
-.proof-label-cosmic {
+.solar-proof-label {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
 
-.cosmic-divider {
+.solar-divider {
   width: 1px;
   height: 60px;
   background: linear-gradient(to bottom, transparent, rgba(0, 246, 255, 0.6), transparent);
 }
 
 /* SECTIONS */
-.cosmic-section {
+section {
   padding: 7rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  position: relative;
 }
 
-.section-cosmic-header {
+.solar-section-header {
   text-align: center;
   margin-bottom: 5rem;
 }
 
-.section-cosmic-title {
+.solar-section-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 900;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 50%, #00f6ff 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientshift 3s linear infinite;
-}
-
-@keyframes gradientshift {
-  to { background-position: 200% center; }
-}
-
-.section-cosmic-subtitle {
+.solar-section-sub {
   font-size: clamp(1.05rem, 2vw, 1.3rem);
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 800px;
   margin: 0 auto;
 }
 
-.section-cosmic-quote {
+.solar-quote {
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   font-style: italic;
   color: #00d4ff;
   margin-top: 2rem;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
 }
 
-/* WORK SECTION - GALAXY CARDS */
-.work-cosmic {
-  background: rgba(0, 10, 25, 0.3);
-  backdrop-filter: blur(15px);
+/* WORK */
+.solar-work {
+  background: rgba(0, 10, 25, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.work-cosmic-grid {
+.solar-work-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2.5rem;
 }
 
-.project-cosmic-card {
-  position: relative;
-  background: rgba(10, 10, 30, 0.7);
-  border: 1px solid rgba(0, 246, 255, 0.2);
+.solar-project-card {
+  background: rgba(10, 10, 30, 0.9);
+  border: 1px solid rgba(0, 246, 255, 0.3);
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.project-cosmic-glow {
-  position: absolute;
-  inset: -100px;
-  background: radial-gradient(circle, rgba(0, 246, 255, 0.3) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.project-cosmic-card:hover .project-cosmic-glow {
-  opacity: 1;
-}
-
-.project-cosmic-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(0, 246, 255, 0.6);
+.solar-project-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(0, 246, 255, 0.8);
   box-shadow: 
-    0 0 40px rgba(0, 246, 255, 0.4),
-    0 30px 60px rgba(0, 0, 0, 0.5);
+    0 0 40px rgba(0, 246, 255, 0.5),
+    0 20px 50px rgba(0, 0, 0, 0.7);
 }
 
-.project-cosmic-media {
+.solar-project-img {
   width: 100%;
   height: 260px;
   position: relative;
@@ -445,33 +274,33 @@ body {
   background: #000;
 }
 
-.project-cosmic-media img {
+.solar-project-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
 }
 
-.project-cosmic-card:hover .project-cosmic-media img {
-  transform: scale(1.15);
+.solar-project-card:hover .solar-project-img img {
+  transform: scale(1.1);
 }
 
-.project-cosmic-overlay {
+.solar-project-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 246, 255, 0.95) 0%, rgba(255, 0, 255, 0.95) 100%);
+  background: rgba(0, 246, 255, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
-.project-cosmic-card:hover .project-cosmic-overlay {
+.solar-project-card:hover .solar-project-overlay {
   opacity: 1;
 }
 
-.view-text {
+.solar-project-overlay span {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   color: #000;
@@ -480,12 +309,12 @@ body {
   font-size: 0.95rem;
 }
 
-.project-cosmic-info {
+.solar-project-info {
   padding: 1.8rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
 }
 
-.project-cosmic-title {
+.solar-project-info h3 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
@@ -493,7 +322,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.project-cosmic-category {
+.solar-project-info p {
   font-size: 0.8rem;
   color: #00f6ff;
   text-transform: uppercase;
@@ -501,91 +330,61 @@ body {
 }
 
 /* POSITIONING */
-.positioning-cosmic {
+.solar-positioning {
   text-align: center;
   padding: 10rem 2rem;
-  position: relative;
-  overflow: hidden;
+  background: rgba(0, 15, 35, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.cosmic-energy-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(255, 0, 255, 0.1) 0%, transparent 70%);
-  animation: energypulse 8s ease-in-out infinite;
-}
-
-@keyframes energypulse {
-  0%, 100% { transform: scale(1); opacity: 0.1; }
-  50% { transform: scale(1.5); opacity: 0.2; }
-}
-
-.positioning-cosmic-title {
-  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-  line-height: 1.15;
-  margin-bottom: 3rem;
-}
-
-.positioning-cosmic-content {
+.solar-positioning-content {
   max-width: 750px;
   margin: 0 auto;
-  position: relative;
-  z-index: 2;
 }
 
-.positioning-cosmic-content p {
+.solar-positioning-content p {
   font-size: clamp(1.15rem, 2.2vw, 1.45rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 2rem;
 }
 
-.positioning-cosmic-closer {
+.solar-closer {
   font-size: clamp(1.3rem, 2.4vw, 1.6rem) !important;
   font-weight: 700;
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00f6ff !important;
   margin-top: 3rem !important;
+  text-shadow: 0 0 20px rgba(0, 246, 255, 0.8);
 }
 
 /* CAPABILITIES */
-.capabilities-cosmic-grid {
+.solar-capabilities {
+  background: rgba(0, 10, 20, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.solar-cap-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 3rem;
   margin-top: 4rem;
 }
 
-.capability-cosmic-item {
-  position: relative;
+.solar-cap-item {
   padding: 2.5rem;
-  background: rgba(10, 10, 30, 0.5);
-  border: 1px solid rgba(0, 246, 255, 0.2);
+  background: rgba(10, 10, 30, 0.8);
+  border: 1px solid rgba(0, 246, 255, 0.3);
   border-radius: 12px;
   transition: all 0.4s ease;
 }
 
-.capability-cosmic-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, rgba(0, 246, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.3);
-}
-
-.capability-cosmic-item:hover {
+.solar-cap-item:hover {
   transform: translateY(-5px);
-  border-color: rgba(0, 246, 255, 0.6);
-  box-shadow: 0 15px 40px rgba(0, 246, 255, 0.2);
+  border-color: rgba(0, 246, 255, 0.7);
+  box-shadow: 0 15px 40px rgba(0, 246, 255, 0.3);
 }
 
-.capability-cosmic-item h3 {
+.solar-cap-item h3 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
@@ -593,132 +392,94 @@ body {
   margin-bottom: 1rem;
 }
 
-.capability-cosmic-item p {
+.solar-cap-item p {
   font-size: 1rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* FOUNDER */
-.founder-cosmic {
+.solar-founder {
   text-align: center;
   padding: 10rem 2rem;
-  position: relative;
-  overflow: hidden;
+  background: rgba(0, 15, 30, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.founder-cosmic-aura {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(0, 246, 255, 0.08) 0%, transparent 70%);
-  animation: founderaura 10s ease-in-out infinite;
-}
-
-@keyframes founderaura {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.3) rotate(180deg); }
-}
-
-.founder-cosmic-logo {
+.solar-founder-logo {
   margin-bottom: 3rem;
-  position: relative;
-  z-index: 2;
 }
 
-.founder-cosmic-logo img {
+.solar-founder-logo img {
   height: 90px;
-  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.6));
-  animation: logopulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.8));
 }
 
-@keyframes logopulse {
-  0%, 100% { filter: drop-shadow(0 0 30px rgba(0, 246, 255, 0.6)); }
-  50% { filter: drop-shadow(0 0 50px rgba(0, 246, 255, 1)); }
-}
-
-.founder-cosmic-content {
+.solar-founder-content {
   max-width: 800px;
   margin: 3rem auto 0;
-  position: relative;
-  z-index: 2;
 }
 
-.founder-cosmic-content p {
+.solar-founder-content p {
   font-size: clamp(1.1rem, 2vw, 1.35rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 2rem;
 }
 
-.founder-cosmic-content strong {
+.solar-founder-content strong {
   color: #00f6ff;
   font-weight: 700;
 }
 
-.founder-cosmic-quote {
+.solar-founder-quote {
   font-size: clamp(1.2rem, 2.2vw, 1.5rem);
   font-style: italic;
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00d4ff;
   margin-top: 3rem;
   padding-top: 3rem;
-  border-top: 1px solid rgba(0, 246, 255, 0.2);
+  border-top: 1px solid rgba(0, 246, 255, 0.3);
   line-height: 1.7;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
 }
 
 /* PROCESS */
-.process-cosmic-steps {
+.solar-process {
+  background: rgba(0, 10, 20, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.solar-process-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 3rem;
   margin-top: 4rem;
 }
 
-.process-cosmic-step {
-  position: relative;
+.solar-process-step {
   text-align: center;
   padding: 2.5rem 1.5rem;
-  border-top: 3px solid rgba(0, 246, 255, 0.3);
+  border-top: 3px solid rgba(0, 246, 255, 0.5);
+  background: rgba(10, 10, 30, 0.6);
+  border-radius: 8px;
   transition: all 0.4s ease;
 }
 
-.step-cosmic-orb {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, #00f6ff 0%, #ff00ff 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
-  animation: orbpulse 2s ease-in-out infinite;
-}
-
-@keyframes orbpulse {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.2); }
-}
-
-.process-cosmic-step:hover {
+.solar-process-step:hover {
   border-top-color: #00f6ff;
   transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 246, 255, 0.3);
 }
 
-.step-cosmic-number {
+.solar-step-num {
   font-family: 'Orbitron', sans-serif;
   font-size: 3rem;
   font-weight: 900;
-  background: linear-gradient(135deg, rgba(0, 246, 255, 0.5) 0%, rgba(255, 0, 255, 0.5) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgba(0, 246, 255, 0.5);
   margin-bottom: 1rem;
 }
 
-.process-cosmic-step h3 {
+.solar-process-step h3 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
@@ -726,151 +487,117 @@ body {
   margin-bottom: 0.8rem;
 }
 
-.process-cosmic-step p {
+.solar-process-step p {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* TRUST */
-.trust-cosmic {
+.solar-trust {
   text-align: center;
+  background: rgba(0, 15, 35, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.trust-cosmic-text {
+.solar-trust-text {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 750px;
   margin: 2rem auto 0;
 }
 
 /* PLATFORMS */
-.platforms-cosmic {
-  background: rgba(0, 10, 25, 0.3);
-  backdrop-filter: blur(15px);
+.solar-platforms {
+  background: rgba(0, 10, 25, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.platforms-cosmic-grid {
+.solar-platforms-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2.5rem;
   margin-top: 4rem;
 }
 
-.platform-cosmic-card {
-  position: relative;
-  background: rgba(10, 10, 30, 0.7);
-  border: 1px solid rgba(0, 246, 255, 0.2);
+.solar-platform-card {
+  background: rgba(10, 10, 30, 0.9);
+  border: 1px solid rgba(0, 246, 255, 0.3);
   border-radius: 16px;
   padding: 3rem 2.5rem;
   text-decoration: none;
   color: inherit;
   display: block;
   transition: all 0.4s ease;
-  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.platform-cosmic-shine {
-  position: absolute;
-  inset: -100px;
-  background: radial-gradient(circle at center, rgba(0, 246, 255, 0.3) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.platform-cosmic-card:hover .platform-cosmic-shine {
-  opacity: 1;
-}
-
-.platform-cosmic-card:hover {
+.solar-platform-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(0, 246, 255, 0.6);
-  box-shadow: 0 20px 50px rgba(0, 246, 255, 0.2);
+  border-color: rgba(0, 246, 255, 0.8);
+  box-shadow: 0 20px 50px rgba(0, 246, 255, 0.3);
 }
 
-.platform-cosmic-icon {
+.solar-platform-icon {
   width: 50px;
   height: 50px;
   color: #00f6ff;
   margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(0, 246, 255, 0.8));
 }
 
-.platform-cosmic-icon svg {
+.solar-platform-icon svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 10px rgba(0, 246, 255, 0.6));
 }
 
-.platform-cosmic-card h3 {
+.solar-platform-card h3 {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 0.8rem;
-  position: relative;
-  z-index: 2;
 }
 
-.platform-cosmic-card p {
+.solar-platform-card p {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  position: relative;
-  z-index: 2;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-/* FINAL CTA */
-.cta-cosmic {
+/* CTA */
+.solar-cta {
   text-align: center;
   padding: 12rem 2rem;
-  position: relative;
-  overflow: hidden;
+  background: rgba(0, 15, 35, 0.85);
+  backdrop-filter: blur(10px);
 }
 
-.cta-cosmic-aura {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(255, 0, 255, 0.15) 0%, transparent 70%);
-  animation: ctaaura 6s ease-in-out infinite;
-}
-
-@keyframes ctaaura {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.4); }
-}
-
-.cta-cosmic-title {
+.solar-cta-title {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 2rem;
-  position: relative;
-  z-index: 2;
+  color: #ffffff;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
 }
 
-.cta-cosmic-text {
+.solar-cta-text {
   font-size: clamp(1.1rem, 2vw, 1.4rem);
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   max-width: 800px;
   margin: 0 auto 1.5rem;
-  position: relative;
-  z-index: 2;
 }
 
-.cta-cosmic-subtext {
+.solar-cta-sub {
   font-size: clamp(1rem, 1.8vw, 1.2rem);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 3.5rem;
-  position: relative;
-  z-index: 2;
 }
 
-.btn-cosmic-primary-large {
-  position: relative;
+.solar-btn-primary-large {
   padding: 1.6rem 4.5rem;
   font-family: 'Orbitron', sans-serif;
   font-size: 1.1rem;
@@ -880,107 +607,133 @@ body {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  overflow: hidden;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   transition: all 0.3s ease;
-  box-shadow: 0 0 50px rgba(0, 246, 255, 0.6);
-  z-index: 2;
+  box-shadow: 0 0 50px rgba(0, 246, 255, 0.7), 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
-.btn-cosmic-primary-large:hover {
+.solar-btn-primary-large:hover {
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 0.9), 0 15px 50px rgba(0, 246, 255, 0.4);
+  box-shadow: 0 0 80px rgba(0, 246, 255, 1), 0 20px 50px rgba(0, 0, 0, 0.7);
 }
 
-.cta-cosmic-notice {
+.solar-cta-notice {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2rem;
   font-style: italic;
-  position: relative;
-  z-index: 2;
 }
 
 /* FOOTER */
-.footer-cosmic {
+.solar-footer {
   text-align: center;
   padding: 4rem 2rem 3rem;
-  border-top: 1px solid rgba(0, 246, 255, 0.2);
-  background: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(0, 246, 255, 0.3);
+  background: rgba(0, 0, 0, 0.9);
 }
 
-.footer-cosmic p {
+.solar-footer p {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 0.5rem;
 }
 
-.footer-cosmic-tagline {
+.solar-footer-tag {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.4);
   font-style: italic;
 }
 
-/* MODALS */
-.modal-cosmic-overlay {
+/* MODAL - CREATIVE CLOSE BUTTON */
+.solar-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.96);
   backdrop-filter: blur(15px);
   z-index: 3000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  animation: fadeIn 0.3s ease;
+  animation: modalFadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes modalFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.modal-cosmic-card {
-  background: rgba(10, 10, 30, 0.95);
-  border: 1px solid rgba(0, 246, 255, 0.3);
+.solar-modal {
+  background: rgba(10, 10, 30, 0.98);
+  border: 2px solid rgba(0, 246, 255, 0.5);
   border-radius: 20px;
   max-width: 950px;
   width: 100%;
   overflow: hidden;
   position: relative;
-  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 0.3);
+  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 80px rgba(0, 246, 255, 0.5);
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes modalSlideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(50px) scale(0.9);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
 }
 
-.modal-cosmic-close {
+/* CREATIVE X CLOSE BUTTON */
+.solar-modal-close {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 246, 255, 0.5);
-  color: #00f6ff;
-  font-size: 2rem;
   width: 50px;
   height: 50px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 246, 255, 0.6);
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.modal-cosmic-close:hover {
+.solar-modal-close:hover {
   background: rgba(0, 246, 255, 0.2);
+  border-color: #00f6ff;
   box-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
   transform: rotate(90deg);
 }
 
-.modal-cosmic-image {
+.close-line {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #00f6ff;
+  transition: all 0.3s ease;
+}
+
+.close-line-1 {
+  transform: rotate(45deg);
+}
+
+.close-line-2 {
+  transform: rotate(-45deg);
+}
+
+.solar-modal-close:hover .close-line {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 246, 255, 1);
+}
+
+.solar-modal-img {
   background: #000;
   max-height: 65vh;
   display: flex;
@@ -988,41 +741,41 @@ body {
   justify-content: center;
 }
 
-.modal-cosmic-image img {
+.solar-modal-img img {
   max-width: 100%;
   max-height: 65vh;
   object-fit: contain;
 }
 
-.modal-cosmic-details {
+.solar-modal-details {
   padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(0, 246, 255, 0.2);
-  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(0, 246, 255, 0.3);
+  background: rgba(0, 0, 0, 0.7);
 }
 
-.modal-cosmic-details h3 {
+.solar-modal-details h3 {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
   font-size: 1.4rem;
   margin-bottom: 0.4rem;
 }
 
-.modal-cosmic-details p {
-  color: rgba(255, 255, 255, 0.6);
+.solar-modal-details p {
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 }
 
-.btn-cosmic-secondary-small {
+.solar-btn-small {
   padding: 0.8rem 1.8rem;
   font-family: 'Orbitron', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   color: #00f6ff;
   background: transparent;
-  border: 2px solid rgba(0, 246, 255, 0.5);
+  border: 2px solid rgba(0, 246, 255, 0.6);
   border-radius: 50px;
   text-decoration: none;
   text-transform: uppercase;
@@ -1030,13 +783,13 @@ body {
   transition: all 0.3s ease;
 }
 
-.btn-cosmic-secondary-small:hover {
+.solar-btn-small:hover {
   border-color: #00f6ff;
   background: rgba(0, 246, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.6);
 }
 
-/* CONTACT MODAL */
+/* CONTACT MODAL - SAME CLOSE STYLE */
 .contact-modal-overlay {
   position: fixed;
   inset: 0;
@@ -1047,39 +800,44 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  animation: fadeIn 0.3s ease;
+  animation: modalFadeIn 0.3s ease;
 }
 
 .contact-modal {
-  background: rgba(10, 10, 30, 0.95);
-  border: 1px solid rgba(0, 246, 255, 0.3);
+  background: rgba(10, 10, 30, 0.98);
+  border: 2px solid rgba(0, 246, 255, 0.5);
   border-radius: 20px;
   padding: 3.5rem;
   max-width: 550px;
   width: 100%;
   position: relative;
-  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 80px rgba(0, 246, 255, 0.3);
+  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 80px rgba(0, 246, 255, 0.5);
 }
 
 .close-button {
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 2rem;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 246, 255, 0.6);
+  color: #00f6ff;
+  font-size: 1.8rem;
   border-radius: 50%;
+  cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-button:hover {
-  background: rgba(0, 246, 255, 0.1);
-  color: #00f6ff;
+  background: rgba(0, 246, 255, 0.2);
+  border-color: #00f6ff;
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.8);
+  transform: rotate(90deg);
 }
 
 .modal-heading {
@@ -1088,11 +846,12 @@ body {
   font-weight: 800;
   color: #fff;
   margin-bottom: 0.8rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .modal-subtext {
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
   margin-bottom: 2.5rem;
 }
 
@@ -1104,7 +863,7 @@ body {
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1114,8 +873,8 @@ body {
 .form-group textarea {
   width: 100%;
   padding: 1.1rem;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 246, 255, 0.2);
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 246, 255, 0.3);
   border-radius: 8px;
   color: #fff;
   font-size: 1rem;
@@ -1127,7 +886,7 @@ body {
 .form-group textarea:focus {
   outline: none;
   border-color: #00f6ff;
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.4);
 }
 
 .form-group textarea {
@@ -1150,12 +909,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.15em;
   margin-top: 1rem;
-  box-shadow: 0 0 30px rgba(0, 246, 255, 0.4);
+  box-shadow: 0 0 30px rgba(0, 246, 255, 0.5);
 }
 
 .submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(0, 246, 255, 0.7);
+  box-shadow: 0 0 50px rgba(0, 246, 255, 0.8);
 }
 
 .submit-button:disabled {
@@ -1166,7 +925,7 @@ body {
 .error-message {
   padding: 1.1rem;
   background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(239, 68, 68, 0.4);
   border-radius: 8px;
   color: #ef4444;
   font-size: 0.95rem;
@@ -1176,7 +935,7 @@ body {
 .success-message {
   padding: 1.1rem;
   background: rgba(0, 246, 255, 0.1);
-  border: 1px solid rgba(0, 246, 255, 0.3);
+  border: 1px solid rgba(0, 246, 255, 0.4);
   border-radius: 8px;
   color: #00f6ff;
   font-size: 0.95rem;
@@ -1186,35 +945,35 @@ body {
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .cosmic-section {
+  section {
     padding: 5rem 1.5rem;
   }
 
-  .hero-cosmic {
-    padding: 1.5rem;
+  .solar-hero {
+    padding: 2rem 1.5rem;
   }
 
-  .proof-cosmic {
+  .solar-proof {
     gap: 2.5rem;
     padding: 4rem 1.5rem;
   }
 
-  .cosmic-divider {
+  .solar-divider {
     display: none;
   }
 
-  .work-cosmic-grid {
+  .solar-work-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .hero-actions {
+  .solar-buttons {
     flex-direction: column;
     width: 100%;
   }
 
-  .btn-cosmic-primary,
-  .btn-cosmic-secondary {
+  .solar-btn-primary,
+  .solar-btn-secondary {
     width: 100%;
     max-width: 350px;
   }
@@ -1223,13 +982,13 @@ body {
     padding: 2.5rem 2rem;
   }
 
-  .platforms-cosmic-grid,
-  .capabilities-cosmic-grid,
-  .process-cosmic-steps {
+  .solar-platforms-grid,
+  .solar-cap-grid,
+  .solar-process-grid {
     grid-template-columns: 1fr;
   }
 
-  .project-cosmic-media {
+  .solar-project-img {
     height: 220px;
   }
 }
