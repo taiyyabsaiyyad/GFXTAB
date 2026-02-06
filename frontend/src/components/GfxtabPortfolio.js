@@ -158,7 +158,7 @@ const GfxtabPortfolio = () => {
 
     // HD STAR FIELD
     const starsGeo = new THREE.BufferGeometry();
-    const starCount = 12000;
+    const starCount = 4000; // Reduced from 12000 for better performance
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
     const starSizes = new Float32Array(starCount);
@@ -188,7 +188,7 @@ const GfxtabPortfolio = () => {
         starColors[i3 + 2] = 0.8 + Math.random() * 0.2;
       }
       
-      starSizes[i] = Math.random() * 5 + 1;
+      starSizes[i] = Math.random() * 6 + 2; // Slightly larger stars
     }
     
     starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
@@ -196,7 +196,7 @@ const GfxtabPortfolio = () => {
     starsGeo.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
     
     const starsMat = new THREE.PointsMaterial({
-      size: 4,
+      size: 5,
       sizeAttenuation: true,
       vertexColors: true,
       transparent: true,
