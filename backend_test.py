@@ -143,7 +143,8 @@ def main():
     if failed_tests:
         print(f"\n❌ Failed Tests Details:")
         for test in failed_tests:
-            print(f"   - {test['test_name']}: {test['error'] or f'Status {test['actual_status']} (expected {test['expected_status']})'}")
+            error_msg = test['error'] or f"Status {test['actual_status']} (expected {test['expected_status']})"
+            print(f"   - {test['test_name']}: {error_msg}")
     
     # Save detailed results
     with open('/app/backend_test_results.json', 'w') as f:
