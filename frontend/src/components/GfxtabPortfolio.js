@@ -334,14 +334,13 @@ const GfxtabPortfolio = () => {
   }, []);
 
   useEffect(() => {
-    gsap.from('.universe-hero-content > *', {
-      opacity: 0,
-      y: 80,
-      duration: 1.4,
-      stagger: 0.25,
-      ease: 'power3.out'
-    });
+    // Hero content animation with explicit fromTo
+    gsap.fromTo('.universe-hero-content > *', 
+      { opacity: 0, y: 60 },
+      { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 }
+    );
 
+    // Section animations on scroll
     const sections = [
       '.universe-proof',
       '.universe-work',
@@ -354,35 +353,39 @@ const GfxtabPortfolio = () => {
     ];
 
     sections.forEach((selector) => {
-      gsap.from(selector, {
-        scrollTrigger: {
-          trigger: selector,
-          start: 'top 80%',
-          end: 'top 30%',
-          toggleActions: 'play none none reverse'
-        },
-        opacity: 0,
-        y: 100,
-        scale: 0.92,
-        rotationX: 10,
-        duration: 1.4,
-        ease: 'power3.out'
-      });
+      gsap.fromTo(selector, 
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: selector,
+            start: 'top 85%',
+            end: 'top 40%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
     });
 
-    gsap.from('.universe-project-card', {
-      scrollTrigger: {
-        trigger: '.universe-work-grid',
-        start: 'top 75%'
-      },
-      opacity: 0,
-      y: 80,
-      scale: 0.85,
-      rotationY: 15,
-      duration: 1,
-      stagger: 0.18,
-      ease: 'back.out(1.4)'
-    });
+    // Project cards animation
+    gsap.fromTo('.universe-project-card', 
+      { opacity: 0, y: 60, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.universe-work-grid',
+          start: 'top 80%'
+        }
+      }
+    );
   }, []);
 
   return (
