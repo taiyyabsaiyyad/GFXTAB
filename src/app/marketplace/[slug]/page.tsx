@@ -17,6 +17,7 @@ interface Review {
   date: string;
 }
 
+
 export default function ProductDetailPage() {
   const { slug } = useParams();
   

@@ -10,7 +10,9 @@ import Link from 'next/link';
 import { Search, Filter, ShoppingBag, Eye, Heart, Star, ShoppingCart, Trash2, ArrowRight } from 'lucide-react';
 import { mockDB, Product, Category } from '@/lib/supabase';
 
-export default function MarketplacePage() {
+import { Suspense } from 'react';
+
+function MarketplaceContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('cat') || '';
   const showCartOnLoad = searchParams.get('cart') === 'true';
@@ -330,5 +332,17 @@ export default function MarketplacePage() {
       <AIAssistant />
       <Footer />
     </>
+  );
+}
+
+export default function MarketplacePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#08090F] flex items-center justify-center text-white">
+        Loading...
+      </div>
+    }>
+      <MarketplaceContent />
+    </Suspense>
   );
 }
