@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /messages/
+Disallow: /api/
+
+Sitemap: https://gfxtab.com/sitemap.xml
