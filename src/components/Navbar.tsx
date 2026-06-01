@@ -131,8 +131,8 @@ export default function Navbar() {
                   </div>
                 )}
                 <div className="text-left hidden lg:block">
-                  <p className="text-xs font-semibold text-white group-hover:text-[#7C5CFF] transition-colors">{isMounted ? currentUser.full_name : ''}</p>
-                  <p className="text-[10px] text-gray-500 capitalize">{isMounted ? `${currentUser.role} Account` : ''}</p>
+                  <div className="text-xs font-semibold text-white group-hover:text-[#7C5CFF] transition-colors">{isMounted ? currentUser.full_name : ''}</div>
+                  <div className="text-[10px] text-gray-500 capitalize">{isMounted ? `${currentUser.role} Account` : ''}</div>
                 </div>
               </Link>
               <button
@@ -205,8 +205,8 @@ export default function Navbar() {
                   </div>
                 )}
                 <div>
-                  <p className="text-sm font-bold text-white">{isMounted ? currentUser.full_name : ''}</p>
-                  <p className="text-xs text-gray-500 capitalize">{isMounted ? `${currentUser.role} Dashboard` : ''}</p>
+                  <div className="text-sm font-bold text-white">{isMounted ? currentUser.full_name : ''}</div>
+                  <div className="text-xs text-gray-500 capitalize">{isMounted ? `${currentUser.role} Dashboard` : ''}</div>
                 </div>
               </Link>
               <div className="flex gap-4">

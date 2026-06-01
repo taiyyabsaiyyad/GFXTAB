@@ -172,9 +172,9 @@ export default function AIAssistant() {
                               <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold block mb-0.5">
                                 {rec.type}
                               </span>
-                              <p className="text-[11px] text-white font-semibold truncate group-hover:text-[#7C5CFF] transition-colors">
+                              <div className="text-[11px] text-white font-semibold truncate group-hover:text-[#7C5CFF] transition-colors">
                                 {rec.title}
-                              </p>
+                              </div>
                             </div>
                             <div className="flex items-center gap-1">
                               <span className="text-[10px] font-bold text-[#00D8FF]">{rec.price}</span>

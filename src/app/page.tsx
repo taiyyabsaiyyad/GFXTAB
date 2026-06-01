@@ -292,7 +292,7 @@ export default function HomePage() {
                   </div>
                   <div className="space-y-2">
                     <h3 className="text-base font-bold text-white leading-snug">{prod.title}</h3>
-                    <p className="text-xs text-gray-400 line-clamp-2">{prod.description}</p>
+                    <div className="text-xs text-gray-400 line-clamp-2">{prod.description}</div>
                   </div>
                 </div>
 

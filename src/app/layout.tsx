@@ -41,12 +41,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth">
+    <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col bg-[#08090F] antialiased">
+      <body className="min-h-full flex flex-col bg-[#08090F] antialiased" suppressHydrationWarning>
         {children}
       </body>
     </html>
